@@ -10,13 +10,20 @@
 #import "NBTContainer.h"
 
 @interface IJMinecraftLevel : NBTContainer {
-
+  NSString *worldName;
+  int gameMode;
 }
 
 @property (nonatomic, copy) NSArray *inventory; // Array of IJInventoryItem objects.
-@property (nonatomic, readonly) NBTContainer *worldNameContainer;
-@property (nonatomic, readonly) NBTContainer *worldSeedContainer;
-@property (nonatomic, readonly) NBTContainer *worldTimeContainer;
+
+@property (nonatomic, copy) NSString *worldName;
+@property (nonatomic, copy) NSNumber *time;
+@property int gameMode;
+@property (readonly, copy) NSNumber *seed;
+@property (nonatomic, copy) NSNumber *spawnX;
+@property (nonatomic, copy) NSNumber *spawnY;
+@property (nonatomic, copy) NSNumber *spawnZ;
+
 
 + (NSString *)levelDataPathForWorld:(NSString *)worldPath;
 

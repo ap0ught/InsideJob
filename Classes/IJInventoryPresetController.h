@@ -9,26 +9,29 @@
 #import <Cocoa/Cocoa.h>
 
 @class IJInventoryWindowController;
+@class IJItemPropertiesViewController;
 @class BWSheetController;
 
 @interface IJInventoryPresetController : NSObject {
 	
 	IBOutlet IJInventoryWindowController *inventoryController;
-	IBOutlet BWSheetController *newPresetSheetController;
 	
-	IBOutlet NSMenu *presetMenu;
+	IBOutlet NSTableView *presetTableView;
+  IBOutlet NSTableView *dataTagTableView;
 	NSMutableArray *presetArray;
 	
 	NSMutableArray *armorInventory;
 	NSMutableArray *quickInventory;
 	NSMutableArray *normalInventory;	
 	
-	IBOutlet NSTextField *newPresetName;
+  NSString *newPresetName;
 }
 
 @property (copy) NSArray *presetArray;
+@property (nonatomic, retain) NSString *newPresetName;
 
-- (IBAction)savePreset:(id)sender;
+
+- (IBAction)newPreset:(id)sender;
 - (IBAction)loadPreset:(id)sender;
 - (IBAction)deletePreset:(id)sender;
 

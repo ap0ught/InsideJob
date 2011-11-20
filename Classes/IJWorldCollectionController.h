@@ -11,11 +11,12 @@
 @class IJInventoryWindowController;
 
 @interface IJWorldCollectionController : NSObject {
-	IBOutlet NSCollectionView *worldCollectionView;
-	IBOutlet NSButton *chooseButton;
-	IBOutlet IJInventoryWindowController *InventoryWindowController;
-	
-	NSMutableArray *worldArray;
+  IBOutlet NSCollectionView *worldCollectionView;
+  IBOutlet NSButton *chooseButton;
+  IBOutlet NSTextField *noWorldsLabel;
+  IBOutlet IJInventoryWindowController *InventoryWindowController;
+  
+  NSMutableArray *worldArray;
 }
 
 @property (nonatomic, retain) NSMutableArray *worldArray;

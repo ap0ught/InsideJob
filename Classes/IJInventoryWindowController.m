@@ -8,6 +8,7 @@
 
 #import "IJInventoryWindowController.h"
 #import "IJMinecraftLevel.h"
+#import "IJMinecraftPlayer.h"
 #import "IJInventoryItem.h"
 #import "IJInventoryView.h"
 #import "IJItemPropertiesViewController.h"
@@ -18,9 +19,10 @@
 
 @implementation IJInventoryWindowController
 @synthesize inventory;
-@synthesize inventoryView, quickView, armorView;
-@synthesize statusTextField;
-@synthesize contentView;
+@synthesize contentView, inventoryView, quickView, armorView;
+@synthesize statusMessage;
+@synthesize level;
+@synthesize player;
 
 
 #pragma mark -
@@ -35,7 +37,7 @@
 	armorInventory = [[NSMutableArray alloc] init];
 	quickInventory = [[NSMutableArray alloc] init];
 	normalInventory = [[NSMutableArray alloc] init];
-	statusTextField.stringValue = @"";
+	[self setStatusMessage:@""];
 	
 	[inventoryView setRows:3 columns:9 invert:NO];
 	[quickView setRows:1 columns:9 invert:NO];
@@ -45,15 +47,36 @@
 	armorView.delegate = self;
 	
 	// Item Table View setup
-	NSArray *keys = [[IJInventoryItem itemIdLookup] allKeys];
-	//NSLog(@"Item CVS Data:\n%@",[IJInventoryItem itemIdLookup]);
-	keys = [keys sortedArrayUsingSelector:@selector(compare:)];
-	allItemIds = [[NSArray alloc] initWithArray:keys];
-	filteredItemIds = [allItemIds retain];
+	NSArray *keys = [[IJInventoryItem itemIdLookup] allKeys];  
+  // Properly sort the array
+	keys = [keys sortedArrayUsingComparator:^(id obj1, id obj2){
+    if ([obj1 isKindOfClass:[NSString class]] && [obj2 isKindOfClass:[NSString class]]) {
+      NSArray *itemData1 = [(NSString*)obj1 componentsSeparatedByString:@":"];
+      NSArray *itemData2 = [(NSString*)obj2 componentsSeparatedByString:@":"];
+      
+      if ([[itemData1 objectAtIndex:0] intValue] < [[itemData2 objectAtIndex:0] intValue]) {
+        return (NSComparisonResult)NSOrderedAscending;
+      } else if ([[itemData1 objectAtIndex:0] intValue] > [[itemData2 objectAtIndex:0] intValue]) {
+        return (NSComparisonResult)NSOrderedDescending;
+      } else {
+        if ([[itemData1 objectAtIndex:1] intValue] < [[itemData2 objectAtIndex:1] intValue]) {
+          return (NSComparisonResult)NSOrderedAscending;
+        } else if ([[itemData1 objectAtIndex:1] intValue] > [[itemData2 objectAtIndex:1] intValue]) {
+          return (NSComparisonResult)NSOrderedDescending;
+        }
+      }
+    }
+    
+    return (NSComparisonResult)NSOrderedSame;
+  }];
+	allItemKeys = [[NSArray alloc] initWithArray:keys];
+	filteredItemKeys = [allItemKeys retain];
 	
 	[itemTableView setTarget:self];
 	[itemTableView setDoubleAction:@selector(itemTableViewDoubleClicked:)];
-	[contentView selectTabViewItemAtIndex:0];
+  [toolbar setVisible:NO];
+  [editModeSelector setSelectedSegment:0];
+	[contentView selectTabViewItemAtIndex:2];
 }
 
 
@@ -105,14 +128,17 @@
 	
 	[self unloadWorld];
 	
-	[self willChangeValueForKey:@"worldTime"];
-	[self willChangeValueForKey:@"levelName"];
+  [self willChangeValueForKey:@"level"];
+	[level willChangeValueForKey:@"time"];
+	[level willChangeValueForKey:@"worldName"];
 	
 	level = [[IJMinecraftLevel nbtContainerWithData:fileData] retain];
+  //player = [level childNamed:@"Player"];
 	inventory = [[level inventory] retain];
 	
-	[self didChangeValueForKey:@"worldTime"];
-	[self didChangeValueForKey:@"levelName"];
+  [self didChangeValueForKey:@"level"];
+	[level didChangeValueForKey:@"time"];
+	[level didChangeValueForKey:@"worldName"];
 	
 	// Overwrite the placeholders with actual inventory:
 	for (IJInventoryItem *item in inventory) {
@@ -137,14 +163,14 @@
 	[armorView setItems:armorInventory];
 		
 	[self setDocumentEdited:NO];
-	statusTextField.stringValue = @"";
+	[self setStatusMessage:@""];
 
 	[loadedWorldPath release];
 	loadedWorldPath = [levelPath copy];
-	[contentView selectTabViewItemAtIndex:1];
-	NSString *statusMessage = [NSString stringWithFormat:@"Loaded world: %@",[loadedWorldPath lastPathComponent]];
-	[statusTextField setStringValue:statusMessage];
-	[contentView selectTabViewItemAtIndex:1];
+	[self setStatusMessage:[NSString stringWithFormat:@"Loaded world: %@",[loadedWorldPath lastPathComponent]]];
+  [toolbar setVisible:YES];
+  [editModeSelector setSelectedSegment:0];
+	[contentView selectTabViewItemAtIndex:0];
 	return YES;
 }
 
@@ -174,7 +200,7 @@
 				[newInventory addObject:item];
 		}
 	}
-		
+  
 	[level setInventory:newInventory];
 	
 	NSString *dataPath = [IJMinecraftLevel levelDataPathForWorld:levelPath];
@@ -225,7 +251,7 @@
 	}
 	
 	[self setDocumentEdited:NO];
-	statusTextField.stringValue = @"World saved.";
+  [self setStatusMessage:@"World saved."];
 }
 
 - (void)dirtyOpenSheetDidEnd:(NSWindow *)sheet returnCode:(int)returnCode contextInfo:(void  *)contextInfo
@@ -239,7 +265,9 @@
 		else {
 			[self saveWorld];
 			[self unloadWorld];
-			[contentView selectTabViewItemAtIndex:0];
+      [toolbar setVisible:NO];
+      [editModeSelector setSelectedSegment:0];
+			[contentView selectTabViewItemAtIndex:2];
 		}		
 	}
 	else if (returnCode == NSAlertAlternateReturn) // Don't save
@@ -250,7 +278,9 @@
 		}
 		else {
 			[self unloadWorld];
-			[contentView selectTabViewItemAtIndex:0];
+      [toolbar setVisible:NO];
+      [editModeSelector setSelectedSegment:0];
+			[contentView selectTabViewItemAtIndex:2];
 		}
 	}
 	
@@ -266,7 +296,7 @@
 {
 	[super setDocumentEdited:edited];
 	if (edited)
-		statusTextField.stringValue = @"World has unsaved changes.";
+    [self setStatusMessage:@"World has unsaved changes."];
 }
 
 - (BOOL)isDocumentEdited
@@ -317,7 +347,9 @@
 	
 	// Show world selector
 	[worldCollectionController reloadWorldData];
-	[contentView selectTabViewItemAtIndex:0];
+  [toolbar setVisible:NO];
+  [editModeSelector setSelectedSegment:0];
+	[contentView selectTabViewItemAtIndex:2];
 }
 
 - (IBAction)addItem:(id)sender
@@ -330,7 +362,7 @@
 	
 	[newItemSheetController closeSheet:self];
 	[newItemSheetController setSheetErrorMessage:@""];
-	[self addInventoryItem:itemID selectItem:YES];
+	[self addInventoryItemID:itemID damage:0 selectItem:YES];
 }
 
 - (IBAction)clearInventoryItems:(id)sender
@@ -341,7 +373,7 @@
 
 - (IBAction)copyWorldSeed:(id)sender
 {
-	NSString *worldSeed = [NSString stringWithFormat:@"%@",[level worldSeedContainer].numberValue];
+	NSString *worldSeed = [NSString stringWithFormat:@"%@",[level seed]];
 	
 	NSPasteboard *pb = [NSPasteboard generalPasteboard];
 	NSArray *types = [NSArray arrayWithObjects:NSStringPboardType, nil];
@@ -352,15 +384,16 @@
 - (IBAction)incrementTime:(id)sender
 {
 	if ([sender selectedSegment] == 0) {		
-		int wTime = [[self worldTime] intValue];
+		int wTime = [[level time] intValue];
 		int result = wTime - (24000 - (wTime % 24000));
-		[self setWorldTime:[NSNumber numberWithInt:result]];
+		[level setTime:[NSNumber numberWithInt:result]];
 	}
 	else if ([sender selectedSegment] == 1) {
-		int wTime = [[self worldTime] intValue];
+		int wTime = [[level time] intValue];
 		int result = wTime + (24000 - (wTime % 24000));
-		[self setWorldTime:[NSNumber numberWithInt:result]];
+		[level setTime:[NSNumber numberWithInt:result]];
 	}
+  [self setDocumentEdited:YES];
 }
 
 - (void)saveDocument:(id)sender
@@ -412,32 +445,6 @@
 		return inventory != nil;
 	}
 	return YES;
-}
-
-- (NSNumber *)worldTime
-{
-	return 	[level worldTimeContainer].numberValue;
-}
-
-- (void)setWorldTime:(NSNumber *)number
-{
-	[self willChangeValueForKey:@"worldTime"];
-	[level worldTimeContainer].numberValue = number;
-	[self didChangeValueForKey:@"worldTime"];
-	[self setDocumentEdited:YES];
-}
-
-- (NSString *)levelName
-{
-	return 	[level worldNameContainer].stringValue;
-}
-
-- (void)setLevelName:(NSString *)name
-{
-	[self willChangeValueForKey:@"levelName"];
-	[level worldNameContainer].stringValue = name;
-	[self didChangeValueForKey:@"levelName"];
-	[self setDocumentEdited:YES];
 }
 
 
@@ -513,11 +520,9 @@
 	
 	NSArray *items = [self itemArrayForInventoryView:theInventoryView slotOffset:nil];
 	IJInventoryItem *selectedItem = [items objectAtIndex:itemIndex];
-
+  
 	if (selectedItem.itemId == 0 || lastItem == selectedItem) {
 		// The window may not be invisible at this point,
-		// caused by the MAAttachedWindow not calling NSWindowDidResignKey
-		// or the window not resigning key. (This bug needs to be fixed)
 		[propertiesWindow setAlphaValue:0.0];
 		propertiesViewController.item = nil;
 		return; // can't show info on nothing
@@ -612,9 +617,12 @@
 {
 	[self clearInventory];
 	
-	[self willChangeValueForKey:@"worldTime"];
-	[self willChangeValueForKey:@"levelName"];
+  [self willChangeValueForKey:@"level"];
+	[level willChangeValueForKey:@"time"];
+	[level willChangeValueForKey:@"worldName"];
 	
+  [player release];
+  player = nil;
 	[level release];
 	level = nil;
 	
@@ -625,10 +633,11 @@
 	
 	[inventory release];
 	inventory = nil;
-	[self didChangeValueForKey:@"worldTime"];
-	[self didChangeValueForKey:@"levelName"];
+  [self didChangeValueForKey:@"level"];
+	[level didChangeValueForKey:@"time"];
+	[level didChangeValueForKey:@"worldName"];
 	
-	statusTextField.stringValue = @"No world loaded.";
+  [self setStatusMessage:@"No world loaded."];
 }
 
 - (void)loadInventory:(NSArray *)newInventory
@@ -718,7 +727,7 @@
 	return inventoryArray;
 }
 
-- (void)addInventoryItem:(short)item selectItem:(BOOL)flag
+- (void)addInventoryItemID:(short)item damage:(short)damage selectItem:(BOOL)flag
 {
 	NSUInteger slot;
 	NSMutableArray *inventoryArray = [self inventoryArrayWithEmptySlot:&slot];
@@ -728,6 +737,7 @@
 	IJInventoryItem *inventoryItem = [inventoryArray objectAtIndex:slot];
 	inventoryItem.itemId = item;
 	inventoryItem.count = 1;
+  inventoryItem.damage = damage;
 	[self setDocumentEdited:YES];
 	
 	IJInventoryView *invView = [self inventoryViewForItemArray:inventoryArray];
@@ -746,53 +756,56 @@
 	NSString *filterString = [sender stringValue];
 	
 	if (filterString.length == 0) {
-		[filteredItemIds autorelease];
-		filteredItemIds = [allItemIds retain];
+		[filteredItemKeys autorelease];
+		filteredItemKeys = [allItemKeys retain];
 		[itemTableView reloadData];
 		return;
 	}
 	
 	NSMutableArray *results = [NSMutableArray array];
 	
-	for (NSNumber *itemId in allItemIds) {
-		NSDictionary *itemData = [[IJInventoryItem itemIdLookup] objectForKey:itemId];
+	for (NSString *itemKey in allItemKeys) {
+		NSDictionary *itemData = [[IJInventoryItem itemIdLookup] objectForKey:itemKey];
 		NSString *name = [itemData objectForKey:@"Name"];
+    short itemId = [[itemData objectForKey:@"ID"] shortValue];
 		NSRange range = [name rangeOfString:filterString options:NSCaseInsensitiveSearch];
 		
 		if (range.location != NSNotFound) {
-			[results addObject:itemId];
+			[results addObject:itemKey];
 			continue;
 		}
 		
 		// Also search the item id:
-		range = [[itemId stringValue] rangeOfString:filterString];
+		range = [[NSString stringWithFormat:@"%hi",itemId] rangeOfString:filterString];
 		if (range.location != NSNotFound) {
-			[results addObject:itemId];
+			[results addObject:itemKey];
 			continue;
 		}
 	}
 	
-	[filteredItemIds autorelease];
-	filteredItemIds = [results retain];
+	[filteredItemKeys autorelease];
+	filteredItemKeys = [results retain];
 	[itemTableView reloadData];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)theTableView
 {
-	return filteredItemIds.count;
+	return filteredItemKeys.count;
 }
 
 - (id)tableView:(NSTableView *)theTableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
-{
-	NSNumber *itemId = [filteredItemIds objectAtIndex:row];
-	NSDictionary *itemData = [[IJInventoryItem itemIdLookup] objectForKey:itemId];
-	NSNumber *itemDamage = [itemData objectForKey:@"Damage"];
+{  
+  NSString *itemKey = [filteredItemKeys objectAtIndex:row];
+	NSDictionary *itemData = [[IJInventoryItem itemIdLookup] objectForKey:itemKey];
+	short itemId = [[itemData objectForKey:@"ID"] shortValue];
+  short itemDamage = [[itemData objectForKey:@"Damage"] shortValue];
+
 	
 	if ([tableColumn.identifier isEqual:@"itemId"]) {
-		return itemId;
+		return [NSNumber numberWithShort:itemId];
 	}
 	else if ([tableColumn.identifier isEqual:@"image"]) {
-		return [IJInventoryItem imageForItemId:[itemId shortValue] withDamage:[itemDamage shortValue]];
+		return [IJInventoryItem imageForItemId:itemId withDamage:itemDamage];
 	}
 	else {
 		NSString *name = [itemData objectForKey:@"Name"];
@@ -803,13 +816,16 @@
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard
 {
 	[pboard declareTypes:[NSArray arrayWithObjects:IJPasteboardTypeInventoryItem, nil] owner:nil];
-	
-	NSNumber *itemId = [filteredItemIds objectAtIndex:[rowIndexes firstIndex]];
+  
+  NSString *itemKey = [filteredItemKeys objectAtIndex:[rowIndexes firstIndex]];
+	NSDictionary *itemData = [[IJInventoryItem itemIdLookup] objectForKey:itemKey];
+	short itemId = [[itemData objectForKey:@"ID"] shortValue];
+  short itemDamage = [[itemData objectForKey:@"Damage"] shortValue];
 	
 	IJInventoryItem *item = [[IJInventoryItem alloc] init];
-	item.itemId = [itemId shortValue];
+	item.itemId = itemId;
 	item.count = 1;
-	item.damage = 0;
+	item.damage = itemDamage;
 	item.slot = 0;
 	
 	[pboard setData:[NSKeyedArchiver archivedDataWithRootObject:item]
@@ -820,10 +836,14 @@
 	return YES;
 }
 
-- (IBAction)itemTableViewDoubleClicked:(id)sender
-{
-	short selectedItem = [[filteredItemIds objectAtIndex:[itemTableView selectedRow]] shortValue];
-	[self addInventoryItem:selectedItem selectItem:YES];
+- (void)itemTableViewDoubleClicked:(id)sender
+{  
+  NSString *itemKey = [filteredItemKeys objectAtIndex:[itemTableView selectedRow]];
+	NSDictionary *itemData = [[IJInventoryItem itemIdLookup] objectForKey:itemKey];
+	short itemID = [[itemData objectForKey:@"ID"] shortValue];
+  short itemDamage = [[itemData objectForKey:@"Damage"] shortValue];
+
+	[self addInventoryItemID:itemID damage:itemDamage selectItem:YES];
 }
 
 #pragma mark -
@@ -855,19 +875,14 @@
 																	 @"Your changes will be lost if you do not save them.");
 		return NO;
 	}
-	
-	if (level != nil && sender != nil) {
-		[self unloadWorld];
-		[contentView selectTabViewItemAtIndex:0];
-		return NO;
-	}
-	
+	  
 	return YES;
 }
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-	[NSApp terminate:nil];
+  if ([notification object] == self.window)
+    [NSApp terminate:nil];
 }
 
 
@@ -899,6 +914,7 @@
 	[quickInventory release];
 	[normalInventory release];
 	[inventory release];
+  [player release];
 	[level release];
 	[super dealloc];
 }

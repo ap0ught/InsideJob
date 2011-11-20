@@ -46,6 +46,16 @@
 		invItem.count = [[self containerWithName:@"Count" inArray:listItems].numberValue unsignedCharValue];
 		invItem.damage = [[self containerWithName:@"Damage" inArray:listItems].numberValue shortValue];
 		invItem.slot = [[self containerWithName:@"Slot" inArray:listItems].numberValue unsignedCharValue];
+    
+    NBTContainer *dataTagContainer = [self containerWithName:@"tag" inArray:listItems];
+    for (NSArray *tagItems in [dataTagContainer childNamed:@"ench"].children)
+    {
+      NSNumber *enchId = [self containerWithName:@"id" inArray:tagItems].numberValue;
+      NSNumber *enchLvl = [self containerWithName:@"lvl" inArray:tagItems].numberValue;
+      [invItem.dataTag setObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: enchId, enchLvl, nil]
+                                                             forKeys:[NSArray arrayWithObjects: @"id", @"lvl", nil]]
+                          forKey:@"ench"];
+    }
 		[output addObject:invItem];
 		[invItem release];
 	}
@@ -64,35 +74,117 @@
 		NSLog(@"%s Fixing inventory list type; was %d.", __PRETTY_FUNCTION__, inventoryList.listType);
 		inventoryList.listType = NBTTypeCompound;
 	}
-	
+  
+  // TODO - finish enchantment saving
 	for (IJInventoryItem *invItem in newInventory)
 	{
-		NSArray *listItems = [NSArray arrayWithObjects:
-							  [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.itemId]],
-							  [NBTContainer containerWithName:@"Damage" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.damage]],
-							  [NBTContainer containerWithName:@"Count" type:NBTTypeByte numberValue:[NSNumber numberWithShort:invItem.count]],
-							  [NBTContainer containerWithName:@"Slot" type:NBTTypeByte numberValue:[NSNumber numberWithShort:invItem.slot]],
-							  nil];
-		[newChildren addObject:listItems];
+    NSArray *listItems = [NSArray arrayWithObjects:
+                          [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.itemId]],
+                          [NBTContainer containerWithName:@"Damage" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.damage]],
+                          [NBTContainer containerWithName:@"Count" type:NBTTypeByte numberValue:[NSNumber numberWithShort:invItem.count]],
+                          [NBTContainer containerWithName:@"Slot" type:NBTTypeByte numberValue:[NSNumber numberWithShort:invItem.slot]],
+                          nil];
+    
+    
+    NBTContainer *dataTagContainer;
+    
+    if ([invItem.dataTag count] != 0) {
+      dataTagContainer = [NBTContainer compoundWithName:@"tag"];
+      NBTContainer *enchListContainer = [NBTContainer listWithName:@"ench" type:NBTTypeCompound];
+      NSDictionary *itemEnchantment = [invItem.dataTag objectForKey:@"ench"];
+      
+      NSArray *enchList = [NSArray arrayWithObjects:
+                           [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"id"]],
+                           [NBTContainer containerWithName:@"lvl" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"lvl"]],
+                           nil];
+      
+      enchListContainer.children = [NSMutableArray arrayWithArray:enchList];
+      dataTagContainer.children = [NSMutableArray arrayWithObject:enchListContainer];
+      listItems = [listItems arrayByAddingObject:dataTagContainer];
+    }
+    
+    [newChildren addObject:listItems];
 	}
 	inventoryList.children = newChildren;
 }
 
-- (NBTContainer *)worldTimeContainer
+
+- (NSNumber *)time
 {
-	return [[self childNamed:@"Data"] childNamed:@"Time"];
+	return [[self childNamed:@"Data"] childNamed:@"Time"].numberValue;
 }
 
-- (NBTContainer *)worldSeedContainer
+- (void)setTime:(NSNumber *)number
 {
-	return [[self childNamed:@"Data"] childNamed:@"RandomSeed"];
+	[[self childNamed:@"Data"] childNamed:@"Time"].numberValue = number;
 }
 
-- (NBTContainer *)worldNameContainer
+- (NSString *)worldName
 {
-	return [[self childNamed:@"Data"] childNamed:@"LevelName"];
+	return [[self childNamed:@"Data"] childNamed:@"LevelName"].stringValue;
 }
 
+- (void)setWorldName:(NSString *)string
+{
+	[[self childNamed:@"Data"] childNamed:@"LevelName"].stringValue = string;
+}
+
+- (NSNumber *)seed
+{
+	return [[self childNamed:@"Data"] childNamed:@"RandomSeed"].numberValue;
+}
+
+- (NSNumber *)spawnX
+{
+	return [[self childNamed:@"Data"] childNamed:@"SpawnX"].numberValue;
+}
+
+- (void)setSpawnX:(NSNumber *)number
+{
+	[[self childNamed:@"Data"] childNamed:@"SpawnX"].numberValue = number;
+}
+
+- (NSNumber *)spawnY
+{
+	return [[self childNamed:@"Data"] childNamed:@"SpawnY"].numberValue;
+}
+
+- (void)setSpawnY:(NSNumber *)number
+{
+	[[self childNamed:@"Data"] childNamed:@"SpawnY"].numberValue = number;
+}
+
+- (NSNumber *)spawnZ
+{
+	return [[self childNamed:@"Data"] childNamed:@"SpawnZ"].numberValue;
+}
+
+- (void)setSpawnZ:(NSNumber *)number
+{
+	[[self childNamed:@"Data"] childNamed:@"SpawnZ"].numberValue = number;
+}
+
+- (int)gameMode
+{
+  int gameType = [[[self childNamed:@"Data"] childNamed:@"GameType"].numberValue unsignedIntValue];
+  int hardcore = [[[self childNamed:@"Data"] childNamed:@"hardcore"].numberValue unsignedCharValue];
+  
+  if (hardcore == 1 && gameType == 0)
+    return 2;
+  return gameType;
+}
+
+- (void)setGameMode:(int)number
+{
+  if (number == 0 || number == 1) {
+    [[self childNamed:@"Data"] childNamed:@"GameType"].numberValue = [NSNumber numberWithInt:number];
+    [[self childNamed:@"Data"] childNamed:@"hardcore"].numberValue = [NSNumber numberWithInt:0];
+  }
+  else if (number == 2) {
+    [[self childNamed:@"Data"] childNamed:@"GameType"].numberValue = [NSNumber numberWithInt:0];
+    [[self childNamed:@"Data"] childNamed:@"hardcore"].numberValue = [NSNumber numberWithInt:1];
+  }
+}
 
 
 #pragma mark -

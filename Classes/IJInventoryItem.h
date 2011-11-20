@@ -22,11 +22,13 @@
 	int16_t damage;
 	int8_t count;
 	int8_t slot;
+  NSMutableDictionary *dataTag;
 }
 @property (nonatomic, assign) int16_t itemId;
 @property (nonatomic, assign) int16_t damage;
 @property (nonatomic, assign) int8_t count;
 @property (nonatomic, assign) int8_t slot;
+@property (nonatomic, assign) NSMutableDictionary *dataTag;
 
 @property (nonatomic, readonly) NSString *humanReadableName;
 @property (nonatomic, readonly) NSImage *image;

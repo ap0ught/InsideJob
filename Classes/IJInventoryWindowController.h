@@ -11,6 +11,7 @@
 
 @class IJInventoryView;
 @class IJMinecraftLevel;
+@class IJMinecraftPlayer;
 @class MAAttachedWindow;
 @class IJItemPropertiesViewController;
 @class IJWorldCollectionController;
@@ -22,9 +23,12 @@
 	IBOutlet NSTextField *newItemField;
 	
 	IJMinecraftLevel *level;
+  IJMinecraftPlayer *player;
 	NSArray *inventory;
 	
-	NSTextField *statusTextField;
+	NSString *statusMessage;
+  IBOutlet NSToolbar *toolbar;
+  IBOutlet NSSegmentedControl *editModeSelector;
 	IBOutlet NSTabView *contentView;
 	
 	IJInventoryView *inventoryView;
@@ -38,8 +42,8 @@
 	// Search/Item List
 	IBOutlet NSSearchField *itemSearchField;
 	IBOutlet NSTableView *itemTableView;
-	NSArray *allItemIds;
-	NSArray *filteredItemIds;
+	NSArray *allItemKeys;
+	NSArray *filteredItemKeys;
 	
 	// 
 	IJItemPropertiesViewController *propertiesViewController;
@@ -54,15 +58,15 @@
 	NSString *loadedPlayerName;
 }
 
-@property (nonatomic, assign) IBOutlet NSTextField *statusTextField;
-@property (nonatomic, assign) IBOutlet NSTabView *contentView;
+@property (nonatomic, assign) NSString *statusMessage;
+@property (nonatomic, readonly) NSTabView *contentView;
 @property (nonatomic, retain) IBOutlet IJInventoryView *inventoryView;
 @property (nonatomic, retain) IBOutlet IJInventoryView *quickView;
 @property (nonatomic, retain) IBOutlet IJInventoryView *armorView;
 
-@property (nonatomic, retain) NSNumber *worldTime;
-@property (nonatomic, retain) NSString *levelName;
 @property (readonly) NSArray *inventory;
+@property (nonatomic, readonly) IJMinecraftLevel *level;
+@property (readonly) IJMinecraftPlayer *player;
 
 
 - (IBAction)openWorld:(id)sender;
@@ -70,7 +74,7 @@
 - (IBAction)reloadWorldInformation:(id)sender;
 - (IBAction)updateItemSearchFilter:(id)sender;
 - (IBAction)makeSearchFieldFirstResponder:(id)sender;
-- (IBAction)itemTableViewDoubleClicked:(id)sender;
+- (void)itemTableViewDoubleClicked:(id)sender;
 
 - (IBAction)addItem:(id)sender;
 - (IBAction)clearInventoryItems:(id)sender;
@@ -87,6 +91,6 @@
 
 - (void)loadInventory:(NSArray *)newInventory;
 - (NSArray *)currentInventory;
-- (void)addInventoryItem:(short)item selectItem:(BOOL)flag;
+- (void)addInventoryItemID:(short)item damage:(short)damage selectItem:(BOOL)flag;
 
 @end

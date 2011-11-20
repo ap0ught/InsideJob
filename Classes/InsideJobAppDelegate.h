@@ -14,5 +14,7 @@
 	IBOutlet IJInventoryWindowController *inventoryWindowController;
 }
 
+@property (nonatomic, readonly) NSString *bundleVersionNumber;
+
 
 @end

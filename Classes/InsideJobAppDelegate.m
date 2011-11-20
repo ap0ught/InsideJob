@@ -10,9 +10,11 @@
 #import "IJInventoryWindowController.h"
 
 @implementation InsideJobAppDelegate
+@synthesize bundleVersionNumber;
+
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	[inventoryWindowController.statusTextField setStringValue:@"No world loaded!"];
+	
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
@@ -22,6 +24,11 @@
 		return NSTerminateNow;
 	else
 		return NSTerminateCancel;
+}
+
+- (NSString *)bundleVersionNumber
+{
+  return [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
 }
 
 @end

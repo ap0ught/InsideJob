@@ -8,12 +8,14 @@
 
 #import "IJInventoryPresetController.h"
 #import "IJInventoryWindowController.h"
+#import "IJItemPropertiesViewController.h"
 #import "IJInventoryItem.h"
 #import "BWSheetController.h"
 
 
 @implementation IJInventoryPresetController
 @synthesize presetArray;
+@synthesize newPresetName;
 
 
 #pragma mark -
@@ -25,8 +27,8 @@
 	
 	armorInventory = [[NSMutableArray alloc] init];
 	quickInventory = [[NSMutableArray alloc] init];
-	normalInventory = [[NSMutableArray alloc] init];	
-	
+	normalInventory = [[NSMutableArray alloc] init];
+  	
 	//Checks to see AppSupport folder exits if not create it.
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSString *folderPath = [@"~/Library/Application Support/Inside Job/" stringByExpandingTildeInPath];
@@ -42,18 +44,14 @@
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)savePreset:(id)sender
-{
-	if ([[newPresetName stringValue] isEqualToString:@""]) {
-		[newPresetSheetController setSheetErrorMessage:@"Fill in a preset name."];
-		return;
-	}
-	
+- (IBAction)newPreset:(id)sender
+{	
 	NSString *folderPath = [@"~/Library/Application Support/Inside Job/" stringByExpandingTildeInPath];
-	NSString *presetPath = [folderPath stringByAppendingPathComponent:[newPresetName stringValue]];
+	NSString *presetPath = [folderPath stringByAppendingPathComponent:newPresetName];
 	
 	if ([[NSFileManager defaultManager] fileExistsAtPath: presetPath]) {
-		[newPresetSheetController setSheetErrorMessage:@"A preset with that name already exists."];
+    // TODO
+		[newPresetName stringByAppendingString:@"_"];
 		return;
 	}
 		
@@ -69,23 +67,21 @@
 	}
 	
 	[NSKeyedArchiver archiveRootObject:newPreset toFile:presetPath];
-	
-	[newPresetSheetController closeSheet:self];
-	[newPresetSheetController setSheetErrorMessage:@""];
-	
+  
+  self.newPresetName = @"";
 	[self reloadPresetList];
 }
 
 - (IBAction)deletePreset:(id)sender
 {
-	NSString *presetPath = [sender representedObject];	
+  NSString *presetPath = [[presetArray objectAtIndex:[presetTableView selectedRow]] objectForKey:@"Path"];
 	[[NSFileManager defaultManager] removeItemAtPath:presetPath error:NULL];
 	[self reloadPresetList];
 }
 
 - (IBAction)loadPreset:(id)sender
 {
-	NSString *presetPath = [sender representedObject];	
+  NSString *presetPath = [[presetArray objectAtIndex:[presetTableView selectedRow]] objectForKey:@"Path"];
 	NSArray *newInventory = [NSKeyedUnarchiver unarchiveObjectWithFile:presetPath];
 	
 	[inventoryController clearInventory];
@@ -98,7 +94,6 @@
 
 - (void)reloadPresetList
 {
-  [presetMenu removeAllItems];
 	[presetArray removeAllObjects];
 
 	NSString *folderPath = [@"~/Library/Application Support/Inside Job/" stringByExpandingTildeInPath];
@@ -123,46 +118,37 @@
 														fileName, @"Name",
 														filePath, @"Path",
 														nil]];
-	}	
-	
-	if ([presetArray count] == 0) {
-		NSMenuItem *menuItem = [[[NSMenuItem alloc] init] autorelease];
-		[menuItem setTitle:@"No Presets Saved"];
-		[menuItem setEnabled:NO];
-		[presetMenu addItem:menuItem];
 	}
-	else {
-		for (index = 0; index < [presetArray count]; index++) {
-			NSDictionary *itemData = [presetArray objectAtIndex:index];
-			
-			NSMenuItem *menuItem = [[[NSMenuItem alloc] init] autorelease];
-			[menuItem setTitle:[itemData valueForKey:@"Name"]];
-			[menuItem setRepresentedObject:[itemData valueForKey:@"Path"]];
-			[menuItem setTarget:self];
-			[menuItem setAction:@selector(loadPreset:)];
-			[presetMenu addItem:menuItem];
-			
-			NSMenuItem *menuItemDelete = [[[NSMenuItem alloc] init] autorelease];
-			[menuItemDelete setTitle:[NSString stringWithFormat:@"Delete %@",[itemData valueForKey:@"Name"]]];
-			[menuItemDelete setRepresentedObject:[itemData valueForKey:@"Path"]];
-			[menuItemDelete setAlternate:YES];
-			[menuItemDelete setKeyEquivalentModifierMask:NSAlternateKeyMask];
-			[menuItemDelete setTarget:self];
-			[menuItemDelete setAction:@selector(deletePreset:)];
-			[presetMenu addItem:menuItemDelete];
-		}
-	}
+  [presetTableView reloadData];
 }
 
-- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+
+#pragma mark -
+#pragma mark Preset View
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)theTableView
 {
-	if (anItem.action == @selector(loadPreset:)) {
-		return inventoryController.inventory != nil;
-	}
-	if (anItem.action == @selector(deletePreset:)) {
-		return inventoryController.inventory != nil;
-	}
-	return YES;
+  if (theTableView == presetTableView) {
+    return presetArray.count;
+  }
+  return 0;
+}
+
+- (id)tableView:(NSTableView *)theTableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+  
+  if (theTableView == presetTableView) {
+    NSString *presetName = [[presetArray objectAtIndex:row] objectForKey:@"Name"];
+    if ([tableColumn.identifier isEqual:@"presetName"]) {
+      return presetName;
+    }
+  }
+  return nil;
+}
+
+- (void)tableView:(NSTableView *)theTableView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+  
 }
 
 

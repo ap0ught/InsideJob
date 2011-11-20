@@ -1,9 +1,13 @@
+#ID,Name,Damage,Texture Coords
 1,Stone
 2,Grass
 3,Dirt
 4,Cobblestone
 5,Wood
+#Saplings
 6,Sapling
+6,Birch Sapling,1
+6,Pine Sapling,2
 7,Bedrock
 8,Water
 9,Stationary Water
@@ -15,8 +19,8 @@
 15,Iron Ore
 16,Coal Ore
 #Log
-17,Log Pine,1
-17,Log Birch,2
+17,Pine Log,1
+17,Birch Log,2
 17,Log
 #Log End
 18,Leaves
@@ -61,6 +65,8 @@
 44,Sandstone Step, 1
 44,Wooden Step, 2
 44,Cobblestone Step, 3
+44,Brick Step, 4
+44,Stone Brick Step, 5
 44,Step
 #Step End
 45,Brick
@@ -76,17 +82,17 @@
 56,Diamond Ore
 57,Diamond Block
 58,Workbench
-59,Crops
+#59,Crops
 60,Soil
 61,Furnace
 62,Burning Furnace
-64,Wooden Door Block
+#64,Wooden Door Block
 65,Ladder
 66,Minecart Rails
 67,Cobblestone Stairs
 69,Lever
 70,Stone Pressure Plate
-71,Iron Door Block
+#71,Iron Door Block
 72,Wooden Pressure Plate
 73,Redstone Ore
 74,Glowing Redstone Ore
@@ -98,7 +104,7 @@
 80,Snow Block
 81,Cactus
 82,Clay
-83,Reed
+#83,Reed
 84,Jukebox
 85,Fence
 86,Pumpkin
@@ -206,9 +212,10 @@
 348,Glowstone Dust
 349,Raw Fish
 350,Cooked Fish
+
 #Dye
 351,Rose Red Dye,1
-351,Cactus Green Dye,2
+351,Cactus Green  Dye,2
 351,Brown Dye,3
 351,Lapis Lazuli Dye,4
 351,Purple Dye,5
@@ -223,7 +230,7 @@
 351,Orange Dye,14
 351,Bone Meal,15
 351,Ink sack
-#Dye End
+
 352,Bone
 353,Sugar
 354,Cake
@@ -232,21 +239,32 @@
 357,Cookie
 358,Map
 359,Shears
-2256,Gold Record
-2257,Green Record
+
+#Records
+2256,13 Record
+2257,Cat Record
+2258,Blocks Record
+2259,Chirp Record
+2260,Far Record
+2261,Mall Record
+2262,Mellohi Record
+2263,Stal Record
+2264,Strad Record
+2265,Ward Record
+2266,11 Record
 
 #1.8
-31,Tall Grass
+31,Tall Grass,1
 32,Dead Shrub
 97,Silverfish Stone
 98,Stone Brick
-99,Huge Brown Mushroom
-100,Huge Red Mushroom
+#99,Huge Brown Mushroom
+#100,Huge Red Mushroom
 101,Iron Bars
 102,Glass Pane
 103,Water Melon
-104,Pumpkin Stem
-105,Melon Stem
+#104,Pumpkin Stem
+#105,Melon Stem
 106,Vines
 107,Fence Gate
 108,Brick Stairs
@@ -260,3 +278,29 @@
 366,Cooked Chicken
 367,Zombie Flesh
 368,Ender Pearl
+
+#1.9
+110,Mycelium
+111,Lily Pad
+112,Nether Brick
+113,Nether Brick Fence
+114,Nether Brick Stairs
+#115,Nether Wart
+116,Enchantment Table
+#119,End Portal
+#120,End Portal Frame
+#121,End Stone
+369,Blaze Rod
+370,Ghast Tear
+371,Gold Nugget
+372,Nether Wart
+373,Potion
+374,Glass Bottle
+375,Spider Eye
+376,Fermented Spider Eye
+377,Blaze Powder
+378,Magma Cream
+379,Brewing Stand
+380,Cauldron
+381,Eye of Ender
+382,Glistering Melon

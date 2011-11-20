@@ -12,7 +12,7 @@
 
 
 #ifndef NBT_LOGGING
-#define NBT_LOGGING 0
+#define NBT_LOGGING 1
 #endif
 
 #if NBT_LOGGING
@@ -68,6 +68,23 @@
 	cont.name = theName;
 	cont.type = theType;
 	cont.numberValue = theNumber;
+	return cont;
+}
+
++ (NBTContainer *)compoundWithName:(NSString *)theName
+{
+  NBTContainer *cont = [[[NBTContainer alloc] init] autorelease];
+	cont.name = theName;
+	cont.type = NBTTypeCompound;
+	return cont;
+}
+
++ (NBTContainer *)listWithName:(NSString *)theName type:(NBTType)theType;
+{
+  NBTContainer *cont = [[[NBTContainer alloc] init] autorelease];
+	cont.name = theName;
+	cont.type = NBTTypeList;
+  cont.listType = theType;
 	return cont;
 }
 
@@ -203,7 +220,7 @@
 	}
 	else if (self.type == NBTTypeInt)
 	{
-		self.numberValue = [NSNumber numberWithUnsignedInt:[self intFromBytes:bytes offset:&offset]];
+		self.numberValue = [NSNumber numberWithInt:[self intFromBytes:bytes offset:&offset]];
 		NBTLog(@"   name=%@ int=0x%x", self.name, [self.numberValue unsignedIntValue]);
 	}
 	else if (self.type == NBTTypeShort)

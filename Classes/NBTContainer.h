@@ -38,6 +38,9 @@ typedef enum {
 @property (nonatomic, assign) NBTType listType;
 
 + (NBTContainer *)containerWithName:(NSString *)theName type:(NBTType)theType numberValue:(NSNumber *)theNumber;
++ (NBTContainer *)compoundWithName:(NSString *)theName;
++ (NBTContainer *)listWithName:(NSString *)theName type:(NBTType)theType;
+
 + (id)nbtContainerWithData:(NSData *)data;
 - (void)readFromData:(NSData *)data;
 - (NSData *)writeData;
