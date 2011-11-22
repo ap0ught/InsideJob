@@ -62,6 +62,13 @@
 	[super dealloc];
 }
 
+
+- (NSString *)description
+{
+  return [NSString stringWithFormat:@"<%@ %p name=%@ type=%i", NSStringFromClass([self class]), self, self.name, self.type];
+}
+
+
 + (NBTContainer *)containerWithName:(NSString *)theName type:(NBTType)theType numberValue:(NSNumber *)theNumber
 {
 	NBTContainer *cont = [[[NBTContainer alloc] init] autorelease];
@@ -225,7 +232,7 @@
 	}
 	else if (self.type == NBTTypeShort)
 	{
-		self.numberValue = [NSNumber numberWithUnsignedShort:[self shortFromBytes:bytes offset:&offset]];
+		self.numberValue = [NSNumber numberWithShort:[self shortFromBytes:bytes offset:&offset]];
 		NBTLog(@"   name=%@ short=0x%x", self.name, [self.numberValue unsignedShortValue]);
 	}
 	else if (self.type == NBTTypeByte)
@@ -308,11 +315,11 @@
 	}
 	else if (self.type == NBTTypeShort)
 	{
-		[self appendShort:[self.numberValue unsignedShortValue] toData:data];
+		[self appendShort:[self.numberValue shortValue] toData:data];
 	}
 	else if (self.type == NBTTypeInt)
 	{
-		[self appendInt:[self.numberValue unsignedIntValue] toData:data];
+		[self appendInt:[self.numberValue intValue] toData:data];
 	}
 	else if (self.type == NBTTypeByte)
 	{

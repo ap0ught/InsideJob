@@ -75,7 +75,7 @@
 		inventoryList.listType = NBTTypeCompound;
 	}
   
-  // TODO - finish enchantment saving
+  // TODO - finish enchantment saving.
 	for (IJInventoryItem *invItem in newInventory)
 	{
     NSArray *listItems = [NSArray arrayWithObjects:
@@ -93,12 +93,11 @@
       NBTContainer *enchListContainer = [NBTContainer listWithName:@"ench" type:NBTTypeCompound];
       NSDictionary *itemEnchantment = [invItem.dataTag objectForKey:@"ench"];
       
-      NSArray *enchList = [NSArray arrayWithObjects:
-                           [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"id"]],
-                           [NBTContainer containerWithName:@"lvl" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"lvl"]],
-                           nil];
+      enchListContainer.children = [NSMutableArray arrayWithObjects:
+                                    [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"id"]],
+                                    [NBTContainer containerWithName:@"lvl" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"lvl"]],
+                                    nil];
       
-      enchListContainer.children = [NSMutableArray arrayWithArray:enchList];
       dataTagContainer.children = [NSMutableArray arrayWithObject:enchListContainer];
       listItems = [listItems arrayByAddingObject:dataTagContainer];
     }

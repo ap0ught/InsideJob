@@ -129,16 +129,12 @@
 	[self unloadWorld];
 	
   [self willChangeValueForKey:@"level"];
-	[level willChangeValueForKey:@"time"];
-	[level willChangeValueForKey:@"worldName"];
 	
 	level = [[IJMinecraftLevel nbtContainerWithData:fileData] retain];
   //player = [level childNamed:@"Player"];
 	inventory = [[level inventory] retain];
 	
   [self didChangeValueForKey:@"level"];
-	[level didChangeValueForKey:@"time"];
-	[level didChangeValueForKey:@"worldName"];
 	
 	// Overwrite the placeholders with actual inventory:
 	for (IJInventoryItem *item in inventory) {
@@ -334,8 +330,11 @@
 
 - (IBAction)showWorldSelector:(id)sender
 {
-	if ([self isDocumentEdited])
-	{
+  if (propertiesWindow) {
+    [propertiesWindow orderOut:nil];
+  }
+  
+	if ([self isDocumentEdited]) {
 		// Note: We use the didDismiss selector so that any subsequent alert sheets don't bugger up
 		NSBeginAlertSheet(@"Do you want to save the changes you made in this world?", @"Save", @"Don't Save", @"Cancel", self.window, self, nil, @selector(dirtyOpenSheetDidEnd:returnCode:contextInfo:), @"Select", 
 																	 @"Your changes will be lost if you do not save them.");
@@ -354,11 +353,11 @@
 
 - (IBAction)addItem:(id)sender
 {
-	int16_t itemID = [newItemField intValue];
-	if (itemID <= 0) {
+	if ([newItemField intValue] <= 0 || [newItemField intValue] >= 32767) {
 		[newItemSheetController setSheetErrorMessage:@"Invalid item id."];
 		return;
 	}
+  int16_t itemID = [newItemField intValue];
 	
 	[newItemSheetController closeSheet:self];
 	[newItemSheetController setSheetErrorMessage:@""];
@@ -367,8 +366,8 @@
 
 - (IBAction)clearInventoryItems:(id)sender
 {
-	[self setDocumentEdited:YES];
 	[self clearInventory];
+  [self setDocumentEdited:YES];
 }
 
 - (IBAction)copyWorldSeed:(id)sender
@@ -524,7 +523,7 @@
 	if (selectedItem.itemId == 0 || lastItem == selectedItem) {
 		// The window may not be invisible at this point,
 		[propertiesWindow setAlphaValue:0.0];
-		propertiesViewController.item = nil;
+		[propertiesViewController setItem:nil];
 		return; // can't show info on nothing
 	}
 	
@@ -536,9 +535,11 @@
 														 inWindow:self.window
 														   onSide:MAPositionRight
 													   atDistance:0];
-		[propertiesWindow setBackgroundColor:[NSColor controlBackgroundColor]];
+		[propertiesWindow setBackgroundColor:[NSColor windowBackgroundColor]];
+    [propertiesWindow setBorderColor:[NSColor whiteColor]];
+    [propertiesWindow setBorderWidth:1];
 		[propertiesWindow setViewMargin:4.0];
-		[propertiesWindow setAlphaValue:0.95];
+		[propertiesWindow setAlphaValue:0.99];
 		[propertiesWindow setArrowHeight:10];
 		[[self window] addChildWindow:propertiesWindow ordered:NSWindowAbove];
 	}
@@ -563,7 +564,7 @@
 																	   [theInventoryView reloadItemAtIndex:itemIndex];
 																	   [propertiesWindow setAlphaValue:0.0];
 																   }];
-	propertiesViewController.item = selectedItem;
+	[propertiesViewController setItem:selectedItem];
 	[propertiesWindow setPoint:point side:MAPositionRight];
 	[propertiesWindow makeKeyAndOrderFront:nil];
 	[propertiesWindow setAlphaValue:0.9];
@@ -618,8 +619,6 @@
 	[self clearInventory];
 	
   [self willChangeValueForKey:@"level"];
-	[level willChangeValueForKey:@"time"];
-	[level willChangeValueForKey:@"worldName"];
 	
   [player release];
   player = nil;
@@ -634,8 +633,6 @@
 	[inventory release];
 	inventory = nil;
   [self didChangeValueForKey:@"level"];
-	[level didChangeValueForKey:@"time"];
-	[level didChangeValueForKey:@"worldName"];
 	
   [self setStatusMessage:@"No world loaded."];
 }
