@@ -129,12 +129,14 @@
 	[self unloadWorld];
 	
   [self willChangeValueForKey:@"level"];
+  [self willChangeValueForKey:@"player"];
 	
 	level = [[IJMinecraftLevel nbtContainerWithData:fileData] retain];
-  //player = [level childNamed:@"Player"];
+  //player = [[IJMinecraftPlayer alloc] initWithContainer:[[level childNamed:@"Data"] childNamed:@"Player"]];
 	inventory = [[level inventory] retain];
-	
+  	
   [self didChangeValueForKey:@"level"];
+  [self didChangeValueForKey:@"player"];
 	
 	// Overwrite the placeholders with actual inventory:
 	for (IJInventoryItem *item in inventory) {
@@ -620,10 +622,10 @@
 	
   [self willChangeValueForKey:@"level"];
 	
-  [player release];
-  player = nil;
 	[level release];
 	level = nil;
+  [player release];
+  player = nil;
 	
 	for (IJInventoryItem *item in inventory) {
 		[item removeObserver:self forKeyPath:@"count"];

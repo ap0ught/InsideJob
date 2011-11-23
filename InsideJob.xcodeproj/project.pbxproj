@@ -40,6 +40,7 @@
 		AE7C605F132EEC6E0068F958 /* IJCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7C605E132EEC6E0068F958 /* IJCollectionView.m */; };
 		AE7C674513303B050068F958 /* IJInventoryPresetController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7C674413303B050068F958 /* IJInventoryPresetController.m */; };
 		AE7F2BD7132EA78700E62D3E /* IJWorldCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7F2BD6132EA78700E62D3E /* IJWorldCollectionController.m */; };
+		AEBD5F89147CB82400ADADD1 /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AEBD5F88147CB82400ADADD1 /* Notes.rtf */; };
 		AEE84E74132DD3710022DD50 /* KBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6B132DD3710022DD50 /* KBLabel.m */; };
 		AEE84E75132DD3710022DD50 /* KBScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6D132DD3710022DD50 /* KBScroller.m */; };
 		AEE84E76132DD3710022DD50 /* KBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6F132DD3710022DD50 /* KBScrollView.m */; };
@@ -108,6 +109,7 @@
 		AE7C674413303B050068F958 /* IJInventoryPresetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJInventoryPresetController.m; sourceTree = "<group>"; };
 		AE7F2BD5132EA78700E62D3E /* IJWorldCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJWorldCollectionController.h; sourceTree = "<group>"; };
 		AE7F2BD6132EA78700E62D3E /* IJWorldCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJWorldCollectionController.m; sourceTree = "<group>"; };
+		AEBD5F88147CB82400ADADD1 /* Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		AEE84E6A132DD3710022DD50 /* KBLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBLabel.h; sourceTree = "<group>"; };
 		AEE84E6B132DD3710022DD50 /* KBLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBLabel.m; sourceTree = "<group>"; };
 		AEE84E6C132DD3710022DD50 /* KBScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBScroller.h; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				AE7C5D64132ECB8D0068F958 /* WorldCollectionItem.xib */,
 				668B28D8125E370A0060BF71 /* Items.csv */,
 				66BCFC2A125E9A51005A23F4 /* Credits.rtf */,
+				AEBD5F88147CB82400ADADD1 /* Notes.rtf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -403,6 +406,7 @@
 				AE7C5D8D132ECEC90068F958 /* World.png in Resources */,
 				AE671ED51339645A00A7CF50 /* World_Recent.png in Resources */,
 				4E009FA1146791D000F86E36 /* Enchanted_Overlay.png in Resources */,
+				AEBD5F89147CB82400ADADD1 /* Notes.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

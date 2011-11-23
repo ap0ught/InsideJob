@@ -67,8 +67,7 @@
 	NSMutableArray *newChildren = [NSMutableArray array];
 	NBTContainer *inventoryList = [self inventoryList];
 	
-	if (inventoryList.listType != NBTTypeCompound)
-	{
+	if (inventoryList.listType != NBTTypeCompound) {
 		// There appears to be a bug in the way Minecraft writes empty inventory lists; it appears to
 		// set the list type to 'byte', so we will correct it here.
 		NSLog(@"%s Fixing inventory list type; was %d.", __PRETTY_FUNCTION__, inventoryList.listType);
@@ -76,8 +75,7 @@
 	}
   
   // TODO - finish enchantment saving.
-	for (IJInventoryItem *invItem in newInventory)
-	{
+	for (IJInventoryItem *invItem in newInventory) {
     NSArray *listItems = [NSArray arrayWithObjects:
                           [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.itemId]],
                           [NBTContainer containerWithName:@"Damage" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.damage]],
@@ -86,10 +84,8 @@
                           nil];
     
     
-    NBTContainer *dataTagContainer;
-    
     if ([invItem.dataTag count] != 0) {
-      dataTagContainer = [NBTContainer compoundWithName:@"tag"];
+      NBTContainer *dataTagContainer = [NBTContainer compoundWithName:@"tag"];
       NBTContainer *enchListContainer = [NBTContainer listWithName:@"ench" type:NBTTypeCompound];
       NSDictionary *itemEnchantment = [invItem.dataTag objectForKey:@"ench"];
       

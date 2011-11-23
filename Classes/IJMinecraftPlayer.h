@@ -18,4 +18,8 @@
 @property (nonatomic, copy) NSNumber *health;
 @property (nonatomic, copy) NSNumber *hunger;
 
+
+- (id)initWithContainer:(NBTContainer *)cont;
+
+
 @end

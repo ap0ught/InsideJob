@@ -21,6 +21,18 @@
 	return nil;
 }
 
+- (id)initWithContainer:(NBTContainer *)cont {
+  if ((self = [super init])) {
+    self.name = cont.name;
+    self.children = cont.children;
+    self.type = cont.type;
+    self.stringValue = cont.stringValue;
+    self.numberValue = cont.numberValue;
+    self.listType = cont.listType;
+  }
+  return self;
+}
+
 
 - (NSArray *)inventory
 {
@@ -87,12 +99,12 @@
 
 - (NSNumber *)hunger
 {
-	return [self childNamed:@"Hunger"].numberValue;
+	return [self childNamed:@"foodLevel"].numberValue;
 }
 
 - (void)setHunger:(NSNumber *)number
 {
-	[self childNamed:@"Hunger"].numberValue = number;
+	[self childNamed:@"foodLevel"].numberValue = number;
 }
 
 @end
