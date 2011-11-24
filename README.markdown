@@ -2,7 +2,7 @@
 
 ### A Minecraft Alpha Inventory Editor for Mac OS X
 
-![Inside Job Screenshot](http://mcspider.bzextreme.com/files/Inside%20Job%201.0.8.png)
+![Inside Job Screenshot](http://mcspider.bzextreme.com/files/Inside%20Job%201.1.png)
 
 Inside Job was written in early October 2010 by [Adam Preble](http://adampreble.net).
 
@@ -21,7 +21,7 @@ Mac OS X 10.6 Snow Leopard.
 
 Inside Job operates on Minecraft's level.dat files, located in _~/Library/Application Support/minecraft/saves/.  While Inside Job was written to interact with Minecraft's data as safely as possible, it's entirely possible that it will destroy it completely.  Please back up your Minecraft saves folder before using Inside Job.
 
-Be sure to save and exit any open Minecraft worlds before running Inside Job.  Once run, Inside Job will open the first world and display your inventory. Note that Inside Job can only edit existing worlds.
+Be sure to save and exit any open Minecraft worlds before running Inside Job.  Once run, Inside Job will display a list worlds in the default minecraft world folder. Choose one of these worlds or select "Open Other" to load that worlds inventory. Note that Inside Job can only edit existing worlds.
 
 To alter your inventory, use the item list at right to find the item you desire, then drag it into an  inventory slot.  Rearrange items by dragging them to different slots.  To copy an item, including its quantity, hold the Option key when you start dragging.
 
@@ -32,6 +32,12 @@ To alter the quantity or damage of a particular item, click on its inventory slo
 After changing your inventory you will need to save the currently open world using the World menu, or Command-S.  Once you have saved the world you can open it in Minecraft.  Note that if a world is opened in Minecraft while it is open in Inside Job, you will need to reload it using the World menu, or Command-R.  This is because Minecraft's file locking system gives write access to the last program to open it.
 
 ### Release Notes
+
+#### 1.1 - November 23, 2011
+
+- Added Minecraft 1.0.0 Items
+- Revanped UI and icon.
+- Show items with damage value in the items selector. (Logs,Wool,Dye,etc)
 
 #### 1.0.9 - September 24, 2011
 
