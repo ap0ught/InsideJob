@@ -13,8 +13,7 @@
 
 - (NBTContainer *)containerWithName:(NSString *)theName inArray:(NSArray *)array
 {
-	for (NBTContainer *container in array)
-	{
+	for (NBTContainer *container in array) {
 		if ([container.name isEqual:theName])
 			return container;
 	}
@@ -47,14 +46,21 @@
 		invItem.damage = [[self containerWithName:@"Damage" inArray:listItems].numberValue shortValue];
 		invItem.slot = [[self containerWithName:@"Slot" inArray:listItems].numberValue unsignedCharValue];
     
+    // Item tag data
     NBTContainer *dataTagContainer = [self containerWithName:@"tag" inArray:listItems];
-    for (NSArray *tagItems in [dataTagContainer childNamed:@"ench"].children)
-    {
-      NSNumber *enchId = [self containerWithName:@"id" inArray:tagItems].numberValue;
-      NSNumber *enchLvl = [self containerWithName:@"lvl" inArray:tagItems].numberValue;
-      [invItem.dataTag setObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: enchId, enchLvl, nil]
-                                                             forKeys:[NSArray arrayWithObjects: @"id", @"lvl", nil]]
-                          forKey:@"ench"];
+    if (dataTagContainer) {     
+      
+      // Enchantments
+      NBTContainer *enchContainer = [dataTagContainer childNamed:@"ench"];
+      if (enchContainer) {
+        for (NSArray *tagItem in enchContainer.children) {
+          NSNumber *enchId = [self containerWithName:@"id" inArray:tagItem].numberValue;
+          NSNumber *enchLvl = [self containerWithName:@"lvl" inArray:tagItem].numberValue;
+          [invItem.dataTag setObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: enchId, enchLvl, nil]
+                                                                 forKeys:[NSArray arrayWithObjects: @"id", @"lvl", nil]]
+                              forKey:@"ench"];
+        }
+      }
     }
 		[output addObject:invItem];
 		[invItem release];
@@ -74,7 +80,6 @@
 		inventoryList.listType = NBTTypeCompound;
 	}
   
-  // TODO - finish enchantment saving.
 	for (IJInventoryItem *invItem in newInventory) {
     NSArray *listItems = [NSArray arrayWithObjects:
                           [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.itemId]],
@@ -89,10 +94,10 @@
       NBTContainer *enchListContainer = [NBTContainer listWithName:@"ench" type:NBTTypeCompound];
       NSDictionary *itemEnchantment = [invItem.dataTag objectForKey:@"ench"];
       
-      enchListContainer.children = [NSMutableArray arrayWithObjects:
+      enchListContainer.children = [NSMutableArray arrayWithObject:[NSArray arrayWithObjects:
                                     [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"id"]],
                                     [NBTContainer containerWithName:@"lvl" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"lvl"]],
-                                    nil];
+                                    nil]];
       
       dataTagContainer.children = [NSMutableArray arrayWithObject:enchListContainer];
       listItems = [listItems arrayByAddingObject:dataTagContainer];

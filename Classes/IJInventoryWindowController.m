@@ -402,16 +402,6 @@
 	[self saveWorld];
 }
 
-- (void)delete:(id)sender
-{
-//	IJInventoryItem *item = [outlineView itemAtRow:[outlineView selectedRow]];
-//	item.count = 0;
-//	item.itemId = 0;
-//	item.damage = 0;
-//	[self setDocumentEdited:YES];
-//	[outlineView reloadItem:item];
-}
-
 - (BOOL)worldFolderContainsPath:(NSString *)path
 {
 	NSString *filePath = [path stringByStandardizingPath];

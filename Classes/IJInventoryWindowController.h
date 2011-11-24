@@ -18,44 +18,44 @@
 @class BWSheetController;
 
 @interface IJInventoryWindowController : NSWindowController <NSWindowDelegate, IJInventoryViewDelegate> {
-	
-	IBOutlet BWSheetController *newItemSheetController;
-	IBOutlet NSTextField *newItemField;
-	
-	IJMinecraftLevel *level;
+  
+  IBOutlet BWSheetController *newItemSheetController;
+  IBOutlet NSTextField *newItemField;
+  
+  IJMinecraftLevel *level;
   IJMinecraftPlayer *player;
-	NSArray *inventory;
-	
-	NSString *statusMessage;
+  NSArray *inventory;
+  
+  NSString *statusMessage;
   IBOutlet NSToolbar *toolbar;
   IBOutlet NSSegmentedControl *editModeSelector;
-	IBOutlet NSTabView *contentView;
-	
-	IJInventoryView *inventoryView;
-	IJInventoryView *quickView;
-	IJInventoryView *armorView;
-	
-	NSMutableArray *armorInventory;
-	NSMutableArray *quickInventory;
-	NSMutableArray *normalInventory;
-	
-	// Search/Item List
-	IBOutlet NSSearchField *itemSearchField;
-	IBOutlet NSTableView *itemTableView;
-	NSArray *allItemKeys;
-	NSArray *filteredItemKeys;
-	
-	// 
-	IJItemPropertiesViewController *propertiesViewController;
-	IBOutlet IJWorldCollectionController *worldCollectionController;
-	MAAttachedWindow *propertiesWindow;
-	id observerObject;
-	
-	// Document
-	int64_t sessionLockValue;
-	NSString *loadedWorldPath;
-	NSString *attemptedLoadWorldPath;
-	NSString *loadedPlayerName;
+  IBOutlet NSTabView *contentView;
+  
+  IJInventoryView *inventoryView;
+  IJInventoryView *quickView;
+  IJInventoryView *armorView;
+  
+  NSMutableArray *armorInventory;
+  NSMutableArray *quickInventory;
+  NSMutableArray *normalInventory;
+  
+  // Search/Item List
+  IBOutlet NSSearchField *itemSearchField;
+  IBOutlet NSTableView *itemTableView;
+  NSArray *allItemKeys;
+  NSArray *filteredItemKeys;
+  
+  // 
+  IJItemPropertiesViewController *propertiesViewController;
+  IBOutlet IJWorldCollectionController *worldCollectionController;
+  MAAttachedWindow *propertiesWindow;
+  id observerObject;
+  
+  // Document
+  int64_t sessionLockValue;
+  NSString *loadedWorldPath;
+  NSString *attemptedLoadWorldPath;
+  NSString *loadedPlayerName;
 }
 
 @property (nonatomic, assign) NSString *statusMessage;
