@@ -37,6 +37,7 @@
 	}
 	
 	[self reloadPresetList];
+  [presetTableView setTarget:self];
   [presetTableView setDoubleAction:@selector(presetTableViewDoubleClicked:)];
 }
 

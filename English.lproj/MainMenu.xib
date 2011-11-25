@@ -734,7 +734,6 @@
 							<string key="NSFrameSize">{650, 396}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="873321296"/>
 							<object class="NSMutableArray" key="NSTabViewItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSTabViewItem" id="521722746">
@@ -2535,7 +2534,6 @@
 							<string key="NSFrame">{{249, 3}, {96, 25}}</string>
 							<reference key="NSSuperview" ref="151770795"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="144367033">
 								<int key="NSCellFlags">67239424</int>
@@ -2641,7 +2639,6 @@
 							<string key="NSFrameSize">{280, 282}</string>
 							<reference key="NSSuperview" ref="894515316"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="905999405"/>
 							<string key="NSReuseIdentifierKey">_NS:461</string>
 							<object class="NSMutableArray" key="NSTabViewItems">
 								<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2706,7 +2703,6 @@
 																		</object>
 																		<int key="NSResizingMask">3</int>
 																		<bool key="NSIsResizeable">YES</bool>
-																		<bool key="NSIsEditable">YES</bool>
 																		<reference key="NSTableView" ref="500625135"/>
 																	</object>
 																	<object class="NSTableColumn" id="65306577">
@@ -2794,7 +2790,7 @@
 																<reference key="NSBackgroundColor" ref="665547368"/>
 																<reference key="NSGridColor" ref="369063364"/>
 																<double key="NSRowHeight">17</double>
-																<int key="NSTvFlags">373293056</int>
+																<int key="NSTvFlags">306184192</int>
 																<reference key="NSDelegate"/>
 																<reference key="NSDataSource"/>
 																<int key="NSColumnAutoresizingStyle">5</int>
