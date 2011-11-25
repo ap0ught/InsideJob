@@ -36,7 +36,7 @@ After changing your inventory you will need to save the currently open world usi
 #### 1.1 - November 23, 2011
 
 - Added Minecraft 1.0.0 Items
-- Revanped UI and icon.
+- Revamped UI and icon.
 - Show items with damage value in the items selector. (Logs,Wool,Dye,etc)
 
 #### 1.0.9 - September 24, 2011
