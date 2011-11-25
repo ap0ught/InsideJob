@@ -37,6 +37,7 @@
 	}
 	
 	[self reloadPresetList];
+  [presetTableView setDoubleAction:@selector(presetTableViewDoubleClicked:)];
 }
 
 
@@ -150,6 +151,16 @@
 {
   
 }
+
+- (void)presetTableViewDoubleClicked:(id)sender
+{  
+  NSString *presetPath = [[presetArray objectAtIndex:[presetTableView selectedRow]] objectForKey:@"Path"];
+	NSArray *newInventory = [NSKeyedUnarchiver unarchiveObjectWithFile:presetPath];
+	
+	[inventoryController clearInventory];
+	[inventoryController loadInventory:newInventory];
+}
+
 
 
 #pragma mark -

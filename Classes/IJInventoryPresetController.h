@@ -37,4 +37,6 @@
 
 - (void)reloadPresetList;
 
+- (void)presetTableViewDoubleClicked:(id)sender;
+
 @end

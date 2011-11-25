@@ -26,7 +26,6 @@
 @property (nonatomic, retain) NSString *worldPath;
 
 
-- (id)copyWithZone:(NSZone *)zone;
 - (void)setRepresentedObject:(id)object;
 
 @end

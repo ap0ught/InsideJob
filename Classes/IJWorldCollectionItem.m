@@ -18,21 +18,13 @@
 
 - (id)init
 {
-	self = [super init];
-	if (self != nil) {
+	if ((self = [super init])) {
 		worldName = [[NSString alloc] init];
 		worldMeta = [[NSString alloc] init];
 		worldIcon = [[NSImage alloc] init];
 		worldPath = [[NSString alloc] init];
 	}
 	return self;
-}
-
--(id)copyWithZone:(NSZone *)zone
-{
-	id result = [super copyWithZone:zone];
-	[NSBundle loadNibNamed:@"WorldCollectionItem" owner:result];
-	return result;
 }
 
 
