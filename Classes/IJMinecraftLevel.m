@@ -52,14 +52,16 @@
       
       // Enchantments
       NBTContainer *enchContainer = [dataTagContainer childNamed:@"ench"];
+      NSArray *enchData = [[NSArray alloc] init];
       if (enchContainer) {
         for (NSArray *tagItem in enchContainer.children) {
           NSNumber *enchId = [self containerWithName:@"id" inArray:tagItem].numberValue;
           NSNumber *enchLvl = [self containerWithName:@"lvl" inArray:tagItem].numberValue;
-          [invItem.dataTag setObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: enchId, enchLvl, nil]
-                                                                 forKeys:[NSArray arrayWithObjects: @"id", @"lvl", nil]]
-                              forKey:@"ench"];
+          enchData = [enchData arrayByAddingObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: enchId, enchLvl, nil]
+                                                                                       forKeys:[NSArray arrayWithObjects: @"id", @"lvl", nil]]];
         }
+        [invItem.dataTag setObject:enchData forKey:@"ench"];
+        //[enchData release];
       }
     }
 		[output addObject:invItem];
@@ -92,13 +94,18 @@
     if ([invItem.dataTag count] != 0) {
       NBTContainer *dataTagContainer = [NBTContainer compoundWithName:@"tag"];
       NBTContainer *enchListContainer = [NBTContainer listWithName:@"ench" type:NBTTypeCompound];
-      NSDictionary *itemEnchantment = [invItem.dataTag objectForKey:@"ench"];
+      NSArray *itemEnchantments = [invItem.dataTag objectForKey:@"ench"];
       
-      enchListContainer.children = [NSMutableArray arrayWithObject:[NSArray arrayWithObjects:
-                                    [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"id"]],
-                                    [NBTContainer containerWithName:@"lvl" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"lvl"]],
-                                    nil]];
+      NSMutableArray *enchData = [NSMutableArray array];
+      for (NSDictionary *itemEnchantment in itemEnchantments) {
+        [enchData addObject:[NSArray arrayWithObjects:
+                          [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"id"]],
+                          [NBTContainer containerWithName:@"lvl" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"lvl"]],
+                          nil]];
+      }
       
+      
+      enchListContainer.children = enchData;
       dataTagContainer.children = [NSMutableArray arrayWithObject:enchListContainer];
       listItems = [listItems arrayByAddingObject:dataTagContainer];
     }
