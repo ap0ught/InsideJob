@@ -40,7 +40,6 @@
 		AE7C605F132EEC6E0068F958 /* IJCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7C605E132EEC6E0068F958 /* IJCollectionView.m */; };
 		AE7C674513303B050068F958 /* IJInventoryPresetController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7C674413303B050068F958 /* IJInventoryPresetController.m */; };
 		AE7F2BD7132EA78700E62D3E /* IJWorldCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7F2BD6132EA78700E62D3E /* IJWorldCollectionController.m */; };
-		AEBD5F89147CB82400ADADD1 /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AEBD5F88147CB82400ADADD1 /* Notes.rtf */; };
 		AEE84E74132DD3710022DD50 /* KBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6B132DD3710022DD50 /* KBLabel.m */; };
 		AEE84E75132DD3710022DD50 /* KBScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6D132DD3710022DD50 /* KBScroller.m */; };
 		AEE84E76132DD3710022DD50 /* KBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6F132DD3710022DD50 /* KBScrollView.m */; };
@@ -406,7 +405,6 @@
 				AE7C5D8D132ECEC90068F958 /* World.png in Resources */,
 				AE671ED51339645A00A7CF50 /* World_Recent.png in Resources */,
 				4E009FA1146791D000F86E36 /* Enchanted_Overlay.png in Resources */,
-				AEBD5F89147CB82400ADADD1 /* Notes.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

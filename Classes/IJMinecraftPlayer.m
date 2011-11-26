@@ -97,12 +97,12 @@
 	[self childNamed:@"Health"].numberValue = number;
 }
 
-- (NSNumber *)hunger
+- (NSNumber *)foodLevel
 {
 	return [self childNamed:@"foodLevel"].numberValue;
 }
 
-- (void)setHunger:(NSNumber *)number
+- (void)setFoodLevel:(NSNumber *)number
 {
 	[self childNamed:@"foodLevel"].numberValue = number;
 }

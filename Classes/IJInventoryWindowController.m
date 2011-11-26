@@ -75,7 +75,6 @@
 	[itemTableView setTarget:self];
 	[itemTableView setDoubleAction:@selector(itemTableViewDoubleClicked:)];
   [toolbar setVisible:NO];
-  [editModeSelector setSelectedSegment:0];
 	[contentView selectTabViewItemAtIndex:2];
 }
 
@@ -87,8 +86,7 @@
 {
 	NSString *levelPath = [worldPath stringByExpandingTildeInPath];
 	
-	if ([self isDocumentEdited])
-	{
+	if ([self isDocumentEdited]) {
 		[attemptedLoadWorldPath release];
 		attemptedLoadWorldPath = [levelPath copy];
 		// Note: We use the didDismiss selector so that any subsequent alert sheets don't bugger up
@@ -97,24 +95,21 @@
 		return NO;
 	}
 	
-	if (![IJMinecraftLevel worldExistsAtPath:levelPath])
-	{
+	if (![IJMinecraftLevel worldExistsAtPath:levelPath]) {
 		NSBeginCriticalAlertSheet(@"Error loading world.", @"Dismiss", nil, nil, self.window, nil, nil, nil, nil, 
 															@"Inside Job was unable to locate the level.dat file.");
 		return NO;
 	}	
 	
 	sessionLockValue = [IJMinecraftLevel writeToSessionLockAtPath:levelPath];
-	if (![IJMinecraftLevel checkSessionLockAtPath:levelPath value:sessionLockValue])
-	{
+	if (![IJMinecraftLevel checkSessionLockAtPath:levelPath value:sessionLockValue]) {
 		NSBeginCriticalAlertSheet(@"Error loading world.", @"Dismiss", nil, nil, self.window, nil, nil, nil, nil, 
 															@"Inside Job was unable obtain the session lock.");
 		return NO;
 	}
 	
 	NSData *fileData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:[IJMinecraftLevel levelDataPathForWorld:levelPath]]];	
-	if (!fileData)
-	{
+	if (!fileData) {
 		// Error loading 
 		NSBeginCriticalAlertSheet(@"Error loading world.", @"Dismiss", nil, nil, self.window, nil, nil, nil, nil, 
 															@"InsideJob was unable to load the level.dat file at:/n%@", levelPath);
@@ -125,27 +120,37 @@
 	if ([self worldFolderContainsPath:levelPath]) {
 		[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:[NSURL fileURLWithPath:levelPath]];
 	}
-	
+  	
 	[self unloadWorld];
 	
   [self willChangeValueForKey:@"level"];
   [self willChangeValueForKey:@"player"];
 	
 	level = [[IJMinecraftLevel nbtContainerWithData:fileData] retain];
-  //player = [[IJMinecraftPlayer alloc] initWithContainer:[[level childNamed:@"Data"] childNamed:@"Player"]];
+  player = [[IJMinecraftPlayer alloc] initWithContainer:[[level childNamed:@"Data"] childNamed:@"Player"]];
 	inventory = [[level inventory] retain];
   	
   [self didChangeValueForKey:@"level"];
   [self didChangeValueForKey:@"player"];
-	
+
+  [level addObserver:self forKeyPath:@"worldName" options:0 context:@"KVO_WORLD_EDITED"];
+  [level addObserver:self forKeyPath:@"time" options:0 context:@"KVO_WORLD_EDITED"];
+  [level addObserver:self forKeyPath:@"gameMode" options:0 context:@"KVO_WORLD_EDITED"];
+  [level addObserver:self forKeyPath:@"spawnX" options:0 context:@"KVO_WORLD_EDITED"];
+  [level addObserver:self forKeyPath:@"spawnY" options:0 context:@"KVO_WORLD_EDITED"];
+  [level addObserver:self forKeyPath:@"spawnZ" options:0 context:@"KVO_WORLD_EDITED"];
+  
+  [player addObserver:self forKeyPath:@"xpLevel" options:0 context:@"KVO_WORLD_EDITED"];
+  [player addObserver:self forKeyPath:@"health" options:0 context:@"KVO_WORLD_EDITED"];
+  [player addObserver:self forKeyPath:@"foodLevel" options:0 context:@"KVO_WORLD_EDITED"];
+
 	// Overwrite the placeholders with actual inventory:
 	for (IJInventoryItem *item in inventory) {
 		// Add a KVO so that we can set the document as edited when the count or damage values are changed.
-		[item addObserver:self forKeyPath:@"count" options:0 context:@"KVO_COUNT_CHANGED"];
-		[item addObserver:self forKeyPath:@"damage" options:0 context:@"KVO_DAMAGE_CHANGED"];
+		[item addObserver:self forKeyPath:@"count" options:0 context:@"KVO_ITEM_CHANGED"];
+		[item addObserver:self forKeyPath:@"damage" options:0 context:@"KVO_ITEM_CHANGED"];
 		
-		if (IJInventorySlotQuickFirst <= item.slot && item.slot <= IJInventorySlotQuickLast)
-		{
+		if (IJInventorySlotQuickFirst <= item.slot && item.slot <= IJInventorySlotQuickLast) {
 			[quickInventory replaceObjectAtIndex:item.slot - IJInventorySlotQuickFirst withObject:item];
 		}
 		else if (IJInventorySlotNormalFirst <= item.slot && item.slot <= IJInventorySlotNormalLast) {
@@ -167,8 +172,7 @@
 	loadedWorldPath = [levelPath copy];
 	[self setStatusMessage:[NSString stringWithFormat:@"Loaded world: %@",[loadedWorldPath lastPathComponent]]];
   [toolbar setVisible:YES];
-  [editModeSelector setSelectedSegment:0];
-	[contentView selectTabViewItemAtIndex:0];
+	[contentView selectTabViewItemAtIndex:[editModeSelector selectedSegment]];
 	return YES;
 }
 
@@ -208,8 +212,6 @@
 	NSError *error = nil;
 	
 	// Remove a previously-created .insidejobbackup, if it exists:
-	
-	
 	if ([[NSFileManager defaultManager] fileExistsAtPath:backupPath]) {
 		success = [[NSFileManager defaultManager] removeItemAtPath:backupPath error:&error];
 		if (success != YES) {
@@ -264,8 +266,7 @@
 			[self saveWorld];
 			[self unloadWorld];
       [toolbar setVisible:NO];
-      [editModeSelector setSelectedSegment:0];
-			[contentView selectTabViewItemAtIndex:2];
+    			[contentView selectTabViewItemAtIndex:2];
 		}		
 	}
 	else if (returnCode == NSAlertAlternateReturn) // Don't save
@@ -277,8 +278,7 @@
 		else {
 			[self unloadWorld];
       [toolbar setVisible:NO];
-      [editModeSelector setSelectedSegment:0];
-			[contentView selectTabViewItemAtIndex:2];
+    			[contentView selectTabViewItemAtIndex:2];
 		}
 	}
 	
@@ -349,7 +349,6 @@
 	// Show world selector
 	[worldCollectionController reloadWorldData];
   [toolbar setVisible:NO];
-  [editModeSelector setSelectedSegment:0];
 	[contentView selectTabViewItemAtIndex:2];
 }
 
@@ -394,7 +393,6 @@
 		int result = wTime + (24000 - (wTime % 24000));
 		[level setTime:[NSNumber numberWithInt:result]];
 	}
-  [self setDocumentEdited:YES];
 }
 
 - (void)saveDocument:(id)sender
@@ -570,12 +568,12 @@
                         change:(NSDictionary *)change 
                        context:(void *)context;
 {
-	if(context == @"KVO_COUNT_CHANGED"){
+	if (context == @"KVO_ITEM_CHANGED") {
 		[self setDocumentEdited:YES];
 	}	
-	if(context == @"KVO_DAMAGE_CHANGED"){
-		[self setDocumentEdited:YES];
-	}	
+  if (context == @"KVO_WORLD_EDITED") {
+    [self setDocumentEdited:YES];
+  }
 }
 	
 
@@ -610,7 +608,19 @@
 {
 	[self clearInventory];
 	
+  [level removeObserver:self forKeyPath:@"worldName"];
+  [level removeObserver:self forKeyPath:@"time"];
+  [level removeObserver:self forKeyPath:@"gameMode"];
+  [level removeObserver:self forKeyPath:@"spawnX"];
+  [level removeObserver:self forKeyPath:@"spawnY"];
+  [level removeObserver:self forKeyPath:@"spawnZ"];
+  
+  [player removeObserver:self forKeyPath:@"xpLevel"];
+  [player removeObserver:self forKeyPath:@"health"];
+  [player removeObserver:self forKeyPath:@"foodLevel"];
+  
   [self willChangeValueForKey:@"level"];
+  [self willChangeValueForKey:@"player"];
 	
 	[level release];
 	level = nil;
@@ -625,6 +635,7 @@
 	[inventory release];
 	inventory = nil;
   [self didChangeValueForKey:@"level"];
+  [self didChangeValueForKey:@"player"];
 	
   [self setStatusMessage:@"No world loaded."];
 }
@@ -663,8 +674,8 @@
 	// Overwrite the placeholders with actual inventory:
 	for (IJInventoryItem *item in inventory) {
 		// Add a KVO so that we can set the document as edited when the count or damage values are changed.
-		[item addObserver:self forKeyPath:@"count" options:0 context:@"KVO_COUNT_CHANGED"];
-		[item addObserver:self forKeyPath:@"damage" options:0 context:@"KVO_DAMAGE_CHANGED"];
+		[item addObserver:self forKeyPath:@"count" options:0 context:@"KVO_ITEM_CHANGED"];
+		[item addObserver:self forKeyPath:@"damage" options:0 context:@"KVO_ITEM_CHANGED"];
 
 		if (IJInventorySlotQuickFirst <= item.slot && item.slot <= IJInventorySlotQuickLast) {
 			[quickInventory replaceObjectAtIndex:item.slot - IJInventorySlotQuickFirst withObject:item];

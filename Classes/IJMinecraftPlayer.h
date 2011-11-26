@@ -16,7 +16,7 @@
 @property (nonatomic, copy) NSArray *inventory; // Array of IJInventoryItem objects.
 @property (nonatomic, copy) NSNumber *xpLevel;
 @property (nonatomic, copy) NSNumber *health;
-@property (nonatomic, copy) NSNumber *hunger;
+@property (nonatomic, copy) NSNumber *foodLevel;
 
 
 - (id)initWithContainer:(NBTContainer *)cont;
