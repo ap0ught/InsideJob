@@ -33,6 +33,11 @@ After changing your inventory you will need to save the currently open world usi
 
 ### Release Notes
 
+#### 1.1.1 - November 26, 2011
+
+- Added editing of XP level, heath and food level.
+- Disabled debug logging of world file.
+
 #### 1.1 - November 23, 2011
 
 - Added Minecraft 1.0.0 Items

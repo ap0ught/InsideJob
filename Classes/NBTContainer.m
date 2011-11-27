@@ -12,7 +12,7 @@
 
 
 #ifndef NBT_LOGGING
-#define NBT_LOGGING 1
+#define NBT_LOGGING 0
 #endif
 
 #if NBT_LOGGING
