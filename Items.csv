@@ -1,306 +1,311 @@
-#ID,Name,Damage,Texture Coords
-1,Stone
-2,Grass
-3,Dirt
-4,Cobblestone
-5,Wood
+#ID,Name,Damage,Type
+1,Stone,0,Block
+2,Grass,0,Block
+3,Dirt,0,Block
+4,Cobblestone,0,Block
+5,Wood,0,Block
+
 #Saplings
-6,Sapling
-6,Birch Sapling,1
-6,Pine Sapling,2
-7,Bedrock
-8,Water
-9,Stationary Water
-10,Lava
-11,Stationary Lava
-12,Sand
-13,Gravel
-14,Gold Ore
-15,Iron Ore
-16,Coal Ore
+6,Sapling,0,Item
+6,Birch Sapling,1,Item
+6,Pine Sapling,2,Item
+
+7,Bedrock,0,Block
+8,Water,0,Block
+9,Stationary Water,0,Block
+10,Lava,0,Block
+11,Stationary Lava,0,Block
+12,Sand,0,Block
+13,Gravel,0,Block
+14,Gold Ore,0,Block
+15,Iron Ore,0,Block
+16,Coal Ore,0,Block
+
 #Log
-17,Pine Log,1
-17,Birch Log,2
-17,Log
-#Log End
-18,Leaves
-19,Sponge
-20,Glass
-21,Lapis Lazuli Ore
-22,Lapis Lazuli Block
-23,Dispenser
-24,Sandstone
-25,Note Block
-27,Powered Rail
-28,Detector Rail
-29,Sticky Piston
-30,Spiderweb
-33,Piston
+17,Pine Log,1,Block
+17,Birch Log,2,Block
+17,Log,0,Block
+
+18,Leaves,0,Block
+19,Sponge,0,Block
+20,Glass,0,Block
+21,Lapis Lazuli Ore,0,Block
+22,Lapis Lazuli Block,0,Block
+23,Dispenser,0,Block
+24,Sandstone,0,Block
+25,Note Block,0,Block
+27,Powered Rail,0,Item
+28,Detector Rail,0,Item
+29,Sticky Piston,0,Block
+30,Spiderweb,0,Block
+33,Piston,0,Block
+
 #Wool
-35,Orange Wool,1
-35,Magenta Wool,2
-35,Light Blue Wool,3
-35,Yellow Wool,4
-35,Lime Wool,5
-35,Pink Wool,6
-35,Gray Wool,7
-35,Light Gray Wool,8
-35,Cyan Wool,9
-35,Purple Wool,10
-35,Blue Wool,11
-35,Brown Wool,12
-35,Green Wool,13
-35,Red Wool,14
-35,Black Wool,15
-35,Wool
-#Wool End
-37,Yellow Flower
-38,Red Rose
-39,Brown Mushroom
-40,Red Mushroom
-41,Gold Block
-42,Iron Block
-43,Double Step
+35,Orange Wool,1,Block
+35,Magenta Wool,2,Block
+35,Light Blue Wool,3,Block
+35,Yellow Wool,4,Block
+35,Lime Wool,5,Block
+35,Pink Wool,6,Block
+35,Gray Wool,7,Block
+35,Light Gray Wool,8,Block
+35,Cyan Wool,9,Block
+35,Purple Wool,10,Block
+35,Blue Wool,11,Block
+35,Brown Wool,12,Block
+35,Green Wool,13,Block
+35,Red Wool,14,Block
+35,Black Wool,15,Block
+35,Wool,0,Block
+
+37,Yellow Flower,0,Item
+38,Red Rose,0,Item
+39,Brown Mushroom,0,Item
+40,Red Mushroom,0,Item
+41,Gold Block,0,Block
+42,Iron Block,0,Block
+43,Double Step,0,Block
+
 #Step
-44,Sandstone Step, 1
-44,Wooden Step, 2
-44,Cobblestone Step, 3
-44,Brick Step, 4
-44,Stone Brick Step, 5
-44,Step
-#Step End
-45,Brick
-46,TNT
-47,Bookcase
-48,Mossy Cobblestone
-49,Obsidian
-50,Torch
-51,Fire
-52,Mob Spawner
-53,Wooden Stairs
-54,Chest
-56,Diamond Ore
-57,Diamond Block
-58,Workbench
-#59,Crops
-60,Soil
-61,Furnace
-62,Burning Furnace
-#64,Wooden Door Block
-65,Ladder
-66,Minecart Rails
-67,Cobblestone Stairs
-69,Lever
-70,Stone Pressure Plate
-#71,Iron Door Block
-72,Wooden Pressure Plate
-73,Redstone Ore
-74,Glowing Redstone Ore
-75,Redstone Torch (Off)
-76,Redstone Torch
-77,Stone Button
-78,Snow
-79,Ice
-80,Snow Block
-81,Cactus
-82,Clay
-#83,Reed
-84,Jukebox
-85,Fence
-86,Pumpkin
-87,Netherrack
-88,Soul Sand
-89,Glowstone
-90,Portal
-91,Jack-O-Lantern
-92,Cake Block
-93,Redstone Repeater (Off)
-94,Redstone Repeater
-96,Trapdoor
-256,Iron Spade
-257,Iron Pickaxe
-258,Iron Axe
-259,Flint and Steel
-260,Apple
-261,Bow
-262,Arrow
-263,Coal
-264,Diamond
-265,Iron Ingot
-266,Gold Ingot
-267,Iron Sword
-268,Wooden Sword
-269,Wooden Spade
-270,Wooden Pickaxe
-271,Wooden Axe
-272,Stone Sword
-273,Stone Spade
-274,Stone Pickaxe
-275,Stone Axe
-276,Diamond Sword
-277,Diamond Spade
-278,Diamond Pickaxe
-279,Diamond Axe
-280,Stick
-281,Bowl
-282,Mushroom Soup
-283,Gold Sword
-284,Gold Spade
-285,Gold Pickaxe
-286,Gold Axe
-287,String
-288,Feather
-289,Gunpowder
-290,Wooden Hoe
-291,Stone Hoe
-292,Iron Hoe
-293,Diamond Hoe
-294,Gold Hoe
-295,Seeds
-296,Wheat
-297,Bread
-298,Leather Helmet
-299,Leather Chestplate
-300,Leather Pants
-301,Leather Boots
-302,Chainmail Helmet
-303,Chainmail Chestplate
-304,Chainmail Pants
-305,Chainmail Boots
-306,Iron Helmet
-307,Iron Chestplate
-308,Iron Pants
-309,Iron Boots
-310,Diamond Helmet
-311,Diamond Chestplate
-312,Diamond Pants
-313,Diamond Boots
-314,Gold Helmet
-315,Gold Chestplate
-316,Gold Pants
-317,Gold Boots
-318,Flint
-319,Porkchop
-320,Cooked Porkchop
-321,Paintings
-322,Golden Apple
-323,Sign
-324,Wooden Door
-325,Bucket
-326,Water Bucket
-327,Lava Bucket
-328,Mine Cart
-329,Saddle
-330,Iron Door
-331,Redstone
-332,Snowball
-333,Boat
-334,Leather
-335,Milk Bucket
-336,Clay Brick
-337,Clay Balls
-338,Sugar Cane
-339,Paper
-340,Book
-341,Slime Ball
-342,Storage Minecart
-343,Powered Minecart
-344,Egg
-345,Compass
-346,Fishing Rod
-347,Watch
-348,Glowstone Dust
-349,Raw Fish
-350,Cooked Fish
+44,Sandstone Step,1,Block
+44,Wooden Step,2,Block
+44,Cobblestone Step,3,Block
+44,Brick Step,4,Block
+44,Stone Brick Step,5,Block
+44,Step,0,Block
+
+45,Brick,0,Block
+46,TNT,0,Block
+47,Bookcase,0,Block
+48,Mossy Cobblestone,0,Block
+49,Obsidian,0,Block
+50,Torch,0,Item
+51,Fire,0,Item
+52,Mob Spawner,0,Block
+53,Wooden Stairs,0,Block
+54,Chest,0,Block
+56,Diamond Ore,0,Block
+57,Diamond Block,0,Block
+58,Workbench,0,Block
+#59,Crops,0,Block
+60,Soil,0,Block
+61,Furnace,0,Block
+62,Burning Furnace,0,Block
+#64,Wooden Door Block,0,Block
+65,Ladder,0,Item
+66,Minecart Rails,0,Item
+67,Cobblestone Stairs,0,Block
+69,Lever,0,Item
+70,Stone Pressure Plate,0,Block
+#71,Iron Door Block,0,Block
+72,Wooden Pressure Plate,0,Block
+73,Redstone Ore,0,Block
+74,Glowing Redstone Ore,0,Block
+75,Redstone Torch (Off),0,Item
+76,Redstone Torch,0,Item
+77,Stone Button,0,Item
+78,Snow,0,Block
+79,Ice,0,Block
+80,Snow Block,0,Block
+81,Cactus,0,Block
+82,Clay,0,Block
+#83,Reed,0,Block
+84,Jukebox,0,Block
+85,Fence,0,Block
+86,Pumpkin,0,Block
+87,Netherrack,0,Block
+88,Soul Sand,0,Block
+89,Glowstone,0,Block
+90,Portal,0,Block
+91,Jack-O-Lantern,0,Block
+#92,Cake Block,0,Block
+#93,Redstone Repeater (Off),0,Block
+#94,Redstone Repeater,0,Block
+96,Trapdoor,0,Block
+256,Iron Spade,0,Tool
+257,Iron Pickaxe,0,Tool
+258,Iron Axe,0,Tool
+259,Flint and Steel,0,Tool
+260,Apple,0,Food
+261,Bow,0,Weapon
+262,Arrow,0,Item
+263,Coal,0,Item
+264,Diamond,0,Item
+265,Iron Ingot,0,Item
+266,Gold Ingot,0,Item
+267,Iron Sword,0,Weapon
+268,Wooden Sword,0,Weapon
+269,Wooden Spade,0,Tool
+270,Wooden Pickaxe,0,Tool
+271,Wooden Axe,0,Tool
+272,Stone Sword,0,Weapon
+273,Stone Spade,0,Tool
+274,Stone Pickaxe,0,Tool
+275,Stone Axe,0,Tool
+276,Diamond Sword,0,Weapon
+277,Diamond Spade,0,Tool
+278,Diamond Pickaxe,0,Tool
+279,Diamond Axe,0,Tool
+280,Stick,0,Item
+281,Bowl,0,Item
+282,Mushroom Soup,0,Food
+283,Gold Sword,0,Weapon
+284,Gold Spade,0,Tool
+285,Gold Pickaxe,0,Tool
+286,Gold Axe,0,Tool
+287,String,0,Item
+288,Feather,0,Item
+289,Gunpowder,0,Item
+290,Wooden Hoe,0,Tool
+291,Stone Hoe,0,Tool
+292,Iron Hoe,0,Tool
+293,Diamond Hoe,0,Tool
+294,Gold Hoe,0,Tool
+295,Seeds,0,Item
+296,Wheat,0,Item
+297,Bread,0,Item
+298,Leather Helmet,0,Armor
+299,Leather Chestplate,0,Armor
+300,Leather Pants,0,Armor
+301,Leather Boots,0,Armor
+302,Chainmail Helmet,0,Armor
+303,Chainmail Chestplate,0,Armor
+304,Chainmail Pants,0,Armor
+305,Chainmail Boots,0,Armor
+306,Iron Helmet,0,Armor
+307,Iron Chestplate,0,Armor
+308,Iron Pants,0,Armor
+309,Iron Boots,0,Armor
+310,Diamond Helmet,0,Armor
+311,Diamond Chestplate,0,Armor
+312,Diamond Pants,0,Armor
+313,Diamond Boots,0,Armor
+314,Gold Helmet,0,Armor
+315,Gold Chestplate,0,Armor
+316,Gold Pants,0,Armor
+317,Gold Boots,0,Armor
+318,Flint,0,Item
+319,Porkchop,0,Food
+320,Cooked Porkchop,0,Food
+321,Paintings,0,Item
+322,Golden Apple,0,Food
+323,Sign,0,Item
+324,Wooden Door,0,Item
+325,Bucket,0,Item
+326,Water Bucket,0,Item
+327,Lava Bucket,0,Item
+328,Mine Cart,0,Item
+329,Saddle,0,Item
+330,Iron Door,0,Item
+331,Redstone,0,Item
+332,Snowball,0,Item
+333,Boat,0,Item
+334,Leather,0,Item
+335,Milk Bucket,0,Item
+336,Clay Brick,0,Item
+337,Clay Balls,0,Item
+338,Sugar Cane,0,Item
+339,Paper,0,Item
+340,Book,0,Item
+341,Slime Ball,0,Item
+342,Storage Minecart,0,Item
+343,Powered Minecart,0,Item
+344,Egg,0,Item
+345,Compass,0,Item
+346,Fishing Rod,0,Item
+347,Watch,0,Item
+348,Glowstone Dust,0,Item
+349,Raw Fish,0,Food
+350,Cooked Fish,0,Food
 
 #Dye
-351,Rose Red Dye,1
-351,Cactus Green  Dye,2
-351,Brown Dye,3
-351,Lapis Lazuli Dye,4
-351,Purple Dye,5
-351,Cyan Dye,6
-351,Light Gray Dye,7
-351,Gray Dye,8
-351,Pink Dye,9
-351,Lime Dye,10
-351,Dandelion Yellow Dye,11
-351,Light Blue Dye,12
-351,Magenta Dye,13
-351,Orange Dye,14
-351,Bone Meal,15
-351,Ink sack
+351,Rose Red Dye,1,Item
+351,Cactus Green  Dye,2,Item
+351,Brown Dye,3,Item
+351,Lapis Lazuli Dye,4,Item
+351,Purple Dye,5,Item
+351,Cyan Dye,6,Item
+351,Light Gray Dye,7,Item
+351,Gray Dye,8,Item
+351,Pink Dye,9,Item
+351,Lime Dye,10,Item
+351,Dandelion Yellow Dye,11,Item
+351,Light Blue Dye,12,Item
+351,Magenta Dye,13,Item
+351,Orange Dye,14,Item
+351,Bone Meal,15,Item
+351,Ink sack,0,Item
 
-352,Bone
-353,Sugar
-354,Cake
-355,Bed
-356,Redstone Repeater
-357,Cookie
-358,Map
-359,Shears
+352,Bone,0,Item
+353,Sugar,0,Item
+354,Cake,0,Food
+355,Bed,0,Item
+356,Redstone Repeater,0,Item
+357,Cookie,0,Food
+358,Map,0,Item
+359,Shears,0,Item
 
 #Records
-2256,13 Record
-2257,Cat Record
-2258,Blocks Record
-2259,Chirp Record
-2260,Far Record
-2261,Mall Record
-2262,Mellohi Record
-2263,Stal Record
-2264,Strad Record
-2265,Ward Record
-2266,11 Record
+2256,13 Record,0,Item
+2257,Cat Record,0,Item
+2258,Blocks Record,0,Item
+2259,Chirp Record,0,Item
+2260,Far Record,0,Item
+2261,Mall Record,0,Item
+2262,Mellohi Record,0,Item
+2263,Stal Record,0,Item
+2264,Strad Record,0,Item
+2265,Ward Record,0,Item
+2266,11 Record,0,Item
 
 #1.8
-31,Tall Grass,1
-32,Dead Shrub
-97,Silverfish Stone
-98,Stone Brick
-#99,Huge Brown Mushroom
-#100,Huge Red Mushroom
-101,Iron Bars
-102,Glass Pane
-103,Water Melon
+31,Tall Grass,1,Item
+32,Dead Shrub,0,Item
+97,Silverfish Stone,0,Block
+98,Stone Brick,0,Block
+#99,Huge Brown Mushroom,0,Block
+#100,Huge Red Mushroom,0,Block
+101,Iron Bars,0,Block
+102,Glass Pane,0,Block
+103,Water Melon,0,Block
 #104,Pumpkin Stem
 #105,Melon Stem
-106,Vines
-107,Fence Gate
-108,Brick Stairs
-109,Stone Brick Stairs
-360,Water Melon Slice
-361,Pumpkin Seeds
-362,Melon Seeds
-363,Raw Beef
-364,Steak
-365,Raw Chicken
-366,Cooked Chicken
-367,Zombie Flesh
-368,Ender Pearl
+106,Vines,0,Block
+107,Fence Gate,0,Block
+108,Brick Stairs,0,Block
+109,Stone Brick Stairs,0,Block
+360,Water Melon Slice,0,Food
+361,Pumpkin Seeds,0,Item
+362,Melon Seeds,0,Item
+363,Raw Beef,0,Food
+364,Steak,0,Food
+365,Raw Chicken,0,Food
+366,Cooked Chicken,0,Food
+367,Zombie Flesh,0,Food
+368,Ender Pearl,0,Item
 
 #1.9
-110,Mycelium
-111,Lily Pad
-112,Nether Brick
-113,Nether Brick Fence
-114,Nether Brick Stairs
-#115,Nether Wart
-116,Enchantment Table
-#119,End Portal
-#120,End Portal Frame
-#121,End Stone
-369,Blaze Rod
-370,Ghast Tear
-371,Gold Nugget
-372,Nether Wart
-373,Potion
-374,Glass Bottle
-375,Spider Eye
-376,Fermented Spider Eye
-377,Blaze Powder
-378,Magma Cream
-379,Brewing Stand
-380,Cauldron
-381,Eye of Ender
-382,Glistering Melon
+110,Mycelium,0,Block
+111,Lily Pad,0,Block
+112,Nether Brick,0,Block
+113,Nether Brick Fence,0,Block
+114,Nether Brick Stairs,0,Block
+#115,Nether Wart,0,Block
+116,Enchantment Table,0,Block
+#119,End Portal,0,Block
+#120,End Portal Frame,0,Block
+#121,End Stone,0,Block
+369,Blaze Rod,0,Item
+370,Ghast Tear,0,Item
+371,Gold Nugget,0,Item
+372,Nether Wart,0,Item
+373,Potion,0,Item
+374,Glass Bottle,0,Item
+375,Spider Eye,0,Item
+376,Fermented Spider Eye,0,Item
+377,Blaze Powder,0,Item
+378,Magma Cream,0,Item
+379,Brewing Stand,0,Item
+380,Cauldron,0,Item
+381,Eye of Ender,0,Item
+382,Glistering Melon,0,Food

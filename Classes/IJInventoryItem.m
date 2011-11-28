@@ -235,9 +235,10 @@
         itemDamage = [NSNumber numberWithShort:[[components objectAtIndex:2] intValue]];
       }
       NSString *itemName = [components objectAtIndex:1];
+      NSString *itemType = [components objectAtIndex:3];
       
-      NSArray *objects = [NSArray arrayWithObjects:itemId, itemName, itemDamage, nil];
-      NSArray *keys = [NSArray arrayWithObjects:@"ID", @"Name", @"Damage",nil];
+      NSArray *objects = [NSArray arrayWithObjects:itemId, itemName, itemDamage, itemType, nil];
+      NSArray *keys = [NSArray arrayWithObjects:@"ID", @"Name", @"Damage", @"Type",nil];
       NSDictionary *itemData = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
       
       NSString *itemKey = [NSString stringWithFormat:@"%@:%@",itemId,itemDamage];

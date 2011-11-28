@@ -514,7 +514,7 @@
 		// The window may not be invisible at this point,
 		[propertiesWindow setAlphaValue:0.0];
 		[propertiesViewController setItem:nil];
-		return; // can't show info on nothing
+		return; // can't show info for anything
 	}
 	
 	if (!propertiesViewController) {
@@ -753,9 +753,9 @@
 
 - (IBAction)updateItemSearchFilter:(id)sender
 {
-	NSString *filterString = [sender stringValue];
+	NSString *filterString = [[sender stringValue] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	
-	if (filterString.length == 0) {
+	if (filterString.length == 0 || [filterString isEqualToString:@"~"]) {
 		[filteredItemKeys autorelease];
 		filteredItemKeys = [allItemKeys retain];
 		[itemTableView reloadData];
@@ -767,9 +767,28 @@
 	for (NSString *itemKey in allItemKeys) {
 		NSDictionary *itemData = [[IJInventoryItem itemIdLookup] objectForKey:itemKey];
 		NSString *name = [itemData objectForKey:@"Name"];
+    NSString *type = [itemData objectForKey:@"Type"];
     short itemId = [[itemData objectForKey:@"ID"] shortValue];
+    
+    // Keyword filtering
+    if ([filterString hasPrefix:@"~"]) {
+      NSString *keyword = [[[filterString componentsSeparatedByString:@" "] objectAtIndex:0] substringFromIndex:1];
+      NSRange keyRange = [type rangeOfString:keyword options:NSCaseInsensitiveSearch|NSAnchoredSearch];
+      
+      // Keyword has search term after it
+      NSRange nameRange = NSMakeRange(0, 0);
+      if (filterString.length > keyword.length+1) {
+        NSString *filterString2 = [filterString substringFromIndex:keyword.length+2];
+        nameRange = [name rangeOfString:filterString2 options:NSCaseInsensitiveSearch];
+      }
+
+      if (keyRange.location != NSNotFound && nameRange.location != NSNotFound) {
+        [results addObject:itemKey];
+        continue;
+      }
+    }
+    
 		NSRange range = [name rangeOfString:filterString options:NSCaseInsensitiveSearch];
-		
 		if (range.location != NSNotFound) {
 			[results addObject:itemKey];
 			continue;
