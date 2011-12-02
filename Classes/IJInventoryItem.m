@@ -93,7 +93,7 @@
   int index = 0;
   
   // Blocks
-  if ((itemId <= 25 || (itemId >= 27 && itemId <= 33) || (itemId >= 35 && itemId <= 116 && itemId != 115) || (itemId == 96)) &&
+  if ((itemId <= 25 || (itemId >= 27 && itemId <= 33) || (itemId >= 35 && itemId <= 116 && itemId != 115) || (itemId == 96) || (itemId == 122)) &&
       (itemId != 36 || itemId != 95))
   {
     if (itemId <= 5) {
@@ -128,7 +128,7 @@
         damage = 0;
       index = itemId + 24 + damage;
     }
-    else if (itemId <= 116) {
+    else if (itemId <= 122) {
       index = itemId + 36;
     }
     
