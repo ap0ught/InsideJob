@@ -73,11 +73,11 @@
   
   NSString *name = [itemData objectForKey:@"Name"];
   if (name) {
-    name = [name stringByAppendingString:[NSString stringWithFormat:@" (%d)", self.itemId]];
+    name = [name stringByAppendingString:[NSString stringWithFormat:@" (%hi)", self.itemId]];
     return name;
   }
   else
-    return [NSString stringWithFormat:@"%d", self.itemId];
+    return [NSString stringWithFormat:@"%hi", self.itemId];
 }
 
 + (NSImage *)imageForItemId:(uint16_t)itemId withDamage:(uint16_t)damage

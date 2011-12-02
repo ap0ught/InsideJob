@@ -15,7 +15,7 @@
 
 - (IBAction)closeButton:(id)sender
 {
-	[self.view.window.parentWindow makeKeyWindow];
+	[self.view.window orderOut:self];
 	[self commitEditing];
 	[self setItem:nil]; // Hack to prevent this item as coming up as 'lastItem' if they click again.
 }

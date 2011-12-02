@@ -139,6 +139,7 @@
   [level addObserver:self forKeyPath:@"spawnX" options:0 context:@"KVO_WORLD_EDITED"];
   [level addObserver:self forKeyPath:@"spawnY" options:0 context:@"KVO_WORLD_EDITED"];
   [level addObserver:self forKeyPath:@"spawnZ" options:0 context:@"KVO_WORLD_EDITED"];
+  [level addObserver:self forKeyPath:@"weather" options:0 context:@"KVO_WORLD_EDITED"];
   
   [player addObserver:self forKeyPath:@"xpLevel" options:0 context:@"KVO_WORLD_EDITED"];
   [player addObserver:self forKeyPath:@"health" options:0 context:@"KVO_WORLD_EDITED"];
@@ -526,7 +527,7 @@
 														   onSide:MAPositionRight
 													   atDistance:0];
 		[propertiesWindow setBackgroundColor:[NSColor windowBackgroundColor]];
-    [propertiesWindow setBorderColor:[NSColor whiteColor]];
+    [propertiesWindow setBorderColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.6]];
     [propertiesWindow setBorderWidth:1];
 		[propertiesWindow setViewMargin:4.0];
 		[propertiesWindow setAlphaValue:0.99];
@@ -614,6 +615,7 @@
   [level removeObserver:self forKeyPath:@"spawnX"];
   [level removeObserver:self forKeyPath:@"spawnY"];
   [level removeObserver:self forKeyPath:@"spawnZ"];
+  [level removeObserver:self forKeyPath:@"weather"];
   
   [player removeObserver:self forKeyPath:@"xpLevel"];
   [player removeObserver:self forKeyPath:@"health"];

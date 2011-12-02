@@ -193,6 +193,17 @@
   }
 }
 
+- (BOOL)weather
+{
+  int raining = [[[self childNamed:@"Data"] childNamed:@"raining"].numberValue unsignedIntValue];
+  
+  return (raining?YES:NO);
+}
+
+- (void)setWeather:(BOOL)flag
+{
+  [[self childNamed:@"Data"] childNamed:@"raining"].numberValue = [NSNumber numberWithInt:(flag?1:0)];
+}
 
 #pragma mark -
 #pragma mark Helpers

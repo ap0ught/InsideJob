@@ -32,6 +32,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AE073EE41482F56E00F1576F /* Weather.png in Resources */ = {isa = PBXBuildFile; fileRef = AE073EE31482F56E00F1576F /* Weather.png */; };
 		AE22BBD113305197007E4D62 /* BWSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE22BBD013305197007E4D62 /* BWSheetController.m */; };
 		AE671ED51339645A00A7CF50 /* World_Recent.png in Resources */ = {isa = PBXBuildFile; fileRef = AE671ED41339645A00A7CF50 /* World_Recent.png */; };
 		AE7C5D66132ECB8D0068F958 /* WorldCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE7C5D64132ECB8D0068F958 /* WorldCollectionItem.xib */; };
@@ -48,6 +49,10 @@
 		AEE84E83132DD38F0022DD50 /* KBSTextFieldCF.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE84E7D132DD38F0022DD50 /* KBSTextFieldCF.png */; };
 		AEE84E85132DD38F0022DD50 /* KBSTextFieldLC.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE84E7F132DD38F0022DD50 /* KBSTextFieldLC.png */; };
 		AEE84E87132DD38F0022DD50 /* KBSTextFieldRC.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE84E81132DD38F0022DD50 /* KBSTextFieldRC.png */; };
+		AEE9F34D1481FD1F002AA959 /* KBTextFieldCFD.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE9F34A1481FD1F002AA959 /* KBTextFieldCFD.png */; };
+		AEE9F34E1481FD1F002AA959 /* KBTextFieldLCD.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE9F34B1481FD1F002AA959 /* KBTextFieldLCD.png */; };
+		AEE9F34F1481FD1F002AA959 /* KBTextFieldRCD.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE9F34C1481FD1F002AA959 /* KBTextFieldRCD.png */; };
+		AEE9F35214820790002AA959 /* Enchantments.csv in Resources */ = {isa = PBXBuildFile; fileRef = AEE9F35114820790002AA959 /* Enchantments.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +100,7 @@
 		66BCFE61125FCEC6005A23F4 /* DataValuesV110Transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DataValuesV110Transparent.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InsideJob-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InsideJob-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Inside Job.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Inside Job.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE073EE31482F56E00F1576F /* Weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Weather.png; sourceTree = "<group>"; };
 		AE22BBCF13305197007E4D62 /* BWSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSheetController.h; sourceTree = "<group>"; };
 		AE22BBD013305197007E4D62 /* BWSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSheetController.m; sourceTree = "<group>"; };
 		AE671ED41339645A00A7CF50 /* World_Recent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = World_Recent.png; sourceTree = "<group>"; };
@@ -122,6 +128,10 @@
 		AEE84E7D132DD38F0022DD50 /* KBSTextFieldCF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBSTextFieldCF.png; sourceTree = "<group>"; };
 		AEE84E7F132DD38F0022DD50 /* KBSTextFieldLC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBSTextFieldLC.png; sourceTree = "<group>"; };
 		AEE84E81132DD38F0022DD50 /* KBSTextFieldRC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBSTextFieldRC.png; sourceTree = "<group>"; };
+		AEE9F34A1481FD1F002AA959 /* KBTextFieldCFD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBTextFieldCFD.png; sourceTree = "<group>"; };
+		AEE9F34B1481FD1F002AA959 /* KBTextFieldLCD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBTextFieldLCD.png; sourceTree = "<group>"; };
+		AEE9F34C1481FD1F002AA959 /* KBTextFieldRCD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBTextFieldRCD.png; sourceTree = "<group>"; };
+		AEE9F35114820790002AA959 /* Enchantments.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Enchantments.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +222,7 @@
 				66BC077212628257005A23F4 /* ItemPropertiesView.xib */,
 				AE7C5D64132ECB8D0068F958 /* WorldCollectionItem.xib */,
 				668B28D8125E370A0060BF71 /* Items.csv */,
+				AEE9F35114820790002AA959 /* Enchantments.csv */,
 				66BCFC2A125E9A51005A23F4 /* Credits.rtf */,
 				AEBD5F88147CB82400ADADD1 /* Notes.rtf */,
 			);
@@ -290,6 +301,7 @@
 		66BC07711262823E005A23F4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AE073EE31482F56E00F1576F /* Weather.png */,
 				AE671ED41339645A00A7CF50 /* World_Recent.png */,
 				AE7C5D8C132ECEC90068F958 /* World.png */,
 				AEE84E7C132DD38F0022DD50 /* Safari TextField */,
@@ -332,6 +344,9 @@
 				AEE84E7D132DD38F0022DD50 /* KBSTextFieldCF.png */,
 				AEE84E7F132DD38F0022DD50 /* KBSTextFieldLC.png */,
 				AEE84E81132DD38F0022DD50 /* KBSTextFieldRC.png */,
+				AEE9F34A1481FD1F002AA959 /* KBTextFieldCFD.png */,
+				AEE9F34B1481FD1F002AA959 /* KBTextFieldLCD.png */,
+				AEE9F34C1481FD1F002AA959 /* KBTextFieldRCD.png */,
 			);
 			path = "Safari TextField";
 			sourceTree = "<group>";
@@ -405,6 +420,11 @@
 				AE7C5D8D132ECEC90068F958 /* World.png in Resources */,
 				AE671ED51339645A00A7CF50 /* World_Recent.png in Resources */,
 				4E009FA1146791D000F86E36 /* Enchanted_Overlay.png in Resources */,
+				AEE9F34D1481FD1F002AA959 /* KBTextFieldCFD.png in Resources */,
+				AEE9F34E1481FD1F002AA959 /* KBTextFieldLCD.png in Resources */,
+				AEE9F34F1481FD1F002AA959 /* KBTextFieldRCD.png in Resources */,
+				AEE9F35214820790002AA959 /* Enchantments.csv in Resources */,
+				AE073EE41482F56E00F1576F /* Weather.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
