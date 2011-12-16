@@ -36,6 +36,7 @@
 + (id)emptyItemWithSlot:(uint8_t)slot;
 
 + (NSDictionary *)itemIdLookup;
++ (NSDictionary *)enchantmentLookup;
 
 + (NSImage *)imageForItemId:(uint16_t)itemId withDamage:(uint16_t)damage;
 

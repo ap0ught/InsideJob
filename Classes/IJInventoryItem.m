@@ -249,4 +249,38 @@
   return lookup;
 }
 
++ (NSDictionary *)enchantmentLookup
+{
+  static NSDictionary *lookup = nil;
+  if (!lookup)
+  {
+    NSError *error = nil;
+    NSString *lines = [NSString stringWithContentsOfURL:[[NSBundle mainBundle] URLForResource:@"Enchantments" withExtension:@"csv"]
+                                               encoding:NSUTF8StringEncoding
+                                                  error:&error];
+    NSMutableDictionary *building = [NSMutableDictionary dictionary];
+    [lines enumerateLinesUsingBlock:^(NSString *line, BOOL *stop) {
+      if ([line hasPrefix:@"#"] || [line length] == 0) // ignore lines with a # prefix or empty ones
+        return;
+      NSArray *components = [line componentsSeparatedByString:@","];
+      if ([components count] == 0)
+        return;
+      NSNumber *enchID = [NSNumber numberWithShort:[[components objectAtIndex:0] intValue]];
+      
+      NSString *enchName = [components objectAtIndex:1];
+      NSNumber *enchMax = [NSNumber numberWithShort:[[components objectAtIndex:2] intValue]];
+      NSString *enchType = [components objectAtIndex:2];
+      
+      NSArray *objects = [NSArray arrayWithObjects:enchID, enchName, enchMax, enchType, nil];
+      NSArray *keys = [NSArray arrayWithObjects:@"ID", @"Name", @"Max", @"Type",nil];
+      NSDictionary *itemData = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+      
+      [building setObject:itemData forKey:enchID];
+    }];
+    lookup = [[NSDictionary alloc] initWithDictionary:building];
+  }
+  return lookup;
+}
+
+
 @end
