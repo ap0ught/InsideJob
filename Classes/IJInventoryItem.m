@@ -80,6 +80,12 @@
     return [NSString stringWithFormat:@"%hi", self.itemId];
 }
 
++ (NSString *)enchantmentNameForId:(NSNumber *)aId
+{
+  NSDictionary *enchantment = [[IJInventoryItem enchantmentLookup] objectForKey:aId];
+  return [enchantment objectForKey:@"Name"];
+}
+
 + (NSImage *)imageForItemId:(uint16_t)itemId withDamage:(uint16_t)damage
 {
   NSSize itemImageSize = NSMakeSize(32, 32);
@@ -135,7 +141,7 @@
     atlasOffset = NSMakePoint(36, 75);
   }
   // Items
-  else if (itemId >= 256 && itemId <= 382)
+  else if (itemId >= 256 && itemId <= 383)
   {
     index = itemId - 256;
     if (itemId >= 352 && itemId <= 382)
@@ -145,12 +151,39 @@
         damage = 0;
       index = itemId - 256 + damage;
     }
+    if (itemId == 383) {
+      int offset = 0;
+      if (damage == 50) offset = 3;
+      if (damage == 51) offset = 2;
+      if (damage == 52) offset = 6;
+      if (damage == 54) offset = 5;
+      if (damage == 55) offset = 4;
+      
+      if (damage == 56) offset = 14;
+      if (damage == 57) offset = 12;
+      if (damage == 58) offset = 10;
+      if (damage == 59) offset = 8;
+      if (damage == 60) offset = 19;
+      if (damage == 61) offset = 17;
+      if (damage == 62) offset = 15;
+      if (damage == 90) offset = 20;
+      if (damage == 91) offset = 16;
+      if (damage == 92) offset = 9;
+      if (damage == 93) offset = 7;
+      if (damage == 94) offset = 13;
+      if (damage == 95) offset = 11;
+      if (damage == 96) offset = 1;
+      if (damage == 120) offset = 18;
+      
+      index = itemId - 241 + offset;
+    }
     
     atlasOffset = NSMakePoint(445, 75);
   }
+  // Records
   else if (itemId >= 2256 && itemId <= 2266 )
   {
-    index = itemId - 2222;
+    index = itemId - 2204;
     atlasOffset = NSMakePoint(445, pixelsPerRow*14+18);
   }
   else
@@ -192,19 +225,18 @@
 - (NSImage *)image
 {
   NSImage *itemImage = [IJInventoryItem imageForItemId:itemId withDamage:damage];  
-  NSImage *overlayImage = [NSImage imageNamed:@"Enchanted_Overlay"];
   
   // Is the item enchanted or does it have a special data value?
   // ex: golden apples, bottles with damage over 1
-  if ([self.dataTag objectForKey:@"ench"] || self.itemId == 322 || (self.itemId == 373 && self.damage >= 1))
-  {
+  if ([self.dataTag objectForKey:@"ench"] || self.itemId == 322 || (self.itemId == 373 && self.damage >= 1)) {
     NSImage *tempImage = [itemImage copy];
-    [tempImage lockFocus];
-    [overlayImage drawInRect:NSMakeRect(0, 0, itemImage.size.width, itemImage.size.height) fromRect:NSZeroRect operation:NSCompositeSourceIn fraction:1.0];
+    [tempImage lockFocus];    
+    [[NSColor purpleColor] set];
+    NSRectFillUsingOperation(NSMakeRect(0, 0, itemImage.size.width, itemImage.size.height), NSCompositeSourceIn);
     [tempImage unlockFocus];
     
     [itemImage lockFocus];
-    [tempImage drawInRect:NSMakeRect(0, 0, itemImage.size.width, itemImage.size.height) fromRect:NSZeroRect operation:NSCompositePlusLighter fraction:0.8];
+    [tempImage drawInRect:NSMakeRect(0, 0, itemImage.size.width, itemImage.size.height) fromRect:NSZeroRect operation:NSCompositePlusLighter fraction:0.7];
     [itemImage unlockFocus];
     [tempImage release];
   }

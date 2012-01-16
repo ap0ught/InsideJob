@@ -258,7 +258,7 @@
 2265,Ward Record,0,Item
 2266,11 Record,0,Item
 
-#1.8
+#1.8 Beta
 31,Tall Grass,1,Item
 32,Dead Shrub,0,Item
 97,Silverfish Stone,0,Block
@@ -284,7 +284,7 @@
 367,Zombie Flesh,0,Food
 368,Ender Pearl,0,Item
 
-#1.9
+#1.9 Beta
 110,Mycelium,0,Block
 111,Lily Pad,0,Block
 112,Nether Brick,0,Block
@@ -310,3 +310,30 @@
 380,Cauldron,0,Item
 381,Eye of Ender,0,Item
 382,Glistering Melon,0,Item
+
+#1.1
+383,Creeper Egg,50,Item
+383,Skeleton Egg,51,Item
+383,Spider Egg,52,Item
+383,Giant Egg,53,Item
+383,Zombie Egg,54,Item
+383,Slime Egg,55,Item
+383,Ghast Egg,56,Item
+383,Zombie Pigman Egg,57,Item
+383,Enderman Egg,58,Item
+383,Cave Spider Egg,59,Item
+383,Silverfish Egg,60,Item
+383,Blaze Egg,61,Item
+383,Magma Cube Egg,62,Item
+383,Enderdragon Egg,63,Item
+383,Pig Egg,90,Item
+383,Sheep Egg,91,Item
+383,Cow Egg,92,Item
+383,Chicken Egg,93,Item
+383,Squid Egg,94,Item
+383,Wolf Egg,95,Item
+383,Mooshroom Egg,96,Item
+383,Snow Golem,97,Item
+383,Villager Egg,120,Item
+383,Ender Crystal,200,Item
+

@@ -19,7 +19,7 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
-	BOOL shouldClose = [inventoryWindowController windowShouldClose:nil];
+	BOOL shouldClose = [inventoryWindowController windowShouldClose:inventoryWindowController.window];
 	if (shouldClose)
 		return NSTerminateNow;
 	else

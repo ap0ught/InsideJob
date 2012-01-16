@@ -37,6 +37,7 @@
 
 + (NSDictionary *)itemIdLookup;
 + (NSDictionary *)enchantmentLookup;
++ (NSString *)enchantmentNameForId:(NSNumber *)aId;
 
 + (NSImage *)imageForItemId:(uint16_t)itemId withDamage:(uint16_t)damage;
 
