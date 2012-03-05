@@ -11,7 +11,6 @@
 #import "IJMinecraftPlayer.h"
 #import "IJInventoryItem.h"
 #import "IJInventoryView.h"
-#import "IJItemPropertiesViewController.h"
 #import "IJWorldCollectionController.h"
 #import "MAAttachedWindow.h"
 #import "BWSheetController.h"
@@ -77,6 +76,7 @@
 	[itemTableView setDoubleAction:@selector(itemTableViewDoubleClicked:)];
   [toolbar setVisible:NO];
 	[contentView selectTabViewItemAtIndex:2];
+  [self.window makeKeyAndOrderFront:self];
 }
 
 - (void)dealloc
@@ -366,11 +366,7 @@
 
 - (IBAction)showWorldSelector:(id)sender
 {
-  if (propertiesWindow) {
-    [propertiesWindow orderOut:nil];
-  }
-  
-	if ([self isDocumentEdited]) {
+  if ([self isDocumentEdited]) {
 		// Note: We use the didDismiss selector so that any subsequent alert sheets don't bugger up
 		NSBeginAlertSheet(@"Do you want to save the changes you made in this world?", @"Save", @"Don't Save", @"Cancel", self.window, self, nil, @selector(dirtyOpenSheetDidEnd:returnCode:contextInfo:), @"Select", 
 																	 @"Your changes will be lost if you do not save them.");

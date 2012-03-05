@@ -49,7 +49,6 @@
   // 
   IJItemPropertiesViewController *propertiesViewController;
   IBOutlet IJWorldCollectionController *worldCollectionController;
-  MAAttachedWindow *propertiesWindow;
   id observerObject;
   
   // Document

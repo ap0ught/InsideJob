@@ -8,7 +8,6 @@
 
 #import "IJInspectorWindowController.h"
 #import "IJInventoryWindowController.h"
-#import "IJItemPropertiesViewController.h"
 #import "IJInventoryItem.h"
 #import "BWSheetController.h"
 
@@ -49,7 +48,7 @@
   [presetTableView setDoubleAction:@selector(presetTableViewDoubleClicked:)];
   
   [inventoryController addObserver:self forKeyPath:@"selectedItem" options:0 context:@"KVO_ITEM_CHANGED"];
-
+  [self.window orderFront:self];
 }
 
 - (void)dealloc

@@ -22,9 +22,7 @@
 		66BC00031260215C005A23F4 /* IJInventoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC00021260215C005A23F4 /* IJInventoryView.m */; };
 		66BC000E12602359005A23F4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66BC000D12602359005A23F4 /* QuartzCore.framework */; };
 		66BC033B1260CC59005A23F4 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC033A1260CC59005A23F4 /* MAAttachedWindow.m */; };
-		66BC03621260D095005A23F4 /* IJItemPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC03611260D095005A23F4 /* IJItemPropertiesViewController.m */; };
 		66BC04F812619072005A23F4 /* NSColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC04F712619072005A23F4 /* NSColor+Additions.m */; };
-		66BC077312628257005A23F4 /* ItemPropertiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BC077212628257005A23F4 /* ItemPropertiesView.xib */; };
 		66BCFC2B125E9A51005A23F4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 66BCFC2A125E9A51005A23F4 /* Credits.rtf */; };
 		66BCFC36125EA53E005A23F4 /* InsideJob.icns in Resources */ = {isa = PBXBuildFile; fileRef = 66BCFC35125EA53E005A23F4 /* InsideJob.icns */; };
 		66BCFE62125FCEC6005A23F4 /* DataValuesV110Transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 66BCFE61125FCEC6005A23F4 /* DataValuesV110Transparent.png */; };
@@ -90,9 +88,6 @@
 		66BC000D12602359005A23F4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		66BC03391260CC59005A23F4 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
 		66BC033A1260CC59005A23F4 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
-		66BC03601260D095005A23F4 /* IJItemPropertiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJItemPropertiesViewController.h; sourceTree = "<group>"; };
-		66BC03611260D095005A23F4 /* IJItemPropertiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJItemPropertiesViewController.m; sourceTree = "<group>"; };
-		66BC03631260D0B3005A23F4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ItemPropertiesView.xib; sourceTree = "<group>"; };
 		66BC04F612619072005A23F4 /* NSColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+Additions.h"; sourceTree = "<group>"; };
 		66BC04F712619072005A23F4 /* NSColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+Additions.m"; sourceTree = "<group>"; };
 		66BCFC2A125E9A51005A23F4 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -112,7 +107,7 @@
 		AE7C5D8C132ECEC90068F958 /* World.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = World.png; sourceTree = "<group>"; };
 		AE7C605D132EEC6E0068F958 /* IJCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJCollectionView.h; sourceTree = "<group>"; };
 		AE7C605E132EEC6E0068F958 /* IJCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJCollectionView.m; sourceTree = "<group>"; };
-		AE7C674313303B050068F958 /* IJInspectorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = IJInspectorWindowController.h; sourceTree = "<group>"; };
+		AE7C674313303B050068F958 /* IJInspectorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJInspectorWindowController.h; sourceTree = "<group>"; };
 		AE7C674413303B050068F958 /* IJInspectorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJInspectorWindowController.m; sourceTree = "<group>"; };
 		AE7F2BD5132EA78700E62D3E /* IJWorldCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJWorldCollectionController.h; sourceTree = "<group>"; };
 		AE7F2BD6132EA78700E62D3E /* IJWorldCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJWorldCollectionController.m; sourceTree = "<group>"; };
@@ -221,7 +216,6 @@
 				8D1107310486CEB800E47090 /* InsideJob-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				66BC077212628257005A23F4 /* ItemPropertiesView.xib */,
 				AE7C5D64132ECB8D0068F958 /* WorldCollectionItem.xib */,
 				668B28D8125E370A0060BF71 /* Items.csv */,
 				AEE9F35114820790002AA959 /* Enchantments.csv */,
@@ -279,8 +273,6 @@
 				AE7C674413303B050068F958 /* IJInspectorWindowController.m */,
 				AE7C5D6F132ECC2A0068F958 /* IJWorldCollectionItem.h */,
 				AE7C5D70132ECC2A0068F958 /* IJWorldCollectionItem.m */,
-				66BC03601260D095005A23F4 /* IJItemPropertiesViewController.h */,
-				66BC03611260D095005A23F4 /* IJItemPropertiesViewController.m */,
 				AE7F2B08132E8F2300E62D3E /* UI */,
 			);
 			name = Interface;
@@ -414,7 +406,6 @@
 				66BCFC2B125E9A51005A23F4 /* Credits.rtf in Resources */,
 				66BCFC36125EA53E005A23F4 /* InsideJob.icns in Resources */,
 				66BCFE62125FCEC6005A23F4 /* DataValuesV110Transparent.png in Resources */,
-				66BC077312628257005A23F4 /* ItemPropertiesView.xib in Resources */,
 				663803B2131769E90015CFAD /* blockNotFound.png in Resources */,
 				AEE84E83132DD38F0022DD50 /* KBSTextFieldCF.png in Resources */,
 				AEE84E85132DD38F0022DD50 /* KBSTextFieldLC.png in Resources */,
@@ -448,7 +439,6 @@
 				668B27F2125D963F0060BF71 /* IJInventoryWindowController.m in Sources */,
 				66BC00031260215C005A23F4 /* IJInventoryView.m in Sources */,
 				66BC033B1260CC59005A23F4 /* MAAttachedWindow.m in Sources */,
-				66BC03621260D095005A23F4 /* IJItemPropertiesViewController.m in Sources */,
 				66BC04F812619072005A23F4 /* NSColor+Additions.m in Sources */,
 				6697AD7212B86762001890C6 /* IJTableView.m in Sources */,
 				AEE84E74132DD3710022DD50 /* KBLabel.m in Sources */,
@@ -482,14 +472,6 @@
 				1DDD58150DA1D0A300B32029 /* English */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		66BC077212628257005A23F4 /* ItemPropertiesView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				66BC03631260D0B3005A23F4 /* English */,
-			);
-			name = ItemPropertiesView.xib;
 			sourceTree = "<group>";
 		};
 		AE49B01514AF8AEE004E9A45 /* Inspector.xib */ = {
