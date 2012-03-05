@@ -41,4 +41,8 @@
 
 + (NSImage *)imageForItemId:(uint16_t)itemId withDamage:(uint16_t)damage;
 
+- (void)addValuesObserver:(id)observer;
+- (void)removeValuesObserver:(id)observer;
+
+
 @end

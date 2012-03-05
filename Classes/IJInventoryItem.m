@@ -13,6 +13,7 @@
 
 @synthesize itemId, slot, damage, count, dataTag;
 
+
 + (id)emptyItemWithSlot:(uint8_t)slot
 {
   IJInventoryItem *obj = [[[[self class] alloc] init] autorelease];
@@ -58,8 +59,8 @@
 
 - (NSString *)description
 {
-  return [NSString stringWithFormat:@"<%@ %p itemId=%d name=%@ count=%d slot=%d damage=%d",
-          NSStringFromClass([self class]), self, itemId, self.humanReadableName, count, slot, damage];
+  return [NSString stringWithFormat:@"<%@ %p itemId=%hi name=%@ count=%d slot=%d damage=%hi",
+          NSStringFromClass([self class]), self, itemId, self.humanReadableName, self.count, self.slot, self.damage];
 }
 
 - (NSString *)humanReadableName
@@ -77,8 +78,50 @@
     return name;
   }
   else
-    return [NSString stringWithFormat:@"%hi", self.itemId];
+    return [NSString stringWithFormat:@"Unknown Item (%hi)", self.itemId];
 }
+
+
+- (void)setItemId:(int16_t)newItemId
+{
+  [self willChangeValueForKey:@"humanReadableName"];
+  itemId = newItemId;
+  [self didChangeValueForKey:@"humanReadableName"];
+}
+
+- (void)setNilValueForKey:(NSString*)key 
+{
+  if ([key isEqualToString:@"itemId"]) {
+    [self setItemId:1];
+    return;
+  }
+  else if ([key isEqualToString:@"damage"]) {
+    [self setDamage:0];
+    return;
+  }
+  else if ([key isEqualToString:@"count"]) {
+    [self setCount:1];
+    return;
+  }
+  
+  [super setNilValueForKey:key];
+}
+
+
+- (void)addValuesObserver:(id)observer
+{
+  [self addObserver:observer forKeyPath:@"itemId" options:0 context:@"KVO_ITEM_CHANGED"];
+  [self addObserver:observer forKeyPath:@"count" options:0 context:@"KVO_ITEM_CHANGED"];
+  [self addObserver:observer forKeyPath:@"damage" options:0 context:@"KVO_ITEM_CHANGED"];
+}
+
+- (void)removeValuesObserver:(id)observer
+{
+  [self removeObserver:observer forKeyPath:@"itemId"];
+  [self removeObserver:observer forKeyPath:@"count"];
+  [self removeObserver:observer forKeyPath:@"damage"];
+}
+
 
 + (NSString *)enchantmentNameForId:(NSNumber *)aId
 {
@@ -88,138 +131,30 @@
 
 + (NSImage *)imageForItemId:(uint16_t)itemId withDamage:(uint16_t)damage
 {
-  NSSize itemImageSize = NSMakeSize(32, 32);
-  NSPoint atlasOffset;
-  NSUInteger itemsPerRow = 9;
-  NSUInteger pixelsPerColumn = 36;
-  NSUInteger pixelsPerRow = 56;
-  NSImage *atlas;
-  BOOL notFound = FALSE; 
+  if (itemId == 0)
+    return nil;
   
-  int index = 0;
+  NSString *fileName = [NSString stringWithFormat:@"%hi",itemId];
+  NSString *filePath;
+  NSString *outputPath = nil;
   
-  // Blocks
-  if ((itemId <= 25 || (itemId >= 27 && itemId <= 33) || (itemId >= 35 && itemId <= 116 && itemId != 115) || (itemId == 96) || (itemId == 122)) &&
-      (itemId != 36 || itemId != 95))
-  {
-    if (itemId <= 5) {
-      index = itemId - 1;
-    }
-    else if (itemId == 6) {
-      if (damage > 2)
-        damage = 0;
-      index = itemId - 1 + damage;			
-    }
-    else if (itemId <= 16) {
-      index = itemId + 1;
-    }
-    else if (itemId == 17) {
-      if (damage > 2)
-        damage = 0;
-      index = itemId + 1 + damage;
-    }
-    else if (itemId <= 34) {
-      index = itemId + 3;		
-    }
-    else if (itemId == 35) {
-      if (damage > 15)
-        damage = 0;
-      index = itemId + 10 + damage;
-    }
-    else if (itemId <= 43) {
-      index = itemId + 24;
-    }
-    else if (itemId == 44) {
-      if (damage > 5)
-        damage = 0;
-      index = itemId + 24 + damage;
-    }
-    else if (itemId <= 122) {
-      index = itemId + 36;
-    }
-    
-    atlasOffset = NSMakePoint(36, 75);
-  }
-  // Items
-  else if (itemId >= 256 && itemId <= 383)
-  {
-    index = itemId - 256;
-    if (itemId >= 352 && itemId <= 382)
-      index = itemId - 241;
-    if (itemId == 351) {
-      if (damage > 15)
-        damage = 0;
-      index = itemId - 256 + damage;
-    }
-    if (itemId == 383) {
-      int offset = 0;
-      if (damage == 50) offset = 3;
-      if (damage == 51) offset = 2;
-      if (damage == 52) offset = 6;
-      if (damage == 54) offset = 5;
-      if (damage == 55) offset = 4;
-      
-      if (damage == 56) offset = 14;
-      if (damage == 57) offset = 12;
-      if (damage == 58) offset = 10;
-      if (damage == 59) offset = 8;
-      if (damage == 60) offset = 19;
-      if (damage == 61) offset = 17;
-      if (damage == 62) offset = 15;
-      if (damage == 90) offset = 20;
-      if (damage == 91) offset = 16;
-      if (damage == 92) offset = 9;
-      if (damage == 93) offset = 7;
-      if (damage == 94) offset = 13;
-      if (damage == 95) offset = 11;
-      if (damage == 96) offset = 1;
-      if (damage == 120) offset = 18;
-      
-      index = itemId - 241 + offset;
-    }
-    
-    atlasOffset = NSMakePoint(445, 75);
-  }
-  // Records
-  else if (itemId >= 2256 && itemId <= 2266 )
-  {
-    index = itemId - 2204;
-    atlasOffset = NSMakePoint(445, pixelsPerRow*14+18);
-  }
-  else
-  {
-    NSLog(@"%s error: unrecognized item id %d", __PRETTY_FUNCTION__, itemId);
-    index = 0;
-    atlasOffset = NSMakePoint(0, 32);
-    notFound = TRUE;
+  filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"png" inDirectory:@"Sprites"];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+    outputPath = filePath;
   }
   
-  atlasOffset.x += pixelsPerColumn * (index % itemsPerRow);
-  atlasOffset.y += pixelsPerRow    * (index / itemsPerRow);
+  if (damage != 0)
+    fileName = [fileName stringByAppendingFormat:@"-%hi",damage];
   
-  NSRect atlasRect = NSMakeRect(atlasOffset.x, atlasOffset.y, itemImageSize.width, itemImageSize.height);
-  
-  if (notFound != TRUE) {
-    atlas = [NSImage imageNamed:@"DataValuesV110Transparent.png"];
-  }else {
-    atlas = [NSImage imageNamed:@"blockNotFound.png"];
+  filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:@"png" inDirectory:@"Sprites"];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+    outputPath = filePath;
   }
-  
-  NSImage *output = [[NSImage alloc] initWithSize:itemImageSize];
-  atlasRect.origin.y = atlas.size.height - atlasRect.origin.y;
-  
-  [NSGraphicsContext saveGraphicsState];
-  
-  [output lockFocus];
-  [atlas drawInRect:NSMakeRect(0, 0, itemImageSize.width, itemImageSize.height)
-           fromRect:atlasRect
-          operation:NSCompositeCopy
-           fraction:1.0];
-  [output unlockFocus];
-  
-  [NSGraphicsContext restoreGraphicsState];
-  
-  return [output autorelease];
+
+  if (!outputPath)
+    outputPath = [[NSBundle mainBundle] pathForResource:@"blockNotFound" ofType:@"png"];
+
+  return [[[NSImage alloc] initWithContentsOfFile:outputPath] autorelease];
 }
 
 - (NSImage *)image
