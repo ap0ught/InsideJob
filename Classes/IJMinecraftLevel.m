@@ -213,6 +213,12 @@
 	return [[NSFileManager defaultManager] fileExistsAtPath:[self levelDataPathForWorld:worldPath]];
 }
 
++ (BOOL)isMultiplayerWorld:(NSString *)worldPath
+{
+  NSString *playersFolderPath = [worldPath stringByAppendingPathComponent:@"players/"];
+	return [[NSFileManager defaultManager] fileExistsAtPath:playersFolderPath];
+}
+
 + (NSString *)levelDataPathForWorld:(NSString *)worldPath
 {
 	return [worldPath stringByAppendingPathComponent:@"level.dat"];

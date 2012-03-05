@@ -29,6 +29,7 @@
 + (NSString *)levelDataPathForWorld:(NSString *)worldPath;
 
 + (BOOL)worldExistsAtPath:(NSString *)worldPath;
++ (BOOL)isMultiplayerWorld:(NSString *)worldPath;
 
 + (int64_t)writeToSessionLockAtPath:(NSString *)worldPath;
 + (BOOL)checkSessionLockAtPath:(NSString *)worldPath value:(int64_t)checkValue;

@@ -1,5 +1,5 @@
 //
-//  IJInventoryPresetController.h
+//  IJInspectorWindowController.h
 //  InsideJob
 //
 //  Created by Ben K on 2011/03/15.
@@ -12,12 +12,14 @@
 @class IJItemPropertiesViewController;
 @class BWSheetController;
 
-@interface IJInventoryPresetController : NSObject {
+@interface IJInspectorWindowController : NSWindowController {
 	
 	IBOutlet IJInventoryWindowController *inventoryController;
 	
 	IBOutlet NSTableView *presetTableView;
-  IBOutlet NSTableView *dataTagTableView;
+  IBOutlet NSButton *removePresetButton;
+  IBOutlet NSTableView *enchantmentTableView;
+  IBOutlet NSButton *removeEnchantmentButton;
 	NSMutableArray *presetArray;
 	
 	NSMutableArray *armorInventory;
@@ -29,11 +31,16 @@
 
 @property (copy) NSArray *presetArray;
 @property (nonatomic, retain) NSString *newPresetName;
+@property (readonly) IBOutlet IJInventoryWindowController *inventoryController;
 
 
 - (IBAction)newPreset:(id)sender;
 - (IBAction)loadPreset:(id)sender;
 - (IBAction)deletePreset:(id)sender;
+
+- (IBAction)newEnchantment:(id)sender;
+- (IBAction)removeEnchantment:(id)sender;
+
 
 - (void)reloadPresetList;
 

@@ -19,19 +19,20 @@
 
 @implementation IJInventoryWindowController
 @synthesize inventory;
-@synthesize contentView, inventoryView, quickView, armorView;
+@synthesize contentView, normalInvView, quickInvView, armorInvView;
+@synthesize selectedItem;
 @synthesize statusMessage;
 @synthesize level;
 @synthesize player;
 
 
 #pragma mark -
-#pragma mark Initialization
+#pragma mark Initialization & Cleanup
 
 - (void)awakeFromNib
 {	
 	loadedWorldPath = [[NSString alloc] init];
-	loadedPlayerName = [[NSString alloc] initWithString:@"Default_Player"];
+	loadedPlayerName = [[NSString alloc] initWithString:@"World_Player"];
 	attemptedLoadWorldPath = [[NSString alloc] init];
 	
 	armorInventory = [[NSMutableArray alloc] init];
@@ -39,12 +40,12 @@
 	normalInventory = [[NSMutableArray alloc] init];
 	[self setStatusMessage:@""];
 	
-	[inventoryView setRows:3 columns:9 invert:NO];
-	[quickView setRows:1 columns:9 invert:NO];
-	[armorView setRows:4 columns:1 invert:YES];
-	inventoryView.delegate = self;
-	quickView.delegate = self;
-	armorView.delegate = self;
+	[normalInvView setRows:3 columns:9 invert:NO];
+	[quickInvView setRows:1 columns:9 invert:NO];
+	[armorInvView setRows:4 columns:1 invert:YES];
+	normalInvView.delegate = self;
+	quickInvView.delegate = self;
+	armorInvView.delegate = self;
 	
 	// Item Table View setup
 	NSArray *keys = [[IJInventoryItem itemIdLookup] allKeys];  
@@ -76,6 +77,20 @@
 	[itemTableView setDoubleAction:@selector(itemTableViewDoubleClicked:)];
   [toolbar setVisible:NO];
 	[contentView selectTabViewItemAtIndex:2];
+}
+
+- (void)dealloc
+{
+  [loadedWorldPath release];
+  [attemptedLoadWorldPath release];
+  [propertiesViewController release];
+  [armorInventory release];
+  [quickInventory release];
+  [normalInventory release];
+  [inventory release];
+  [player release];
+  [level release];
+  [super dealloc];
 }
 
 
@@ -127,9 +142,25 @@
   [self willChangeValueForKey:@"player"];
 	
 	level = [[IJMinecraftLevel nbtContainerWithData:fileData] retain];
-  player = [[IJMinecraftPlayer alloc] initWithContainer:[[level childNamed:@"Data"] childNamed:@"Player"]];
-	inventory = [[level inventory] retain];
-  	
+  
+//  if (![IJMinecraftLevel isMultiplayerWorld:levelPath]) {
+    loadedPlayerName = @"World_Player";
+    player = [[IJMinecraftPlayer alloc] initWithContainer:[[level childNamed:@"Data"] childNamed:@"Player"]];
+    inventory = [[level inventory] retain];
+//  }
+//  else {
+//    NSString *playerDataPath = [levelPath stringByAppendingPathComponent:@"players/McSpider.dat"];
+//    NSData *playerData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:playerDataPath]];	
+//    if (playerData) {
+//      player = [[IJMinecraftPlayer alloc] nbtContainerWithData:playerData];
+//      inventory = [[player inventory] retain];
+//    }
+//    else {
+//      player = nil;
+//      inventory = nil;
+//    }
+//  }
+  
   [self didChangeValueForKey:@"level"];
   [self didChangeValueForKey:@"player"];
 
@@ -147,24 +178,26 @@
 
 	// Overwrite the placeholders with actual inventory:
 	for (IJInventoryItem *item in inventory) {
-		// Add a KVO so that we can set the document as edited when the count or damage values are changed.
-		[item addObserver:self forKeyPath:@"count" options:0 context:@"KVO_ITEM_CHANGED"];
-		[item addObserver:self forKeyPath:@"damage" options:0 context:@"KVO_ITEM_CHANGED"];
+		// Add a KVO so that we can set the document as edited when the id, count or damage values are changed.
+    [item addValuesObserver:self];
 		
 		if (IJInventorySlotQuickFirst <= item.slot && item.slot <= IJInventorySlotQuickLast) {
+      [[quickInventory objectAtIndex:item.slot - IJInventorySlotQuickFirst] removeValuesObserver:self];
 			[quickInventory replaceObjectAtIndex:item.slot - IJInventorySlotQuickFirst withObject:item];
 		}
 		else if (IJInventorySlotNormalFirst <= item.slot && item.slot <= IJInventorySlotNormalLast) {
+      [[normalInventory objectAtIndex:item.slot - IJInventorySlotNormalFirst] removeValuesObserver:self];
 			[normalInventory replaceObjectAtIndex:item.slot - IJInventorySlotNormalFirst withObject:item];
 		}
 		else if (IJInventorySlotArmorFirst <= item.slot && item.slot <= IJInventorySlotArmorLast) {
+      [[armorInventory objectAtIndex:item.slot - IJInventorySlotArmorFirst] removeValuesObserver:self];
 			[armorInventory replaceObjectAtIndex:item.slot - IJInventorySlotArmorFirst withObject:item];
 		}
 	}
 	
-	[inventoryView setItems:normalInventory];
-	[quickView setItems:quickInventory];
-	[armorView setItems:armorInventory];
+	[normalInvView setItems:normalInventory];
+	[quickInvView setItems:quickInventory];
+	[armorInvView setItems:armorInventory];
 		
 	[self setDocumentEdited:NO];
 	[self setStatusMessage:@""];
@@ -267,7 +300,7 @@
 			[self saveWorld];
 			[self unloadWorld];
       [toolbar setVisible:NO];
-    			[contentView selectTabViewItemAtIndex:2];
+      [contentView selectTabViewItemAtIndex:2];
 		}		
 	}
 	else if (returnCode == NSAlertAlternateReturn) // Don't save
@@ -279,7 +312,7 @@
 		else {
 			[self unloadWorld];
       [toolbar setVisible:NO];
-    			[contentView selectTabViewItemAtIndex:2];
+      [contentView selectTabViewItemAtIndex:2];
 		}
 	}
 	
@@ -444,28 +477,28 @@
 - (IJInventoryView *)inventoryViewForItemArray:(NSMutableArray *)theItemArray
 {
 	if (theItemArray == normalInventory) {
-		return inventoryView;
+		return normalInvView;
 	}
 	if (theItemArray == quickInventory) {
-		return quickView;
+		return quickInvView;
 	}
 	if (theItemArray == armorInventory) {
-		return armorView;
+		return armorInvView;
 	}
 	return nil;
 }
 
 - (NSMutableArray *)itemArrayForInventoryView:(IJInventoryView *)theInventoryView slotOffset:(int*)slotOffset
 {
-	if (theInventoryView == inventoryView) {
+	if (theInventoryView == normalInvView) {
 		if (slotOffset) *slotOffset = IJInventorySlotNormalFirst;
 		return normalInventory;
 	}
-	else if (theInventoryView == quickView) {
+	else if (theInventoryView == quickInvView) {
 		if (slotOffset) *slotOffset = IJInventorySlotQuickFirst;
 		return quickInventory;
 	}
-	else if (theInventoryView == armorView) {
+	else if (theInventoryView == armorInvView) {
 		if (slotOffset) *slotOffset = IJInventorySlotArmorFirst;
 		return armorInventory;
 	}
@@ -477,89 +510,64 @@
 	int slotOffset = 0;
 	NSMutableArray *itemArray = [self itemArrayForInventoryView:theInventoryView slotOffset:&slotOffset];
 	
+  // TODO
+  [self setSelectedItem:nil];
+  
 	if (itemArray) {
 		IJInventoryItem *item = [IJInventoryItem emptyItemWithSlot:slotOffset + itemIndex];
+    [[itemArray objectAtIndex:itemIndex] removeValuesObserver:self];
 		[itemArray replaceObjectAtIndex:itemIndex withObject:item];
+    [[itemArray objectAtIndex:itemIndex] addValuesObserver:self];
 		[theInventoryView setItems:itemArray];
 	}
 	[self setDocumentEdited:YES];
 }
 
 - (void)inventoryView:(IJInventoryView *)theInventoryView setItem:(IJInventoryItem *)item atIndex:(int)itemIndex
-{
+{  
 	int slotOffset = 0;
 	NSMutableArray *itemArray = [self itemArrayForInventoryView:theInventoryView slotOffset:&slotOffset];
 	
 	if (itemArray) {
+    [[itemArray objectAtIndex:itemIndex] removeValuesObserver:self];    
 		[itemArray replaceObjectAtIndex:itemIndex withObject:item];
+    [[itemArray objectAtIndex:itemIndex] addValuesObserver:self];    
 		item.slot = slotOffset + itemIndex;
-		[theInventoryView setItems:itemArray];
+		[theInventoryView setItems:itemArray];    
 	}
 	[self setDocumentEdited:YES];
 }
 
 - (void)inventoryView:(IJInventoryView *)theInventoryView selectedItemAtIndex:(int)itemIndex
-{
-	// Show the properties window for this item.
-	IJInventoryItem *lastItem = propertiesViewController.item;
-	
-	NSPoint itemLocationInView = [theInventoryView pointForItemAtIndex:itemIndex];
-	NSPoint point = [theInventoryView convertPoint:itemLocationInView toView:nil];
-	point.x += 16 + 8;
-	point.y -= 16;
-	
+{  
+	// Select this item.
 	NSArray *items = [self itemArrayForInventoryView:theInventoryView slotOffset:nil];
-	IJInventoryItem *selectedItem = [items objectAtIndex:itemIndex];
   
-	if (selectedItem.itemId == 0 || lastItem == selectedItem) {
-		// The window may not be invisible at this point,
-		[propertiesWindow setAlphaValue:0.0];
-		[propertiesViewController setItem:nil];
-		return; // can't show info for anything
+  IJInventoryItem *item = [items objectAtIndex:itemIndex];
+  
+  if (item.itemId == 0) {
+    [self setSelectedItem:nil];
+    
+    [armorInvView deselectAllItems];
+    [normalInvView deselectAllItems];
+    [quickInvView deselectAllItems];
+		return;
 	}
+  else {
+    if (item == selectedItem)
+      return;
+    
+    [self setSelectedItem:item];
+    
+    [armorInvView deselectAllItems];
+    [normalInvView deselectAllItems];
+    [quickInvView deselectAllItems];    
+    [theInventoryView selectItemAtIndex:itemIndex];
+  }
 	
-	if (!propertiesViewController) {
-		propertiesViewController = [[IJItemPropertiesViewController alloc] initWithNibName:@"ItemPropertiesView" bundle:nil];
-		
-		propertiesWindow = [[MAAttachedWindow alloc] initWithView:propertiesViewController.view
-												  attachedToPoint:point
-														 inWindow:self.window
-														   onSide:MAPositionRight
-													   atDistance:0];
-		[propertiesWindow setBackgroundColor:[NSColor windowBackgroundColor]];
-    [propertiesWindow setBorderColor:[NSColor colorWithCalibratedWhite:1.0 alpha:0.6]];
-    [propertiesWindow setBorderWidth:1];
-		[propertiesWindow setViewMargin:4.0];
-		[propertiesWindow setAlphaValue:0.99];
-		[propertiesWindow setArrowHeight:10];
-		[[self window] addChildWindow:propertiesWindow ordered:NSWindowAbove];
-	}
-	if (observerObject) {
-		[[NSNotificationCenter defaultCenter] removeObserver:observerObject];
-	}
-	observerObject = [[NSNotificationCenter defaultCenter] addObserverForName:NSWindowDidResignKeyNotification
-																	   object:propertiesWindow
-																		queue:[NSOperationQueue mainQueue]
-																   usingBlock:^(NSNotification *notification) {
-																	   [propertiesViewController commitEditing];
-																		 // Validate item
-																	   if (selectedItem.count == 0)
-																		   selectedItem.itemId = 0;
-																		 if (selectedItem.count < -1)
-																			 selectedItem.count = -1;
-																		 if (selectedItem.count > 64)
-																			 selectedItem.count = 64;
-																		 if (selectedItem.damage < 0)
-																			 selectedItem.damage = 0;
-																		 
-																	   [theInventoryView reloadItemAtIndex:itemIndex];
-																	   [propertiesWindow setAlphaValue:0.0];
-																   }];
-	[propertiesViewController setItem:selectedItem];
-	[propertiesWindow setPoint:point side:MAPositionRight];
-	[propertiesWindow makeKeyAndOrderFront:nil];
-	[propertiesWindow setAlphaValue:0.9];
+  [theInventoryView reloadItemAtIndex:itemIndex];
 }
+
 
 #pragma mark -
 #pragma mark IJInventoryItemDelegate
@@ -570,8 +578,19 @@
                        context:(void *)context;
 {
 	if (context == @"KVO_ITEM_CHANGED") {
+    int itemSlot = [(IJInventoryItem *)object slot];
+    if (IJInventorySlotQuickFirst <= itemSlot && itemSlot <= IJInventorySlotQuickLast) {
+			[quickInvView reloadItemAtIndex:itemSlot - IJInventorySlotQuickFirst];
+		}
+		else if (IJInventorySlotNormalFirst <= itemSlot && itemSlot <= IJInventorySlotNormalLast) {
+			[normalInvView reloadItemAtIndex:itemSlot - IJInventorySlotNormalFirst];
+		}
+		else if (IJInventorySlotArmorFirst <= itemSlot && itemSlot <= IJInventorySlotArmorLast) {
+			[armorInvView reloadItemAtIndex:itemSlot - IJInventorySlotArmorFirst];
+		}
+    
 		[self setDocumentEdited:YES];
-	}	
+	}
   if (context == @"KVO_WORLD_EDITED") {
     [self setDocumentEdited:YES];
   }
@@ -583,32 +602,51 @@
 
 - (void)clearInventory
 {	
+  [armorInvView deselectAllItems];
+  [normalInvView deselectAllItems];
+  [quickInvView deselectAllItems];
+  [self setSelectedItem:nil];
+  
+  for (IJInventoryItem *item in quickInventory) {
+    [item removeValuesObserver:self];
+	}
+  for (IJInventoryItem *item in normalInventory) {
+    [item removeValuesObserver:self];
+	}
+  for (IJInventoryItem *item in armorInventory) {
+    [item removeValuesObserver:self];
+	}
+  
 	[armorInventory removeAllObjects];
 	[quickInventory removeAllObjects];
 	[normalInventory removeAllObjects];
 	
 	// Add placeholder inventory items:
 	for (int i = 0; i < IJInventorySlotQuickLast + 1 - IJInventorySlotQuickFirst; i++) {
-		[quickInventory addObject:[IJInventoryItem emptyItemWithSlot:IJInventorySlotQuickFirst + i]];
-	}
+    IJInventoryItem *airItem = [IJInventoryItem emptyItemWithSlot:IJInventorySlotQuickFirst + i];
+    [airItem addValuesObserver:self];
+		[quickInventory addObject:airItem];
+  }
 	
 	for (int i = 0; i < IJInventorySlotNormalLast + 1 - IJInventorySlotNormalFirst; i++) {
-		[normalInventory addObject:[IJInventoryItem emptyItemWithSlot:IJInventorySlotNormalFirst + i]];
-	}
+    IJInventoryItem *airItem = [IJInventoryItem emptyItemWithSlot:IJInventorySlotQuickFirst + i];
+    [airItem addValuesObserver:self];
+		[normalInventory addObject:airItem];
+  }
 	
 	for (int i = 0; i < IJInventorySlotArmorLast + 1 - IJInventorySlotArmorFirst; i++) {
-		[armorInventory addObject:[IJInventoryItem emptyItemWithSlot:IJInventorySlotArmorFirst + i]];
+    IJInventoryItem *airItem = [IJInventoryItem emptyItemWithSlot:IJInventorySlotQuickFirst + i];
+    [airItem addValuesObserver:self];
+		[armorInventory addObject:airItem];
 	}	
 	
-	[inventoryView setItems:normalInventory];
-	[quickView setItems:quickInventory];
-	[armorView setItems:armorInventory];	
+	[normalInvView setItems:normalInventory];
+	[quickInvView setItems:quickInventory];
+	[armorInvView setItems:armorInventory];	
 }
 
 - (void)unloadWorld
-{
-	[self clearInventory];
-	
+{	
   [level removeObserver:self forKeyPath:@"worldName"];
   [level removeObserver:self forKeyPath:@"time"];
   [level removeObserver:self forKeyPath:@"gameMode"];
@@ -629,11 +667,8 @@
   [player release];
   player = nil;
 	
-	for (IJInventoryItem *item in inventory) {
-		[item removeObserver:self forKeyPath:@"count"];
-		[item removeObserver:self forKeyPath:@"damage"];
-	}	
-	
+  [self clearInventory];
+	  
 	[inventory release];
 	inventory = nil;
   [self didChangeValueForKey:@"level"];
@@ -644,18 +679,7 @@
 
 - (void)loadInventory:(NSArray *)newInventory
 {
-	[armorInventory removeAllObjects];
-	[quickInventory removeAllObjects];
-	[normalInventory removeAllObjects];
-	
-	[inventoryView setItems:normalInventory];
-	[quickView setItems:quickInventory];
-	[armorView setItems:armorInventory];
-
-	for (IJInventoryItem *item in inventory) {
-		[item removeObserver:self forKeyPath:@"count"];
-		[item removeObserver:self forKeyPath:@"damage"];
-	}	
+	[self clearInventory];
 	
 	[inventory release];
 	inventory = nil;
@@ -663,36 +687,46 @@
 	inventory = [newInventory retain];
 	
 	// Add placeholder inventory items:
-	for (int i = 0; i < IJInventorySlotQuickLast + 1 - IJInventorySlotQuickFirst; i++)
-		[quickInventory addObject:[IJInventoryItem emptyItemWithSlot:IJInventorySlotQuickFirst + i]];
+	for (int i = 0; i < IJInventorySlotQuickLast + 1 - IJInventorySlotQuickFirst; i++) {
+    IJInventoryItem *airItem = [IJInventoryItem emptyItemWithSlot:IJInventorySlotQuickFirst + i];
+    [airItem addValuesObserver:self];
+		[quickInventory addObject:airItem];
+  }
 	
-	for (int i = 0; i < IJInventorySlotNormalLast + 1 - IJInventorySlotNormalFirst; i++)
-		[normalInventory addObject:[IJInventoryItem emptyItemWithSlot:IJInventorySlotNormalFirst + i]];
+	for (int i = 0; i < IJInventorySlotNormalLast + 1 - IJInventorySlotNormalFirst; i++) {
+    IJInventoryItem *airItem = [IJInventoryItem emptyItemWithSlot:IJInventorySlotQuickFirst + i];
+    [airItem addValuesObserver:self];
+		[normalInventory addObject:airItem];
+  }
 	
-	for (int i = 0; i < IJInventorySlotArmorLast + 1 - IJInventorySlotArmorFirst; i++)
-		[armorInventory addObject:[IJInventoryItem emptyItemWithSlot:IJInventorySlotArmorFirst + i]];
-	
+	for (int i = 0; i < IJInventorySlotArmorLast + 1 - IJInventorySlotArmorFirst; i++) {
+    IJInventoryItem *airItem = [IJInventoryItem emptyItemWithSlot:IJInventorySlotQuickFirst + i];
+    [airItem addValuesObserver:self];
+		[armorInventory addObject:airItem];
+	}
 	
 	// Overwrite the placeholders with actual inventory:
 	for (IJInventoryItem *item in inventory) {
-		// Add a KVO so that we can set the document as edited when the count or damage values are changed.
-		[item addObserver:self forKeyPath:@"count" options:0 context:@"KVO_ITEM_CHANGED"];
-		[item addObserver:self forKeyPath:@"damage" options:0 context:@"KVO_ITEM_CHANGED"];
-
+		// Add a KVO so that we can set the document as edited when the id, count or damage values are changed.
+    [item addValuesObserver:self];
+		
 		if (IJInventorySlotQuickFirst <= item.slot && item.slot <= IJInventorySlotQuickLast) {
+      [[quickInventory objectAtIndex:item.slot - IJInventorySlotQuickFirst] removeValuesObserver:self];
 			[quickInventory replaceObjectAtIndex:item.slot - IJInventorySlotQuickFirst withObject:item];
 		}
 		else if (IJInventorySlotNormalFirst <= item.slot && item.slot <= IJInventorySlotNormalLast) {
+      [[normalInventory objectAtIndex:item.slot - IJInventorySlotNormalFirst] removeValuesObserver:self];
 			[normalInventory replaceObjectAtIndex:item.slot - IJInventorySlotNormalFirst withObject:item];
 		}
 		else if (IJInventorySlotArmorFirst <= item.slot && item.slot <= IJInventorySlotArmorLast) {
+      [[armorInventory objectAtIndex:item.slot - IJInventorySlotArmorFirst] removeValuesObserver:self];
 			[armorInventory replaceObjectAtIndex:item.slot - IJInventorySlotArmorFirst withObject:item];
 		}
 	}
 	
-	[inventoryView setItems:normalInventory];
-	[quickView setItems:quickInventory];
-	[armorView setItems:armorInventory];
+	[normalInvView setItems:normalInventory];
+	[quickInvView setItems:quickInventory];
+	[armorInvView setItems:armorInventory];
 		
 	[self setDocumentEdited:YES];	
 }
@@ -850,7 +884,7 @@
 	item.slot = 0;
 	
 	[pboard setData:[NSKeyedArchiver archivedDataWithRootObject:item]
-			forType:IJPasteboardTypeInventoryItem];
+          forType:IJPasteboardTypeInventoryItem];
 	
 	[item release];
 
@@ -866,6 +900,7 @@
 
 	[self addInventoryItemID:itemID damage:itemDamage selectItem:YES];
 }
+
 
 #pragma mark -
 #pragma mark NSWindowDelegate
@@ -887,16 +922,16 @@
 	}
 }
 
-
 - (BOOL)windowShouldClose:(id)sender
 {
-	if ([self isDocumentEdited]) {
-		// Note: We use the didDismiss selector because the sheet needs to be closed in order for performClose: to work.
-		NSBeginAlertSheet(@"Do you want to save the changes you made in this world?", @"Save", @"Don't Save", @"Cancel", self.window, self, nil, @selector(dirtyCloseSheetDidDismiss:returnCode:contextInfo:), nil, 
-																	 @"Your changes will be lost if you do not save them.");
-		return NO;
-	}
-	  
+  if (sender == self.window) {
+    if ([self isDocumentEdited]) {
+      // Note: We use the didDismiss selector because the sheet needs to be closed in order for performClose: to work.
+      NSBeginAlertSheet(@"Do you want to save the changes you made in this world?", @"Save", @"Don't Save", @"Cancel", self.window, self, nil, @selector(dirtyCloseSheetDidDismiss:returnCode:contextInfo:), nil, 
+                        @"Your changes will be lost if you do not save them.");
+      return NO;
+    }
+  }
 	return YES;
 }
 
@@ -922,22 +957,5 @@
 	return NO;
 }
 
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc
-{
-	[loadedWorldPath release];
-	[attemptedLoadWorldPath release];
-	[propertiesViewController release];
-	[armorInventory release];
-	[quickInventory release];
-	[normalInventory release];
-	[inventory release];
-  [player release];
-	[level release];
-	[super dealloc];
-}
 
 @end

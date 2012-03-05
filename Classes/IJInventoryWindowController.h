@@ -31,13 +31,14 @@
   IBOutlet NSSegmentedControl *editModeSelector;
   IBOutlet NSTabView *contentView;
   
-  IJInventoryView *inventoryView;
-  IJInventoryView *quickView;
-  IJInventoryView *armorView;
+  IJInventoryView *normalInvView;
+  IJInventoryView *quickInvView;
+  IJInventoryView *armorInvView;
   
   NSMutableArray *armorInventory;
   NSMutableArray *quickInventory;
   NSMutableArray *normalInventory;
+  IJInventoryItem *selectedItem;
   
   // Search/Item List
   IBOutlet NSSearchField *itemSearchField;
@@ -60,9 +61,10 @@
 
 @property (nonatomic, assign) NSString *statusMessage;
 @property (nonatomic, readonly) NSTabView *contentView;
-@property (nonatomic, retain) IBOutlet IJInventoryView *inventoryView;
-@property (nonatomic, retain) IBOutlet IJInventoryView *quickView;
-@property (nonatomic, retain) IBOutlet IJInventoryView *armorView;
+@property (nonatomic, retain) IBOutlet IJInventoryView *normalInvView;
+@property (nonatomic, retain) IBOutlet IJInventoryView *quickInvView;
+@property (nonatomic, retain) IBOutlet IJInventoryView *armorInvView;
+@property (nonatomic, assign) IJInventoryItem *selectedItem;
 
 @property (readonly) NSArray *inventory;
 @property (nonatomic, readonly) IJMinecraftLevel *level;
