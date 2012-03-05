@@ -2,7 +2,7 @@
 
 ### A Minecraft Alpha Inventory Editor for Mac OS X
 
-![Inside Job Screenshot](http://mcspider.bzextreme.com/files/Inside%20Job%201.1.png)
+![Inside Job Screenshot](http://mcspider.oc.tc/files/Inside%20Job.png)
 
 Inside Job was written in early October 2010 by [Adam Preble](http://adampreble.net).
 
@@ -15,7 +15,7 @@ Features include:
 
 ### System Requirements
 
-Mac OS X 10.6 Snow Leopard.
+Mac OS X 10.6 Snow Leopard or higher.
 
 ### Instructions
 
@@ -27,11 +27,17 @@ To alter your inventory, use the item list at right to find the item you desire,
 
 Note that Inside Job works differently from the Minecraft inventory screen in that it does not "swap" items when dropping an item onto another.  Instead, it replaces the item completely.  If you drag an item into a slot already containing that item, the quantity will be increased accordingly, up to 64.
 
-To alter the quantity or damage of a particular item, click on its inventory slot.  To accept the changes, hit escape or click outside of the popup window.
+To alter the quantity or damage of a particular item, click on its inventory slot. Edit the values in the inspector window.
 
 After changing your inventory you will need to save the currently open world using the World menu, or Command-S.  Once you have saved the world you can open it in Minecraft.  Note that if a world is opened in Minecraft while it is open in Inside Job, you will need to reload it using the World menu, or Command-R.  This is because Minecraft's file locking system gives write access to the last program to open it.
 
 ### Release Notes
+
+#### 1.1.2 - November 26, 2011
+
+- Filtering of items list by type (ex: ~weapon ~item ~block)
+- Allow editing of enchantments.
+- Added Minecraft 1.2 items.
 
 #### 1.1.1 - November 26, 2011
 

@@ -9,6 +9,7 @@
 6,Sapling,0,Item
 6,Birch Sapling,1,Item
 6,Pine Sapling,2,Item
+6,Rainforest Sapling,3,Item
 
 7,Bedrock,0,Block
 8,Water,0,Block
@@ -24,6 +25,7 @@
 #Log
 17,Pine Log,1,Block
 17,Birch Log,2,Block
+17,Rainforest Log,3,Block
 17,Log,0,Block
 
 18,Leaves,0,Block
@@ -38,6 +40,8 @@
 28,Detector Rail,0,Item
 29,Sticky Piston,0,Block
 30,Spiderweb,0,Block
+31,Tall Grass,1,Item
+32,Dead Shrub,0,Item
 33,Piston,0,Block
 
 #Wool
@@ -122,6 +126,39 @@
 #93,Redstone Repeater (Off),0,Block
 #94,Redstone Repeater,0,Block
 96,Trapdoor,0,Block
+97,Silverfish Stone,0,Block
+
+#Stonebrick
+98,Mossy Stone Brick,1,Block
+98,Cracked Stone Brick,2,Block
+98,Tile Stone Brick,3,Block
+98,Stone Brick,0,Block
+
+#99,Huge Brown Mushroom,0,Block
+#100,Huge Red Mushroom,0,Block
+101,Iron Bars,0,Block
+102,Glass Pane,0,Block
+103,Water Melon,0,Block
+#104,Pumpkin Stem
+#105,Melon Stem
+106,Vines,0,Block
+107,Fence Gate,0,Block
+108,Brick Stairs,0,Block
+109,Stone Brick Stairs,0,Block
+110,Mycelium,0,Block
+111,Lily Pad,0,Block
+112,Nether Brick,0,Block
+113,Nether Brick Fence,0,Block
+114,Nether Brick Stairs,0,Block
+#115,Nether Wart,0,Block
+116,Enchantment Table,0,Block
+#119,End Portal,0,Block
+#120,End Portal Frame,0,Block
+#121,End Stone,0,Block
+122,Dragon Egg,0,Block
+123,Redstone Lamp,0,Block
+
+##Items
 256,Iron Spade,0,Tool
 257,Iron Pickaxe,0,Tool
 258,Iron Axe,0,Tool
@@ -244,36 +281,6 @@
 357,Cookie,0,Food
 358,Map,0,Item
 359,Shears,0,Item
-
-#Records
-2256,13 Record,0,Item
-2257,Cat Record,0,Item
-2258,Blocks Record,0,Item
-2259,Chirp Record,0,Item
-2260,Far Record,0,Item
-2261,Mall Record,0,Item
-2262,Mellohi Record,0,Item
-2263,Stal Record,0,Item
-2264,Strad Record,0,Item
-2265,Ward Record,0,Item
-2266,11 Record,0,Item
-
-#1.8 Beta
-31,Tall Grass,1,Item
-32,Dead Shrub,0,Item
-97,Silverfish Stone,0,Block
-98,Stone Brick,0,Block
-#99,Huge Brown Mushroom,0,Block
-#100,Huge Red Mushroom,0,Block
-101,Iron Bars,0,Block
-102,Glass Pane,0,Block
-103,Water Melon,0,Block
-#104,Pumpkin Stem
-#105,Melon Stem
-106,Vines,0,Block
-107,Fence Gate,0,Block
-108,Brick Stairs,0,Block
-109,Stone Brick Stairs,0,Block
 360,Water Melon Slice,0,Food
 361,Pumpkin Seeds,0,Item
 362,Melon Seeds,0,Item
@@ -283,19 +290,6 @@
 366,Cooked Chicken,0,Food
 367,Zombie Flesh,0,Food
 368,Ender Pearl,0,Item
-
-#1.9 Beta
-110,Mycelium,0,Block
-111,Lily Pad,0,Block
-112,Nether Brick,0,Block
-113,Nether Brick Fence,0,Block
-114,Nether Brick Stairs,0,Block
-#115,Nether Wart,0,Block
-116,Enchantment Table,0,Block
-#119,End Portal,0,Block
-#120,End Portal Frame,0,Block
-#121,End Stone,0,Block
-122,Dragon Egg,0,Block
 369,Blaze Rod,0,Item
 370,Ghast Tear,0,Item
 371,Gold Nugget,0,Item
@@ -311,29 +305,46 @@
 381,Eye of Ender,0,Item
 382,Glistering Melon,0,Item
 
-#1.1
-383,Creeper Egg,50,Item
-383,Skeleton Egg,51,Item
-383,Spider Egg,52,Item
-383,Giant Egg,53,Item
-383,Zombie Egg,54,Item
-383,Slime Egg,55,Item
-383,Ghast Egg,56,Item
-383,Zombie Pigman Egg,57,Item
-383,Enderman Egg,58,Item
-383,Cave Spider Egg,59,Item
-383,Silverfish Egg,60,Item
-383,Blaze Egg,61,Item
-383,Magma Cube Egg,62,Item
-383,Enderdragon Egg,63,Item
-383,Pig Egg,90,Item
-383,Sheep Egg,91,Item
-383,Cow Egg,92,Item
-383,Chicken Egg,93,Item
-383,Squid Egg,94,Item
-383,Wolf Egg,95,Item
-383,Mooshroom Egg,96,Item
-383,Snow Golem,97,Item
-383,Villager Egg,120,Item
-383,Ender Crystal,200,Item
+#Spawn Eggs
+383,Creeper Egg,50,Egg
+383,Skeleton Egg,51,Egg
+383,Spider Egg,52,Egg
+383,Giant Egg,53,Egg
+383,Zombie Egg,54,Egg
+383,Slime Egg,55,Egg
+383,Ghast Egg,56,Egg
+383,Zombie Pigman Egg,57,Egg
+383,Enderman Egg,58,Egg
+383,Cave Spider Egg,59,Egg
+383,Silverfish Egg,60,Egg
+383,Blaze Egg,61,Egg
+383,Magma Cube Egg,62,Egg
+383,Enderdragon Egg,63,Egg
+383,Pig Egg,90,Egg
+383,Sheep Egg,91,Egg
+383,Cow Egg,92,Egg
+383,Chicken Egg,93,Egg
+383,Squid Egg,94,Egg
+383,Wolf Egg,95,Egg
+383,Mooshroom Egg,96,Egg
+383,Snow Golem,97,Egg
+383,Ocelot Egg,98,Egg
+383,Villager Egg,120,Egg
+383,Ender Crystal,200,Egg
 
+384,Potion 'o Enchanting,0,Item
+385,Fireball,0,Item
+
+
+#Records
+2256,13 Record,0,Item
+2257,Cat Record,0,Item
+2258,Blocks Record,0,Item
+2259,Chirp Record,0,Item
+2260,Far Record,0,Item
+2261,Mall Record,0,Item
+2262,Mellohi Record,0,Item
+2263,Stal Record,0,Item
+2264,Strad Record,0,Item
+2265,Ward Record,0,Item
+2266,11 Record,0,Item
