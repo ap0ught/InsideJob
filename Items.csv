@@ -35,6 +35,8 @@
 22,Lapis Lazuli Block,0,Block
 23,Dispenser,0,Block
 24,Sandstone,0,Block
+24,Sandstone Chiseled,1,Block
+24,Sandstone Smooth,2,Block
 25,Note Block,0,Block
 27,Powered Rail,0,Item
 28,Detector Rail,0,Item
@@ -157,6 +159,14 @@
 #121,End Stone,0,Block
 122,Dragon Egg,0,Block
 123,Redstone Lamp,0,Block
+
+127,Cocoa Plant,0,Block
+128,Sandstone Stairs,0,Block
+129,Emerald Ore,0,Block
+130,Ender Chest,0,Block
+131,Tripwire Hook,0,Block
+#132,Tripwire,0,Block
+133,Emerald Block,0,Block
 
 ##Items
 256,Iron Spade,0,Tool
@@ -334,6 +344,9 @@
 
 384,Potion 'o Enchanting,0,Item
 385,Fireball,0,Item
+386,Book and Quill,0,Item
+#387,Written Book,0,Item
+388,Emerald,0,Item
 
 
 #Records
