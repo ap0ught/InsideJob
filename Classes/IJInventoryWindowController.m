@@ -171,6 +171,7 @@
   [level addObserver:self forKeyPath:@"spawnY" options:0 context:@"KVO_WORLD_EDITED"];
   [level addObserver:self forKeyPath:@"spawnZ" options:0 context:@"KVO_WORLD_EDITED"];
   [level addObserver:self forKeyPath:@"weather" options:0 context:@"KVO_WORLD_EDITED"];
+  [level addObserver:self forKeyPath:@"cheats" options:0 context:@"KVO_WORLD_EDITED"];
   
   [player addObserver:self forKeyPath:@"xpLevel" options:0 context:@"KVO_WORLD_EDITED"];
   [player addObserver:self forKeyPath:@"health" options:0 context:@"KVO_WORLD_EDITED"];
@@ -650,6 +651,7 @@
   [level removeObserver:self forKeyPath:@"spawnY"];
   [level removeObserver:self forKeyPath:@"spawnZ"];
   [level removeObserver:self forKeyPath:@"weather"];
+  [level removeObserver:self forKeyPath:@"cheats"];
   
   [player removeObserver:self forKeyPath:@"xpLevel"];
   [player removeObserver:self forKeyPath:@"health"];

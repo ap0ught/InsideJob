@@ -205,6 +205,18 @@
   [[self childNamed:@"Data"] childNamed:@"raining"].numberValue = [NSNumber numberWithInt:(flag?1:0)];
 }
 
+- (BOOL)cheats
+{
+  int cheats = [[[self childNamed:@"Data"] childNamed:@"allowCommands"].numberValue unsignedIntValue];
+  
+  return (cheats?YES:NO);
+}
+
+- (void)setCheats:(BOOL)flag
+{
+  [[self childNamed:@"Data"] childNamed:@"allowCommands"].numberValue = [NSNumber numberWithInt:(flag?1:0)];
+}
+
 #pragma mark -
 #pragma mark Helpers
 

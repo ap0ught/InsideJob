@@ -24,6 +24,7 @@
 @property (nonatomic, copy) NSNumber *spawnY;
 @property (nonatomic, copy) NSNumber *spawnZ;
 @property BOOL weather;
+@property BOOL cheats;
 
 
 + (NSString *)levelDataPathForWorld:(NSString *)worldPath;
