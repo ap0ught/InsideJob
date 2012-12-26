@@ -2,7 +2,7 @@
 
 ### A Minecraft Inventory Editor for Mac OS X
 
-![Inside Job Screenshot](http://mcspider.oc.tc/files/Inside%20Job.png)
+![Inside Job Screenshot](http://mcspider.github.com/screenshots/Inside%20Job.png)
 
 Inside Job was written in early October 2010 by [Adam Preble](http://adampreble.net).
 
