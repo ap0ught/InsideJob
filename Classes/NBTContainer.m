@@ -62,12 +62,36 @@
 	[super dealloc];
 }
 
+
+- (NSString *)description
+{
+  return [NSString stringWithFormat:@"<%@ %p name=%@ type=%i", NSStringFromClass([self class]), self, self.name, self.type];
+}
+
+
 + (NBTContainer *)containerWithName:(NSString *)theName type:(NBTType)theType numberValue:(NSNumber *)theNumber
 {
 	NBTContainer *cont = [[[NBTContainer alloc] init] autorelease];
 	cont.name = theName;
 	cont.type = theType;
 	cont.numberValue = theNumber;
+	return cont;
+}
+
++ (NBTContainer *)compoundWithName:(NSString *)theName
+{
+  NBTContainer *cont = [[[NBTContainer alloc] init] autorelease];
+	cont.name = theName;
+	cont.type = NBTTypeCompound;
+	return cont;
+}
+
++ (NBTContainer *)listWithName:(NSString *)theName type:(NBTType)theType;
+{
+  NBTContainer *cont = [[[NBTContainer alloc] init] autorelease];
+	cont.name = theName;
+	cont.type = NBTTypeList;
+  cont.listType = theType;
 	return cont;
 }
 
@@ -203,12 +227,12 @@
 	}
 	else if (self.type == NBTTypeInt)
 	{
-		self.numberValue = [NSNumber numberWithUnsignedInt:[self intFromBytes:bytes offset:&offset]];
+		self.numberValue = [NSNumber numberWithInt:[self intFromBytes:bytes offset:&offset]];
 		NBTLog(@"   name=%@ int=0x%x", self.name, [self.numberValue unsignedIntValue]);
 	}
 	else if (self.type == NBTTypeShort)
 	{
-		self.numberValue = [NSNumber numberWithUnsignedShort:[self shortFromBytes:bytes offset:&offset]];
+		self.numberValue = [NSNumber numberWithShort:[self shortFromBytes:bytes offset:&offset]];
 		NBTLog(@"   name=%@ short=0x%x", self.name, [self.numberValue unsignedShortValue]);
 	}
 	else if (self.type == NBTTypeByte)
@@ -291,11 +315,11 @@
 	}
 	else if (self.type == NBTTypeShort)
 	{
-		[self appendShort:[self.numberValue unsignedShortValue] toData:data];
+		[self appendShort:[self.numberValue shortValue] toData:data];
 	}
 	else if (self.type == NBTTypeInt)
 	{
-		[self appendInt:[self.numberValue unsignedIntValue] toData:data];
+		[self appendInt:[self.numberValue intValue] toData:data];
 	}
 	else if (self.type == NBTTypeByte)
 	{

@@ -11,9 +11,11 @@
 @class IJInventoryWindowController;
 
 @interface InsideJobAppDelegate : NSObject <NSApplicationDelegate> {
-    IJInventoryWindowController *inventoryWindowController;
+  IBOutlet IJInventoryWindowController *inventoryWindowController;
+  NSString *bundleVersionNumber;
 }
 
-@property (assign) IBOutlet IJInventoryWindowController *inventoryWindowController;
+@property (nonatomic, readonly) NSString *bundleVersionNumber;
+
 
 @end

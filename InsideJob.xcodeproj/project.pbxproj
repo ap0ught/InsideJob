@@ -3,12 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* InsideJobAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* InsideJobAppDelegate.m */; };
+		4E9F764D145A590300D6179E /* IJMinecraftPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9F764C145A590300D6179E /* IJMinecraftPlayer.m */; };
 		663803B2131769E90015CFAD /* blockNotFound.png in Resources */ = {isa = PBXBuildFile; fileRef = 663803B1131769E90015CFAD /* blockNotFound.png */; };
 		668B2556125D5A3E0060BF71 /* NBTContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 668B2555125D5A3E0060BF71 /* NBTContainer.m */; };
 		668B255C125D5BCA0060BF71 /* NSData+CocoaDevAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 668B255B125D5BCA0060BF71 /* NSData+CocoaDevAdditions.m */; };
@@ -21,15 +22,36 @@
 		66BC00031260215C005A23F4 /* IJInventoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC00021260215C005A23F4 /* IJInventoryView.m */; };
 		66BC000E12602359005A23F4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66BC000D12602359005A23F4 /* QuartzCore.framework */; };
 		66BC033B1260CC59005A23F4 /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC033A1260CC59005A23F4 /* MAAttachedWindow.m */; };
-		66BC03621260D095005A23F4 /* IJItemPropertiesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC03611260D095005A23F4 /* IJItemPropertiesViewController.m */; };
 		66BC04F812619072005A23F4 /* NSColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66BC04F712619072005A23F4 /* NSColor+Additions.m */; };
-		66BC077312628257005A23F4 /* ItemPropertiesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66BC077212628257005A23F4 /* ItemPropertiesView.xib */; };
 		66BCFC2B125E9A51005A23F4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 66BCFC2A125E9A51005A23F4 /* Credits.rtf */; };
 		66BCFC36125EA53E005A23F4 /* InsideJob.icns in Resources */ = {isa = PBXBuildFile; fileRef = 66BCFC35125EA53E005A23F4 /* InsideJob.icns */; };
 		66BCFE62125FCEC6005A23F4 /* DataValuesV110Transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 66BCFE61125FCEC6005A23F4 /* DataValuesV110Transparent.png */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AE073EE41482F56E00F1576F /* Weather.png in Resources */ = {isa = PBXBuildFile; fileRef = AE073EE31482F56E00F1576F /* Weather.png */; };
+		AE22BBD113305197007E4D62 /* BWSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE22BBD013305197007E4D62 /* BWSheetController.m */; };
+		AE49B01714AF8AEE004E9A45 /* Inspector.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE49B01514AF8AEE004E9A45 /* Inspector.xib */; };
+		AE4E4DCD14D1F93400D3C8B7 /* Sprites in Resources */ = {isa = PBXBuildFile; fileRef = AE4E4DCC14D1F93400D3C8B7 /* Sprites */; };
+		AE671ED51339645A00A7CF50 /* World_Recent.png in Resources */ = {isa = PBXBuildFile; fileRef = AE671ED41339645A00A7CF50 /* World_Recent.png */; };
+		AE7C5D66132ECB8D0068F958 /* WorldCollectionItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE7C5D64132ECB8D0068F958 /* WorldCollectionItem.xib */; };
+		AE7C5D71132ECC2A0068F958 /* IJWorldCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7C5D70132ECC2A0068F958 /* IJWorldCollectionItem.m */; };
+		AE7C5D8D132ECEC90068F958 /* World.png in Resources */ = {isa = PBXBuildFile; fileRef = AE7C5D8C132ECEC90068F958 /* World.png */; };
+		AE7C605F132EEC6E0068F958 /* IJCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7C605E132EEC6E0068F958 /* IJCollectionView.m */; };
+		AE7C674513303B050068F958 /* IJInspectorWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7C674413303B050068F958 /* IJInspectorWindowController.m */; };
+		AE7F2BD7132EA78700E62D3E /* IJWorldCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE7F2BD6132EA78700E62D3E /* IJWorldCollectionController.m */; };
+		AEE84E74132DD3710022DD50 /* KBLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6B132DD3710022DD50 /* KBLabel.m */; };
+		AEE84E75132DD3710022DD50 /* KBScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6D132DD3710022DD50 /* KBScroller.m */; };
+		AEE84E76132DD3710022DD50 /* KBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E6F132DD3710022DD50 /* KBScrollView.m */; };
+		AEE84E77132DD3710022DD50 /* KBSearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E71132DD3710022DD50 /* KBSearchField.m */; };
+		AEE84E78132DD3710022DD50 /* KBSearchFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AEE84E73132DD3710022DD50 /* KBSearchFieldCell.m */; };
+		AEE84E83132DD38F0022DD50 /* KBSTextFieldCF.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE84E7D132DD38F0022DD50 /* KBSTextFieldCF.png */; };
+		AEE84E85132DD38F0022DD50 /* KBSTextFieldLC.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE84E7F132DD38F0022DD50 /* KBSTextFieldLC.png */; };
+		AEE84E87132DD38F0022DD50 /* KBSTextFieldRC.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE84E81132DD38F0022DD50 /* KBSTextFieldRC.png */; };
+		AEE9F34D1481FD1F002AA959 /* KBTextFieldCFD.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE9F34A1481FD1F002AA959 /* KBTextFieldCFD.png */; };
+		AEE9F34E1481FD1F002AA959 /* KBTextFieldLCD.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE9F34B1481FD1F002AA959 /* KBTextFieldLCD.png */; };
+		AEE9F34F1481FD1F002AA959 /* KBTextFieldRCD.png in Resources */ = {isa = PBXBuildFile; fileRef = AEE9F34C1481FD1F002AA959 /* KBTextFieldRCD.png */; };
+		AEE9F35214820790002AA959 /* Enchantments.csv in Resources */ = {isa = PBXBuildFile; fileRef = AEE9F35114820790002AA959 /* Enchantments.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +65,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		4E9F764B145A590300D6179E /* IJMinecraftPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJMinecraftPlayer.h; sourceTree = "<group>"; };
+		4E9F764C145A590300D6179E /* IJMinecraftPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJMinecraftPlayer.m; sourceTree = "<group>"; };
 		663803B1131769E90015CFAD /* blockNotFound.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blockNotFound.png; sourceTree = "<group>"; };
 		668B2554125D5A3E0060BF71 /* NBTContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBTContainer.h; sourceTree = "<group>"; };
 		668B2555125D5A3E0060BF71 /* NBTContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBTContainer.m; sourceTree = "<group>"; };
@@ -64,9 +88,6 @@
 		66BC000D12602359005A23F4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		66BC03391260CC59005A23F4 /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
 		66BC033A1260CC59005A23F4 /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
-		66BC03601260D095005A23F4 /* IJItemPropertiesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJItemPropertiesViewController.h; sourceTree = "<group>"; };
-		66BC03611260D095005A23F4 /* IJItemPropertiesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJItemPropertiesViewController.m; sourceTree = "<group>"; };
-		66BC03631260D0B3005A23F4 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/ItemPropertiesView.xib; sourceTree = "<group>"; };
 		66BC04F612619072005A23F4 /* NSColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+Additions.h"; sourceTree = "<group>"; };
 		66BC04F712619072005A23F4 /* NSColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+Additions.m"; sourceTree = "<group>"; };
 		66BCFC2A125E9A51005A23F4 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -74,6 +95,40 @@
 		66BCFE61125FCEC6005A23F4 /* DataValuesV110Transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DataValuesV110Transparent.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* InsideJob-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "InsideJob-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* Inside Job.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Inside Job.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE073EE31482F56E00F1576F /* Weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Weather.png; sourceTree = "<group>"; };
+		AE22BBCF13305197007E4D62 /* BWSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWSheetController.h; sourceTree = "<group>"; };
+		AE22BBD013305197007E4D62 /* BWSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWSheetController.m; sourceTree = "<group>"; };
+		AE49B01614AF8AEE004E9A45 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/Inspector.xib; sourceTree = "<group>"; };
+		AE4E4DCC14D1F93400D3C8B7 /* Sprites */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sprites; sourceTree = "<group>"; };
+		AE671ED41339645A00A7CF50 /* World_Recent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = World_Recent.png; sourceTree = "<group>"; };
+		AE7C5D65132ECB8D0068F958 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WorldCollectionItem.xib; sourceTree = "<group>"; };
+		AE7C5D6F132ECC2A0068F958 /* IJWorldCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJWorldCollectionItem.h; sourceTree = "<group>"; };
+		AE7C5D70132ECC2A0068F958 /* IJWorldCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJWorldCollectionItem.m; sourceTree = "<group>"; };
+		AE7C5D8C132ECEC90068F958 /* World.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = World.png; sourceTree = "<group>"; };
+		AE7C605D132EEC6E0068F958 /* IJCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJCollectionView.h; sourceTree = "<group>"; };
+		AE7C605E132EEC6E0068F958 /* IJCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJCollectionView.m; sourceTree = "<group>"; };
+		AE7C674313303B050068F958 /* IJInspectorWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJInspectorWindowController.h; sourceTree = "<group>"; };
+		AE7C674413303B050068F958 /* IJInspectorWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJInspectorWindowController.m; sourceTree = "<group>"; };
+		AE7F2BD5132EA78700E62D3E /* IJWorldCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IJWorldCollectionController.h; sourceTree = "<group>"; };
+		AE7F2BD6132EA78700E62D3E /* IJWorldCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IJWorldCollectionController.m; sourceTree = "<group>"; };
+		AEBD5F88147CB82400ADADD1 /* Notes.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
+		AEE84E6A132DD3710022DD50 /* KBLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBLabel.h; sourceTree = "<group>"; };
+		AEE84E6B132DD3710022DD50 /* KBLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBLabel.m; sourceTree = "<group>"; };
+		AEE84E6C132DD3710022DD50 /* KBScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBScroller.h; sourceTree = "<group>"; };
+		AEE84E6D132DD3710022DD50 /* KBScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBScroller.m; sourceTree = "<group>"; };
+		AEE84E6E132DD3710022DD50 /* KBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBScrollView.h; sourceTree = "<group>"; };
+		AEE84E6F132DD3710022DD50 /* KBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBScrollView.m; sourceTree = "<group>"; };
+		AEE84E70132DD3710022DD50 /* KBSearchField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBSearchField.h; sourceTree = "<group>"; };
+		AEE84E71132DD3710022DD50 /* KBSearchField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBSearchField.m; sourceTree = "<group>"; };
+		AEE84E72132DD3710022DD50 /* KBSearchFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KBSearchFieldCell.h; sourceTree = "<group>"; };
+		AEE84E73132DD3710022DD50 /* KBSearchFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KBSearchFieldCell.m; sourceTree = "<group>"; };
+		AEE84E7D132DD38F0022DD50 /* KBSTextFieldCF.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBSTextFieldCF.png; sourceTree = "<group>"; };
+		AEE84E7F132DD38F0022DD50 /* KBSTextFieldLC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBSTextFieldLC.png; sourceTree = "<group>"; };
+		AEE84E81132DD38F0022DD50 /* KBSTextFieldRC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBSTextFieldRC.png; sourceTree = "<group>"; };
+		AEE9F34A1481FD1F002AA959 /* KBTextFieldCFD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBTextFieldCFD.png; sourceTree = "<group>"; };
+		AEE9F34B1481FD1F002AA959 /* KBTextFieldLCD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBTextFieldLCD.png; sourceTree = "<group>"; };
+		AEE9F34C1481FD1F002AA959 /* KBTextFieldRCD.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = KBTextFieldRCD.png; sourceTree = "<group>"; };
+		AEE9F35114820790002AA959 /* Enchantments.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Enchantments.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,12 +212,16 @@
 			isa = PBXGroup;
 			children = (
 				66BC07711262823E005A23F4 /* Images */,
+				AE4E4DCC14D1F93400D3C8B7 /* Sprites */,
 				8D1107310486CEB800E47090 /* InsideJob-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				66BC077212628257005A23F4 /* ItemPropertiesView.xib */,
+				AE7C5D64132ECB8D0068F958 /* WorldCollectionItem.xib */,
 				668B28D8125E370A0060BF71 /* Items.csv */,
+				AEE9F35114820790002AA959 /* Enchantments.csv */,
 				66BCFC2A125E9A51005A23F4 /* Credits.rtf */,
+				AEBD5F88147CB82400ADADD1 /* Notes.rtf */,
+				AE49B01514AF8AEE004E9A45 /* Inspector.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -181,6 +240,8 @@
 			children = (
 				668B27AD125D8EFD0060BF71 /* IJMinecraftLevel.h */,
 				668B27AE125D8EFD0060BF71 /* IJMinecraftLevel.m */,
+				4E9F764B145A590300D6179E /* IJMinecraftPlayer.h */,
+				4E9F764C145A590300D6179E /* IJMinecraftPlayer.m */,
 				668B27B0125D8F8E0060BF71 /* IJInventoryItem.h */,
 				668B27B1125D8F8E0060BF71 /* IJInventoryItem.m */,
 				668B2554125D5A3E0060BF71 /* NBTContainer.h */,
@@ -203,12 +264,16 @@
 		668B27F3125D96470060BF71 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				AE22BBCD1330517E007E4D62 /* BWToolkit */,
 				668B27F0125D963F0060BF71 /* IJInventoryWindowController.h */,
 				668B27F1125D963F0060BF71 /* IJInventoryWindowController.m */,
-				66BC00011260215C005A23F4 /* IJInventoryView.h */,
-				66BC00021260215C005A23F4 /* IJInventoryView.m */,
-				66BC03601260D095005A23F4 /* IJItemPropertiesViewController.h */,
-				66BC03611260D095005A23F4 /* IJItemPropertiesViewController.m */,
+				AE7F2BD5132EA78700E62D3E /* IJWorldCollectionController.h */,
+				AE7F2BD6132EA78700E62D3E /* IJWorldCollectionController.m */,
+				AE7C674313303B050068F958 /* IJInspectorWindowController.h */,
+				AE7C674413303B050068F958 /* IJInspectorWindowController.m */,
+				AE7C5D6F132ECC2A0068F958 /* IJWorldCollectionItem.h */,
+				AE7C5D70132ECC2A0068F958 /* IJWorldCollectionItem.m */,
+				AE7F2B08132E8F2300E62D3E /* UI */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -220,6 +285,10 @@
 				66BC033A1260CC59005A23F4 /* MAAttachedWindow.m */,
 				6697AD7012B86762001890C6 /* IJTableView.h */,
 				6697AD7112B86762001890C6 /* IJTableView.m */,
+				AE7C605D132EEC6E0068F958 /* IJCollectionView.h */,
+				AE7C605E132EEC6E0068F958 /* IJCollectionView.m */,
+				66BC00011260215C005A23F4 /* IJInventoryView.h */,
+				66BC00021260215C005A23F4 /* IJInventoryView.m */,
 			);
 			name = "Views & Windows";
 			sourceTree = "<group>";
@@ -227,11 +296,54 @@
 		66BC07711262823E005A23F4 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				AE073EE31482F56E00F1576F /* Weather.png */,
+				AE671ED41339645A00A7CF50 /* World_Recent.png */,
+				AE7C5D8C132ECEC90068F958 /* World.png */,
+				AEE84E7C132DD38F0022DD50 /* Safari TextField */,
 				663803B1131769E90015CFAD /* blockNotFound.png */,
 				66BCFE61125FCEC6005A23F4 /* DataValuesV110Transparent.png */,
 				66BCFC35125EA53E005A23F4 /* InsideJob.icns */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		AE22BBCD1330517E007E4D62 /* BWToolkit */ = {
+			isa = PBXGroup;
+			children = (
+				AE22BBCF13305197007E4D62 /* BWSheetController.h */,
+				AE22BBD013305197007E4D62 /* BWSheetController.m */,
+			);
+			name = BWToolkit;
+			sourceTree = "<group>";
+		};
+		AE7F2B08132E8F2300E62D3E /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AEE84E6A132DD3710022DD50 /* KBLabel.h */,
+				AEE84E6B132DD3710022DD50 /* KBLabel.m */,
+				AEE84E6E132DD3710022DD50 /* KBScrollView.h */,
+				AEE84E6F132DD3710022DD50 /* KBScrollView.m */,
+				AEE84E6C132DD3710022DD50 /* KBScroller.h */,
+				AEE84E6D132DD3710022DD50 /* KBScroller.m */,
+				AEE84E70132DD3710022DD50 /* KBSearchField.h */,
+				AEE84E71132DD3710022DD50 /* KBSearchField.m */,
+				AEE84E72132DD3710022DD50 /* KBSearchFieldCell.h */,
+				AEE84E73132DD3710022DD50 /* KBSearchFieldCell.m */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		AEE84E7C132DD38F0022DD50 /* Safari TextField */ = {
+			isa = PBXGroup;
+			children = (
+				AEE84E7D132DD38F0022DD50 /* KBSTextFieldCF.png */,
+				AEE84E7F132DD38F0022DD50 /* KBSTextFieldLC.png */,
+				AEE84E81132DD38F0022DD50 /* KBSTextFieldRC.png */,
+				AEE9F34A1481FD1F002AA959 /* KBTextFieldCFD.png */,
+				AEE9F34B1481FD1F002AA959 /* KBTextFieldLCD.png */,
+				AEE9F34C1481FD1F002AA959 /* KBTextFieldRCD.png */,
+			);
+			path = "Safari TextField";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,10 +373,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0410;
 				ORGANIZATIONNAME = "Adam Preble";
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "InsideJob" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -293,8 +406,20 @@
 				66BCFC2B125E9A51005A23F4 /* Credits.rtf in Resources */,
 				66BCFC36125EA53E005A23F4 /* InsideJob.icns in Resources */,
 				66BCFE62125FCEC6005A23F4 /* DataValuesV110Transparent.png in Resources */,
-				66BC077312628257005A23F4 /* ItemPropertiesView.xib in Resources */,
 				663803B2131769E90015CFAD /* blockNotFound.png in Resources */,
+				AEE84E83132DD38F0022DD50 /* KBSTextFieldCF.png in Resources */,
+				AEE84E85132DD38F0022DD50 /* KBSTextFieldLC.png in Resources */,
+				AEE84E87132DD38F0022DD50 /* KBSTextFieldRC.png in Resources */,
+				AE7C5D66132ECB8D0068F958 /* WorldCollectionItem.xib in Resources */,
+				AE7C5D8D132ECEC90068F958 /* World.png in Resources */,
+				AE671ED51339645A00A7CF50 /* World_Recent.png in Resources */,
+				AEE9F34D1481FD1F002AA959 /* KBTextFieldCFD.png in Resources */,
+				AEE9F34E1481FD1F002AA959 /* KBTextFieldLCD.png in Resources */,
+				AEE9F34F1481FD1F002AA959 /* KBTextFieldRCD.png in Resources */,
+				AEE9F35214820790002AA959 /* Enchantments.csv in Resources */,
+				AE073EE41482F56E00F1576F /* Weather.png in Resources */,
+				AE49B01714AF8AEE004E9A45 /* Inspector.xib in Resources */,
+				AE4E4DCD14D1F93400D3C8B7 /* Sprites in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,9 +439,19 @@
 				668B27F2125D963F0060BF71 /* IJInventoryWindowController.m in Sources */,
 				66BC00031260215C005A23F4 /* IJInventoryView.m in Sources */,
 				66BC033B1260CC59005A23F4 /* MAAttachedWindow.m in Sources */,
-				66BC03621260D095005A23F4 /* IJItemPropertiesViewController.m in Sources */,
 				66BC04F812619072005A23F4 /* NSColor+Additions.m in Sources */,
 				6697AD7212B86762001890C6 /* IJTableView.m in Sources */,
+				AEE84E74132DD3710022DD50 /* KBLabel.m in Sources */,
+				AEE84E75132DD3710022DD50 /* KBScroller.m in Sources */,
+				AEE84E76132DD3710022DD50 /* KBScrollView.m in Sources */,
+				AEE84E77132DD3710022DD50 /* KBSearchField.m in Sources */,
+				AEE84E78132DD3710022DD50 /* KBSearchFieldCell.m in Sources */,
+				AE7F2BD7132EA78700E62D3E /* IJWorldCollectionController.m in Sources */,
+				AE7C5D71132ECC2A0068F958 /* IJWorldCollectionItem.m in Sources */,
+				AE7C605F132EEC6E0068F958 /* IJCollectionView.m in Sources */,
+				AE7C674513303B050068F958 /* IJInspectorWindowController.m in Sources */,
+				AE22BBD113305197007E4D62 /* BWSheetController.m in Sources */,
+				4E9F764D145A590300D6179E /* IJMinecraftPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,12 +474,20 @@
 			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
-		66BC077212628257005A23F4 /* ItemPropertiesView.xib */ = {
+		AE49B01514AF8AEE004E9A45 /* Inspector.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				66BC03631260D0B3005A23F4 /* English */,
+				AE49B01614AF8AEE004E9A45 /* English */,
 			);
-			name = ItemPropertiesView.xib;
+			name = Inspector.xib;
+			sourceTree = "<group>";
+		};
+		AE7C5D64132ECB8D0068F958 /* WorldCollectionItem.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE7C5D65132ECB8D0068F958 /* English */,
+			);
+			name = WorldCollectionItem.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -356,14 +499,15 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InsideJob_Prefix.pch;
 				INFOPLIST_FILE = "InsideJob-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Inside Job";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -375,9 +519,17 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = InsideJob_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_SIGN_COMPARE = NO;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
 				INFOPLIST_FILE = "InsideJob-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "Inside Job";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -390,8 +542,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -402,8 +553,8 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				OTHER_CFLAGS = "";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

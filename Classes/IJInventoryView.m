@@ -23,12 +23,11 @@ const static CGFloat cellOffset = 40;
 
 - (id)initWithFrame:(NSRect)frameRect
 {
-    if (self = [super initWithFrame:frameRect])
-	{
-        // Initialization code here.
-		[self registerForDraggedTypes:[NSArray arrayWithObjects:IJPasteboardTypeInventoryItem, nil]];
-    }
-    return self;
+  if ((self = [super initWithFrame:frameRect])) {
+    // Initialization code here.
+    [self registerForDraggedTypes:[NSArray arrayWithObjects:IJPasteboardTypeInventoryItem, nil]];
+  }
+  return self;
 }
 
 - (void)dealloc
@@ -38,23 +37,28 @@ const static CGFloat cellOffset = 40;
 	[super dealloc];
 }
 
-- (void)awakeFromNib
-{
-}
-
 - (BOOL)acceptsFirstResponder
 {
-	return YES;
+	return NO;
 }
 
+- (CGColorRef)backgroundColor
+{
+	return [[NSColor colorWithCalibratedWhite:0.75 alpha:1.0] CGColor];
+}
+- (CGColorRef)activeBackgroundColor
+{
+	return [[NSColor colorWithCalibratedWhite:0.7 alpha:1.0] CGColor];
+}
 - (CGColorRef)borderColor
 {
 	return [[NSColor colorWithCalibratedWhite:0.5 alpha:1.0] CGColor];
 }
-- (CGColorRef)highlightedBorderColor
+- (CGColorRef)activeBorderColor
 {
-	return [[NSColor colorWithCalibratedWhite:0 alpha:1.0] CGColor];
+	return [[NSColor colorWithCalibratedWhite:0.2 alpha:1.0] CGColor];
 }
+
 
 // For use by external stuff, since it flips the coordinates and our layer uses flipped geometry.
 - (NSPoint)pointForItemAtIndex:(int)index
@@ -79,7 +83,6 @@ const static CGFloat cellOffset = 40;
 	
 	[self setLayer:layer];
 	[self setWantsLayer:YES];
-	
 
 	rows = numberOfRows;
 	cols = numberOfColumns;
@@ -106,7 +109,7 @@ const static CGFloat cellOffset = 40;
 			layer.bounds = CGRectMake(0, 0, cellSize, cellSize);
 			layer.borderWidth = 1.0;
 			layer.borderColor = [self borderColor];
-			layer.backgroundColor = [[NSColor colorWithCalibratedWhite:0.7 alpha:1.0] CGColor];
+			layer.backgroundColor = [self backgroundColor];
 			layer.cornerRadius = 2.0;
 			
 			CALayer *imageLayer = [CALayer layer];
@@ -143,10 +146,12 @@ const static CGFloat cellOffset = 40;
 	imageLayer.contents = item.image;
 	
 	CATextLayer *textLayer = [layer.sublayers objectAtIndex:1];
-	if (item.count <= 1) // for 1 and 0, show no number.
-		textLayer.string = @"";
-	else
+	if (item.count > 1) // for 1 and 0, show no number.
 		textLayer.string = [NSString stringWithFormat:@"%d", item.count];
+	else if(item.count <= -1)
+		textLayer.string = @"∞";
+	else
+		textLayer.string = @"";
 }
 
 - (void)setItems:(NSArray *)theItems
@@ -168,6 +173,31 @@ const static CGFloat cellOffset = 40;
 		point.y = rows - 1 - floor(point.y);
 	int index = floor(point.y) * cols + floor(point.x); // flip y
 	return index;
+}
+
+
+- (void)selectItemAtIndex:(int)itemIndex
+{	
+	CALayer *layer = [self.layer.sublayers objectAtIndex:itemIndex];
+  
+  layer.borderColor = [self activeBorderColor];
+  layer.backgroundColor = [self activeBackgroundColor];
+}
+
+- (void)deselectItemAtIndex:(int)itemIndex
+{	
+	CALayer *layer = [self.layer.sublayers objectAtIndex:itemIndex];
+  
+  layer.borderColor = [self borderColor];
+  layer.backgroundColor = [self backgroundColor];
+}
+
+- (void)deselectAllItems
+{
+  for (CALayer *layer in self.layer.sublayers) {
+    layer.borderColor = [self borderColor];
+    layer.backgroundColor = [self backgroundColor];
+  }
 }
 
 #pragma mark -
@@ -213,9 +243,7 @@ const static CGFloat cellOffset = 40;
 		return; // can't drag nothing
 	
 	NSPasteboard *pasteboard = [NSPasteboard pasteboardWithName:NSDragPboard];
-	
 	[pasteboard declareTypes:[NSArray arrayWithObjects:IJPasteboardTypeInventoryItem, nil] owner:nil];
-	
 	[pasteboard setData:[NSKeyedArchiver archivedDataWithRootObject:item]
 				forType:IJPasteboardTypeInventoryItem];
 	
@@ -255,27 +283,17 @@ const static CGFloat cellOffset = 40;
 	else
 		return NSDragOperationDelete;
 }
-//- (void)draggedImage:(NSImage *)image beganAt:(NSPoint)screenPoint
-//{
-//	NSLog(@"%s", __PRETTY_FUNCTION__);
-//}
+
 - (void)draggedImage:(NSImage *)image endedAt:(NSPoint)screenPoint operation:(NSDragOperation)operation
 {
-	NSLog(@"%s operation=%d", __PRETTY_FUNCTION__, operation);
-	
-	if (operation == NSDragOperationNone)
-	{
+	//NSLog(@"%s operation=%d", __PRETTY_FUNCTION__, operation);
+	if (operation == NSDragOperationNone) {
 		// If the mouse has stopped outside of our bounds, we consider the item to have been removed; show an animation:
-		if (!NSMouseInRect([[self window] convertScreenToBase:screenPoint], [self bounds], NO))
-		{
+		if (!NSMouseInRect([self convertPoint:screenPoint fromView:nil], [self bounds], NO)) {
 			NSShowAnimationEffect(NSAnimationEffectDisappearingItemDefault, [NSEvent mouseLocation], NSZeroSize, nil, nil, nil);
 		}
 	}
 }
-//- (void)draggedImage:(NSImage *)image movedTo:(NSPoint)screenPoint
-//{
-//	NSLog(@"%s", __PRETTY_FUNCTION__);
-//}
 
 
 #pragma mark -
@@ -285,10 +303,13 @@ const static CGFloat cellOffset = 40;
 {
 	[self.layer.sublayers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
 		CALayer *layer = obj;
-		if (idx == index)
-			layer.borderColor = [self highlightedBorderColor];
-		else
+		if (idx == index) {
+			layer.borderColor = [self activeBorderColor];
+      layer.backgroundColor = [self activeBackgroundColor];
+		} else {
 			layer.borderColor = [self borderColor];
+      layer.backgroundColor = [self backgroundColor];
+    }
 	}];
 }
 
@@ -307,6 +328,7 @@ const static CGFloat cellOffset = 40;
 	else
 		return NSDragOperationCopy; // copying from the item selector, presumably
 }
+
 - (NSDragOperation)draggingUpdated:(id <NSDraggingInfo>)sender
 {
 	// TODO: Detect and ignore same slot.
@@ -327,10 +349,12 @@ const static CGFloat cellOffset = 40;
 {
 	[self moveHighlightToLayerAtIndex:-1];
 }
+
 - (BOOL)prepareForDragOperation:(id <NSDraggingInfo>)sender
 {
 	return YES;
 }
+
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender
 {
 	//NSLog(@"%s operation=%d", __PRETTY_FUNCTION__, sender.draggingSourceOperationMask);
@@ -346,9 +370,11 @@ const static CGFloat cellOffset = 40;
 	{
 		item.count = MIN(64, item.count + existingItem.count);
 	}
+	
 	[delegate inventoryView:self setItem:item atIndex:index];
 	return YES;
 }
+
 - (void)concludeDragOperation:(id <NSDraggingInfo>)sender
 {
 	[self moveHighlightToLayerAtIndex:-1];

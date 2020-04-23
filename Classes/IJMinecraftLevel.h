@@ -10,20 +10,30 @@
 #import "NBTContainer.h"
 
 @interface IJMinecraftLevel : NBTContainer {
-
+  NSString *worldName;
+  int gameMode;
 }
 
 @property (nonatomic, copy) NSArray *inventory; // Array of IJInventoryItem objects.
-@property (nonatomic, readonly) NBTContainer *worldTimeContainer;
 
-+ (NSString *)pathForWorldAtIndex:(int)worldIndex;
-+ (NSString *)pathForLevelDatAtIndex:(int)worldIndex;
-+ (NSString *)pathForSessionLockAtIndex:(int)worldIndex;
+@property (nonatomic, copy) NSString *worldName;
+@property (nonatomic, copy) NSNumber *time;
+@property int gameMode;
+@property (readonly, copy) NSNumber *seed;
+@property (nonatomic, copy) NSNumber *spawnX;
+@property (nonatomic, copy) NSNumber *spawnY;
+@property (nonatomic, copy) NSNumber *spawnZ;
+@property BOOL weather;
+@property BOOL cheats;
 
-+ (BOOL)worldExistsAtIndex:(int)worldIndex;
 
-+ (int64_t)writeToSessionLockAtIndex:(int)worldIndex;
-+ (BOOL)checkSessionLockAtIndex:(int)worldIndex value:(int64_t)checkValue;
++ (NSString *)levelDataPathForWorld:(NSString *)worldPath;
+
++ (BOOL)worldExistsAtPath:(NSString *)worldPath;
++ (BOOL)isMultiplayerWorld:(NSString *)worldPath;
+
++ (int64_t)writeToSessionLockAtPath:(NSString *)worldPath;
++ (BOOL)checkSessionLockAtPath:(NSString *)worldPath value:(int64_t)checkValue;
 
 
 @end

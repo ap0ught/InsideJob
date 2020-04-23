@@ -10,19 +10,25 @@
 #import "IJInventoryWindowController.h"
 
 @implementation InsideJobAppDelegate
+@synthesize bundleVersionNumber;
 
-@synthesize inventoryWindowController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	[inventoryWindowController worldSelectionChanged:nil];
+	
 }
+
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
-	BOOL shouldClose = [inventoryWindowController windowShouldClose:nil];
+	BOOL shouldClose = [inventoryWindowController windowShouldClose:inventoryWindowController.window];
 	if (shouldClose)
 		return NSTerminateNow;
 	else
 		return NSTerminateCancel;
+}
+
+- (NSString *)bundleVersionNumber
+{
+  return [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
 }
 
 @end

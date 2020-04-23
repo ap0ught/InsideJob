@@ -1,0 +1,29 @@
+#ID,Name,Max,Group
+#Armor enchantments
+0,Protection,4,Armor
+1,Fire Protection,4,Armor
+2,Feather Falling,4,Armor
+3,Blast Protection,4,Armor
+4,Projectile Protection,4,Armor
+5,Respiration,3,Armor
+6,Aqua Affinity,1,Armor
+
+#Weapon Enchantments
+16,Sharpness,5,Weapon
+17,Smite,5,Weapon
+18,Bane of Arthropods,5,Weapon
+19,Knockback,2,Weapon
+20,Fire Aspect,2,Weapon
+21,Looting,3,Weapon
+
+#Tool Enchantments
+32,Efficiency,5,Tool
+33,Silk Touch,4,Tool
+34,Unbreaking,5,Tool
+35,Fortune,3,Tool
+
+#Bow Enchantments
+48,Power,5,Bow
+49,Punch,3,Bow
+50,Flame,1,Bow
+51,Infinity,1,Bow

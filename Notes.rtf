@@ -1,0 +1,98 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf230
+{\fonttbl\f0\fnil\fcharset0 Menlo-Bold;\f1\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red51\green51\blue51;}
+\vieww17980\viewh8400\viewkind0
+\deftab560
+\pard\tx560\pardeftab560\pardirnatural
+
+\f0\b\fs26 \cf2 \CocoaLigature0 ToDo\
+\
+
+\f1\b0\fs24 - Fix textfield content when emptying id, count or damage fields (should reset to validated output).\
+- Rework IJInventoryView so it doesn't require placeholders?. (NSMutableDictionary)\
+- Add support for SMP worlds.\
+
+\f0\b\fs26 \
+
+\fs24 1.9.4 Pre Level.dat structure\
+
+\fs22 \
+
+\f1\b0 >> start compound named \
+>> start compound named Data\
+   name=thundering byte=0x0\
+   name=LastPlayed long=1319427430425\
+>> start compound named Player\
+   name=SleepTimer short=0x0\
+>> start list named Motion with type=6 length=3\
+<< end list Motion\
+   name=OnGround byte=0x1\
+   name=HurtTime short=0x0\
+   name=foodExhaustionLevel float=0.000000\
+   name=foodTickTimer int=0x0\
+   name=XpLevel int=0x1e847c\
+   name=Health short=0x14\
+   name=Dimension int=0x0\
+   name=Air short=0x12c\
+>> start list named Inventory with type=10 length=5\
+   name=id short=0x1\
+   name=Damage short=0x0\
+   name=Count byte=0x1\
+   name=Slot byte=0x0\
+   name=id short=0x4\
+   name=Damage short=0x0\
+   name=Count byte=0x1\
+   name=Slot byte=0x1\
+   name=id short=0x2d\
+   name=Damage short=0x0\
+   name=Count byte=0x1\
+   name=Slot byte=0x2\
+   name=id short=0x3\
+   name=Damage short=0x0\
+   name=Count byte=0x1\
+   name=Slot byte=0x3\
+   name=id short=0x114\
+   name=Damage short=0x0\
+   name=Count byte=0x1\
+>> start compound named tag\
+>> start list named ench with type=10 length=1\
+   name=id short=0x12\
+   name=lvl short=0x1\
+<< end list ench\
+<< end compound tag\
+   name=Slot byte=0x4\
+<< end list Inventory\
+>> start list named Pos with type=6 length=3\
+<< end list Pos\
+   name=foodSaturationLevel float=5.000000\
+   name=AttackTime short=0x0\
+   name=Sleeping byte=0x0\
+   name=Fire short=0xffec\
+   name=foodLevel int=0x14\
+   name=FallDistance float=0.000000\
+   name=XpTotal int=0x1312d00\
+>> start list named Rotation with type=5 length=2\
+<< end list Rotation\
+   name=Score int=0x0\
+   name=DeathTime short=0x0\
+   name=XpP float=0.000000\
+<< end compound Player\
+   name=RandomSeed long=3537547967668211226\
+   name=GameType int=0x1\
+   name=MapFeatures byte=0x1\
+   name=version int=0x4abc\
+   name=Time long=1795\
+   name=raining byte=0x0\
+   name=thunderTime int=0x19b56\
+   name=SpawnX int=0x52\
+   name=hardcore byte=0x0\
+   name=SpawnY int=0x40\
+   name=SpawnZ int=0xfffffec6\
+   name=LevelName string=Foobar\
+   name=SizeOnDisk long=1777664\
+   name=rainTime int=0x173ed\
+<< end compound Data\
+<< end compound \
+
+\f0\b \
+}

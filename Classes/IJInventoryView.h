@@ -34,6 +34,10 @@ extern NSString * const IJPasteboardTypeInventoryItem;
 - (NSPoint)pointForItemAtIndex:(int)index;
 - (void)reloadItemAtIndex:(int)itemIndex;
 
+- (void)selectItemAtIndex:(int)itemIndex;
+- (void)deselectItemAtIndex:(int)itemIndex;
+- (void)deselectAllItems;
+
 @end
 
 

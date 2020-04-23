@@ -13,8 +13,7 @@
 
 - (NBTContainer *)containerWithName:(NSString *)theName inArray:(NSArray *)array
 {
-	for (NBTContainer *container in array)
-	{
+	for (NBTContainer *container in array) {
 		if ([container.name isEqual:theName])
 			return container;
 	}
@@ -46,6 +45,25 @@
 		invItem.count = [[self containerWithName:@"Count" inArray:listItems].numberValue unsignedCharValue];
 		invItem.damage = [[self containerWithName:@"Damage" inArray:listItems].numberValue shortValue];
 		invItem.slot = [[self containerWithName:@"Slot" inArray:listItems].numberValue unsignedCharValue];
+    
+    // Item tag data
+    NBTContainer *dataTagContainer = [self containerWithName:@"tag" inArray:listItems];
+    if (dataTagContainer) {     
+      
+      // Enchantments
+      NBTContainer *enchContainer = [dataTagContainer childNamed:@"ench"];
+      NSArray *enchData = [[NSArray alloc] init];
+      if (enchContainer) {
+        for (NSArray *tagItem in enchContainer.children) {
+          NSNumber *enchId = [self containerWithName:@"id" inArray:tagItem].numberValue;
+          NSNumber *enchLvl = [self containerWithName:@"lvl" inArray:tagItem].numberValue;
+          enchData = [enchData arrayByAddingObject:[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects: enchId, enchLvl, nil]
+                                                                                       forKeys:[NSArray arrayWithObjects: @"id", @"lvl", nil]]];
+        }
+        [invItem.dataTag setObject:enchData forKey:@"ench"];
+        //[enchData release];
+      }
+    }
 		[output addObject:invItem];
 		[invItem release];
 	}
@@ -57,57 +75,165 @@
 	NSMutableArray *newChildren = [NSMutableArray array];
 	NBTContainer *inventoryList = [self inventoryList];
 	
-	if (inventoryList.listType != NBTTypeCompound)
-	{
+	if (inventoryList.listType != NBTTypeCompound) {
 		// There appears to be a bug in the way Minecraft writes empty inventory lists; it appears to
 		// set the list type to 'byte', so we will correct it here.
 		NSLog(@"%s Fixing inventory list type; was %d.", __PRETTY_FUNCTION__, inventoryList.listType);
 		inventoryList.listType = NBTTypeCompound;
 	}
-	
-	for (IJInventoryItem *invItem in newInventory)
-	{
-		NSArray *listItems = [NSArray arrayWithObjects:
-							  [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.itemId]],
-							  [NBTContainer containerWithName:@"Damage" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.damage]],
-							  [NBTContainer containerWithName:@"Count" type:NBTTypeByte numberValue:[NSNumber numberWithShort:invItem.count]],
-							  [NBTContainer containerWithName:@"Slot" type:NBTTypeByte numberValue:[NSNumber numberWithShort:invItem.slot]],
-							  nil];
-		[newChildren addObject:listItems];
+  
+	for (IJInventoryItem *invItem in newInventory) {
+    NSArray *listItems = [NSArray arrayWithObjects:
+                          [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.itemId]],
+                          [NBTContainer containerWithName:@"Damage" type:NBTTypeShort numberValue:[NSNumber numberWithShort:invItem.damage]],
+                          [NBTContainer containerWithName:@"Count" type:NBTTypeByte numberValue:[NSNumber numberWithShort:invItem.count]],
+                          [NBTContainer containerWithName:@"Slot" type:NBTTypeByte numberValue:[NSNumber numberWithShort:invItem.slot]],
+                          nil];
+    
+    
+    if ([invItem.dataTag count] != 0) {
+      NBTContainer *dataTagContainer = [NBTContainer compoundWithName:@"tag"];
+      NBTContainer *enchListContainer = [NBTContainer listWithName:@"ench" type:NBTTypeCompound];
+      NSArray *itemEnchantments = [invItem.dataTag objectForKey:@"ench"];
+      
+      NSMutableArray *enchData = [NSMutableArray array];
+      for (NSDictionary *itemEnchantment in itemEnchantments) {
+        [enchData addObject:[NSArray arrayWithObjects:
+                          [NBTContainer containerWithName:@"id" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"id"]],
+                          [NBTContainer containerWithName:@"lvl" type:NBTTypeShort numberValue:[itemEnchantment objectForKey:@"lvl"]],
+                          nil]];
+      }
+      
+      
+      enchListContainer.children = enchData;
+      dataTagContainer.children = [NSMutableArray arrayWithObject:enchListContainer];
+      listItems = [listItems arrayByAddingObject:dataTagContainer];
+    }
+    
+    [newChildren addObject:listItems];
 	}
 	inventoryList.children = newChildren;
 }
 
-- (NBTContainer *)worldTimeContainer
+
+- (NSNumber *)time
 {
-	return [[self childNamed:@"Data"] childNamed:@"Time"];
+	return [[self childNamed:@"Data"] childNamed:@"Time"].numberValue;
+}
+
+- (void)setTime:(NSNumber *)number
+{
+	[[self childNamed:@"Data"] childNamed:@"Time"].numberValue = number;
+}
+
+- (NSString *)worldName
+{
+	return [[self childNamed:@"Data"] childNamed:@"LevelName"].stringValue;
+}
+
+- (void)setWorldName:(NSString *)string
+{
+	[[self childNamed:@"Data"] childNamed:@"LevelName"].stringValue = string;
+}
+
+- (NSNumber *)seed
+{
+	return [[self childNamed:@"Data"] childNamed:@"RandomSeed"].numberValue;
+}
+
+- (NSNumber *)spawnX
+{
+	return [[self childNamed:@"Data"] childNamed:@"SpawnX"].numberValue;
+}
+
+- (void)setSpawnX:(NSNumber *)number
+{
+	[[self childNamed:@"Data"] childNamed:@"SpawnX"].numberValue = number;
+}
+
+- (NSNumber *)spawnY
+{
+	return [[self childNamed:@"Data"] childNamed:@"SpawnY"].numberValue;
+}
+
+- (void)setSpawnY:(NSNumber *)number
+{
+	[[self childNamed:@"Data"] childNamed:@"SpawnY"].numberValue = number;
+}
+
+- (NSNumber *)spawnZ
+{
+	return [[self childNamed:@"Data"] childNamed:@"SpawnZ"].numberValue;
+}
+
+- (void)setSpawnZ:(NSNumber *)number
+{
+	[[self childNamed:@"Data"] childNamed:@"SpawnZ"].numberValue = number;
+}
+
+- (int)gameMode
+{
+  int gameType = [[[self childNamed:@"Data"] childNamed:@"GameType"].numberValue unsignedIntValue];
+  int hardcore = [[[self childNamed:@"Data"] childNamed:@"hardcore"].numberValue unsignedCharValue];
+  
+  if (hardcore == 1 && gameType == 0)
+    return 2;
+  return gameType;
+}
+
+- (void)setGameMode:(int)number
+{
+  if (number == 0 || number == 1) {
+    [[self childNamed:@"Data"] childNamed:@"GameType"].numberValue = [NSNumber numberWithInt:number];
+    [[self childNamed:@"Data"] childNamed:@"hardcore"].numberValue = [NSNumber numberWithInt:0];
+  }
+  else if (number == 2) {
+    [[self childNamed:@"Data"] childNamed:@"GameType"].numberValue = [NSNumber numberWithInt:0];
+    [[self childNamed:@"Data"] childNamed:@"hardcore"].numberValue = [NSNumber numberWithInt:1];
+  }
+}
+
+- (BOOL)weather
+{
+  int raining = [[[self childNamed:@"Data"] childNamed:@"raining"].numberValue unsignedIntValue];
+  
+  return (raining?YES:NO);
+}
+
+- (void)setWeather:(BOOL)flag
+{
+  [[self childNamed:@"Data"] childNamed:@"raining"].numberValue = [NSNumber numberWithInt:(flag?1:0)];
+}
+
+- (BOOL)cheats
+{
+  int cheats = [[[self childNamed:@"Data"] childNamed:@"allowCommands"].numberValue unsignedIntValue];
+  
+  return (cheats?YES:NO);
+}
+
+- (void)setCheats:(BOOL)flag
+{
+  [[self childNamed:@"Data"] childNamed:@"allowCommands"].numberValue = [NSNumber numberWithInt:(flag?1:0)];
 }
 
 #pragma mark -
 #pragma mark Helpers
 
-+ (NSString *)pathForWorldAtIndex:(int)worldIndex
++ (BOOL)worldExistsAtPath:(NSString *)worldPath
 {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
-	NSString *path = [paths objectAtIndex:0];
-	path = [path stringByAppendingPathComponent:@"minecraft"];
-	path = [path stringByAppendingPathComponent:@"saves"];
-	path = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"World%d", worldIndex]];
-	return path;
+	return [[NSFileManager defaultManager] fileExistsAtPath:[self levelDataPathForWorld:worldPath]];
 }
 
-+ (NSString *)pathForLevelDatAtIndex:(int)worldIndex
++ (BOOL)isMultiplayerWorld:(NSString *)worldPath
 {
-	return [[[self class] pathForWorldAtIndex:worldIndex] stringByAppendingPathComponent:@"level.dat"];
-}
-+ (NSString *)pathForSessionLockAtIndex:(int)worldIndex
-{
-	return [[[self class] pathForWorldAtIndex:worldIndex] stringByAppendingPathComponent:@"session.lock"];
+  NSString *playersFolderPath = [worldPath stringByAppendingPathComponent:@"players/"];
+	return [[NSFileManager defaultManager] fileExistsAtPath:playersFolderPath];
 }
 
-+ (BOOL)worldExistsAtIndex:(int)worldIndex
++ (NSString *)levelDataPathForWorld:(NSString *)worldPath
 {
-	return [[NSFileManager defaultManager] fileExistsAtPath:[[self class] pathForLevelDatAtIndex:worldIndex]];
+	return [worldPath stringByAppendingPathComponent:@"level.dat"];
 }
 
 + (NSData *)dataWithInt64:(int64_t)v
@@ -128,23 +254,23 @@
 	return n;
 }
 
-+ (int64_t)writeToSessionLockAtIndex:(int)worldIndex
++ (int64_t)writeToSessionLockAtPath:(NSString *)worldPath
 {
-	NSString *path = [IJMinecraftLevel pathForSessionLockAtIndex:worldIndex];
+	NSString *path = [worldPath stringByAppendingPathComponent:@"session.lock"];
 	NSDate *now = [NSDate date];
 	NSTimeInterval interval = [now timeIntervalSince1970];
 	int64_t milliseconds = (int64_t)(interval * 1000.0);
 	// write as number of milliseconds
 	
-	NSData *data = [IJMinecraftLevel dataWithInt64:milliseconds];
+	NSData *data = [self dataWithInt64:milliseconds];
 	[data writeToFile:path atomically:YES];
 	
 	return milliseconds;
 }
 
-+ (BOOL)checkSessionLockAtIndex:(int)worldIndex value:(int64_t)checkValue
++ (BOOL)checkSessionLockAtPath:(NSString *)worldPath value:(int64_t)checkValue
 {
-	NSString *path = [IJMinecraftLevel pathForSessionLockAtIndex:worldIndex];
+	NSString *path = [worldPath stringByAppendingPathComponent:@"session.lock"];
 	NSData *data = [NSData dataWithContentsOfFile:path];
 
 	if (!data)
@@ -153,7 +279,7 @@
 		return NO;
 	}
 	
-	int64_t milliseconds = [IJMinecraftLevel int64FromData:data];
+	int64_t milliseconds = [self int64FromData:data];
 	return checkValue == milliseconds;
 }
 
